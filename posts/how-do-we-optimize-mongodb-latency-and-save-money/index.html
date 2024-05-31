@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>How Do We Optimize Mongodb Latency and Save Money - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Here is how I reduce MongoDB latency and save cloud service cost" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="How Do We Optimize Mongodb Latency and Save Money">
+  <meta property="og:description" content="Here is how I reduce MongoDB latency and save cloud service cost">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-01-04T22:21:06+09:00">
+    <meta property="article:modified_time" content="2024-01-04T22:21:06+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How Do We Optimize Mongodb Latency and Save Money">
+  <meta name="twitter:description" content="Here is how I reduce MongoDB latency and save cloud service cost">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css"  disabled />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">How Do We Optimize Mongodb Latency and Save Money</h1>
+			<div class="meta">Posted on Jan 4, 2024</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="context">Context</h1>
+<p>My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.</p>
+<p>As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance. As a temporary solution, we scaled up the production cluster tiers, resulting in a 40% increase in our billing. The following graphs are the average MongoDB read latency and monthly billing shift before the project. As you can see we were facing a critical period.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/138cec513004-20240531.webp" alt="Average read latency before the project"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/1cd31adee4ac-20240531.webp" alt="MongoDB Atlas monthly billing before the project"></p>
+<p>Our development team started a project to optimize MongoDB settings, queries, and billing. Here is what we learned from this project.</p>
+<h2 id="configuration-optimization">Configuration optimization</h2>
+<h3 id="always-sets-timeout">Always Sets Timeout</h3>
+<p>We previously had some large collections with over 100 million rows. Since MongoDB’s <a href="https://www.mongodb.com/docs/manual/core/wiredtiger/">WiredTiger</a> engine has limited read/write tickets, if one query takes too long, it could block all other queries, potentially leading to an incident, as shown in the chart below where each dot represents one slow query. And be aware that, the y-axis is minute, which means some queries take more than 1 minute!</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt="">
+<img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt=""></p>
+<p>To address this, we divided our API server into user-facing API which should always be fast, and background job API which can endure heavier computational latencies. By setting appropriate timeouts for each, we avoided application crashes due to extremely slow queries.</p>
+<h3 id="take-advantage-of-secondary-nodes">Take Advantage of Secondary Nodes</h3>
+<p>We use a standard MongoDB replica set with 3 nodes, Primary-Secondary-Secondary (P-S-S). We initially struggled to effectively use the secondary nodes. In the past, I have investigated and found some useful ideas. However, due to priorities, etc., I could not make any changes. This time I didn’t stop until I had an answer and made changes.</p>
+<p>We found that the secondary CPU and Memory were always low. We had assumed that MongoDB would first use all resources in the primary node, and whenever necessary it would use secondary. However, it was wrong. We are not taking advantage of secondary nodes.</p>
+<p>To better utilize the secondary nodes, I changed the background job server’s “readPreference” to “secondaryPreferred”, and “writeConcern” to “majority”. This meant that heavy queries on the job server would prefer reading from secondary nodes and writing to the primary node and one secondary to maintain data consistency. This change reduced the load on the primary node, enhancing the performance of user-facing APIs.</p>
+<h3 id="connection-pool">Connection pool</h3>
+<p>Managing database connections is resource-intensive and time-consuming due to networking and authentication overheads. A connection pool allows for the reuse of existing connections, but too many connections can also degrade performance and hit OS-level resource limits. We started with Mongoose&rsquo;s default connection size and increased gradually. Because we have multiple auto-scaling API clusters and during the deployment, the connection pool is increased. We build a mechanism to monitor connection count metrics via <a href="https://www.mongodb.com/docs/drivers/node/current/fundamentals/monitoring/connection-monitoring/#connectioncheckedout">connectionCheckedOut</a> and <a href="https://www.mongodb.com/docs/drivers/node/current/fundamentals/monitoring/connection-monitoring/#connectioncheckedin">connectionCheckedIn</a> event.</p>
+<p>Considering that each connection consumes 1Mb MongoDB memory. We used a runtime variable to control connection pool size until we found a satisfactory value.</p>
+<h2 id="queries-optimization">Queries optimization</h2>
+<h3 id="build-proper-indexes">Build proper indexes</h3>
+<p>Creating the correct indexes is the most efficient method to improve read performance. However, how to find what index should be built is not that intuitive.</p>
+<p>Here are some tips based on my experiences.</p>
+<ul>
+<li>Create a compound index to cover more queries</li>
+</ul>
+<p>The <a href="https://www.mongodb.com/docs/manual/core/indexes/index-types/index-single/#details">order of the single index does not matter</a>(<code>{createdAt: 1}</code> is always the same with <code>{createdAt: -1}</code>) so always take this advantage to create a compound index to cover more queries. Looking back periodically and merging some indexes to save space is also good.</p>
+<ul>
+<li>Don’t hesitate to create a new index, even “sacrificing” some write performance</li>
+</ul>
+<p>After creating multiple compound indexes in a large collection(10 million+ documents), we found that read performance has been significantly improved and write performance sacrificing is acceptable.</p>
+<ul>
+<li><a href="https://www.mongodb.com/docs/manual/aggregation/">Aggregation</a> is hard to optimize</li>
+</ul>
+<p>Some aggregations could be extremely slow, and how to analyze them is hard. I found that checking “explain” after each aggregation stage can help us to diagnose the “problem” stage. And if optimization is too hard, put it to secondary nodes if it’s acceptable.</p>
+<ul>
+<li>Understand and “explain plan” to optimize queries</li>
+</ul>
+<p>Some aggregations could be extremely slow, and how to analyze them is hard. I found that checking “explain” after each aggregation stage can help us to diagnose the “problem” stage. And if optimization is too hard, put it to secondary nodes if it’s acceptable.</p>
+<ul>
+<li>Understand and “explain plan” to optimize queries</li>
+</ul>
+<p>Explain is a powerful tool to help us understand how queries and indexes work. But understanding all the information in the “explain plan” is not easy. Thankfully, MongoDB compass has become a good tool to help us. So take time to read and understand it, it will pay you back eventually.</p>
+<ul>
+<li>Log slow queries and review optimization effect</li>
+</ul>
+<p>MongoDB Atlas provides a powerful UI to analyze all slow queries. However, it only persists data of one day. After the index is created or optimized query, it’s hard to understand how it works or visualize easily. I exported all slow query data and built similar charts that make checking the impact of optimization easy.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/66fde3d97894-20240531.webp" alt="Self-host slow query scatter plot"></p>
+<ul>
+<li>Write a good query to use a good index</li>
+</ul>
+<p>There are some common mistakes like range condition <code>$ne</code> or <code>$nin</code> are bad and use <code>$eq</code> or <code>$in</code> instead, etc. MongoDB also officially has an <a href="https://www.mongodb.com/docs/v7.0/tutorial/equality-sort-range-rule/">ESR</a> rule. It’s a huge topic that would need another blog post.</p>
+<h3 id="design-mongodb-schema">Design MongoDB schema</h3>
+<p>Because MongoDB is a NoSQL database, offers great flexibility in schema design, rather than constructing your application to match a strictly defined data model, you can construct a data model that matches your use case and application functionality. <a href="https://www.mongodb.com/basics/embedded-mongodb">Embedding</a> is recommended, rather than using references (similar to foreign keys in relational databases).</p>
+<p>For example, there are major endpoints that return values containing the review count of a user. After I changed it from <code>user.reviews.length</code> to <code>user.reviewCount</code> <a href="https://stackoverflow.com/questions/12808934/what-is-p99-latency">p90</a> of one endpoint reduced from 1.5s to 0.3s.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cc5c7fffcc6e-20240531.webp" alt="P90 reduced from 1.5s to 0.3s"></p>
+<h3 id="avoid-unnecessary-data-queries">Avoid Unnecessary Data Queries</h3>
+<p>In the previous user review example, it’s not only a database query change, but also a change in the JavaScript side. After the database returns a large payload then mongoose(ORM) validates and parses the payload to JavaScript which is a heavy operation blocking the event loop.</p>
+<p>And list queries should always be paginated to avoid crazy long lists which is usually unnecessary.</p>
+<h2 id="the-result-after-all-optimization">The result after all optimization</h2>
+<p>As a result, we successfully solved major performance issues. In the average read latency graph over a year, you can find how much improved compared to the latency before the project.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/3ee1b7c69677-20240531.webp" alt="Average read latency afte 1 year"></p>
+<p>Specifically, for slow queries, we achieved significant improvements, as shown in the chart below. We got all user-facing slow queries down from 9 seconds to around 2 seconds.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/fefce465754c-20240531.webp" alt="Slow queries before the project"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/ac2889027b69-20240531.webp" alt="Slow queries after the project"></p>
+<h2 id="cost-reduction">Cost reduction</h2>
+<p>After all performance optimization, we came back to solve the billing issue. First, we found out CPU usage is very low, so we reduced CPU. Then we want to reduce memory, however, we need to reduce the index size to half of the memory size to ensure it fits in the WiredTiger engine <a href="https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-storage.wiredTiger.engineConfig.cacheSizeGB"><strong>cacheSizeGB</strong></a>. If indexes don’t fit in RAM, indexes are stored on disk which is extremely slow.</p>
+<p>We came up with a solution to archive some old development-purpose log data. After archived, we used the <a href="https://www.mongodb.com/docs/manual/reference/command/compact/">compact</a> command to rebuild indexes and release disk space.</p>
+<p>After all is done, we downgrade the memory tier in November. As you can see, monthly billing shifts over the year, there is a decrease in November. However, in the previous average read latency chart, there is a little increase around November that’s the impact of downgrade memory but we accept that’s the trade-off of cost reduction. We reached a point where we could offer high-performance, low-latency services to our growing business without risking cloud bankruptcy.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/e9535c3e4e90-20240531.webp" alt="MongoDB Atlas monthly billing after 1 year"></p>
+<h2 id="future-improvement">Future improvement</h2>
+<h3 id="index-consistency">Index consistency</h3>
+<p>As creating index in MongoDB(&gt; v4.2), MongoDB background is deprecated, creating index will lock collection. We disabled <a href="https://mongoosejs.com/docs/guide.html#indexes">auto index creation</a> and used <a href="https://www.mongodb.com/docs/manual/tutorial/build-indexes-on-replica-sets/">rolling index</a> feature to create them. Then We faced an inconsistent index in code and production. We need to develop a method to keep indexes in the code and production database consistent.</p>
+<h3 id="message-queue">Message queue</h3>
+<p>For some user-facing heavy queries, we plan to push them to a message queue and let consumers handle it asynchronously to make the original request fast.</p>
+<h3 id="improve-schema">Improve schema</h3>
+<p>Redesign schema is the most valuable but engineer resource expensive solution. For slow queries(~2s) in the previous section, we would need to improve the schema to make them faster.</p>
+<p>For example, one of the lowest endpoints is to show Gmail client-like UI for pros to indicate inbox message count, etc. We have many complicated queries to get these numbers. If we have these numbers stored and computed in the background not synchronously computed in the runtime, this endpoint would have a huge improvement. Of course, data consistency is a challenge in this case.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

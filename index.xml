@@ -7,14 +7,21 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Fri, 31 May 2024 09:21:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 19 Apr 2024 09:21:51 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introducing E1s the K9s Inspired Cli for Aws Ecs</title>
       <link>https://xingyahao.com/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/</link>
-      <pubDate>Fri, 31 May 2024 09:21:51 +0900</pubDate>
+      <pubDate>Fri, 19 Apr 2024 09:21:51 +0900</pubDate>
       <guid>https://xingyahao.com/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/</guid>
       <description>If you&amp;rsquo;re working with AWS ECS like me, no matter whether with Fargate or EC2, managing resources can sometimes be a challenge to using aws-cli. You might look for something that brings the ease of k9s to k8s, thee1s aims to become the tool you&amp;rsquo;ve been waiting for. If you&amp;rsquo;re working with AWS ECS, managing resources with aws-cli can sometimes be a challenge, whether you&amp;rsquo;re using Fargate or EC2. For those seeking the ease of k9s for Kubernetes, e1s is the tool you&amp;rsquo;ve been waiting for.</description>
+    </item>
+    <item>
+      <title>How Do We Optimize Mongodb Latency and Save Money</title>
+      <link>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</link>
+      <pubDate>Thu, 04 Jan 2024 22:21:06 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</guid>
+      <description>Context My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&amp;rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.&#xA;As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance.</description>
     </item>
   </channel>
 </rss>
