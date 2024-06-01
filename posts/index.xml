@@ -23,5 +23,19 @@
       <guid>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</guid>
       <description>Context My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&amp;rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.&#xA;As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance.</description>
     </item>
+    <item>
+      <title>Shortcomings of npm/yarn and reasons for recommending pnpm</title>
+      <link>https://xingyahao.com/posts/npm-yarn-pnpm/</link>
+      <pubDate>Mon, 10 Jan 2022 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/npm-yarn-pnpm/</guid>
+      <description>What is pnpm According to the official website of pnpm, pnpm stands for performant npm.&#xA;Fast, disk space efficient package manager&#xA;So, pnpm is similar to npm/yarn. Currently (December 2021), many major open source projects (vue, prisma&amp;hellip;) use pnpm. This article will take a closer look at the shortcomings of npm/yarn and how pnpm solved them.&#xA;Conclusion npm/yarn - Shortcomings&#xA;The flat node_modules structure allows access to any package that is not referenced.</description>
+    </item>
+    <item>
+      <title>npm/yarn の不足点と pnpm を推す理由</title>
+      <link>https://xingyahao.com/posts/npm-yarn-pnpm-ja/</link>
+      <pubDate>Mon, 06 Dec 2021 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/npm-yarn-pnpm-ja/</guid>
+      <description>pnpmとは pnpm 公式サイトによると、pnpmはperformant npmを表しています。&#xA;Fast, disk space efficient package manager&#xA;なので、pnpmはnpm/yarn同じような存在です。現在（2021年12月）、たくさんメジャーのオープンソースプロジェクト（vue、prisma&amp;hellip;）は pnpmを使用しています。本文はnpm/yarnの不足点、とpnpmはどっやって解決したのかついにて詳細を見てみます。&#xA;結論 npm/yarn - 不足点&#xA;フラットのnode_modules構造は、引用していない任意のパッケージにもアクセスできてしまう。 違うプロジェクトのパッケージが共有できなくて、ディスク容量消耗になる。 インストールのスピードが遅い、node_modulesに重複のインストールがある。 pnpm - 解決法&#xA;シンボリックリンクを用い独自のnode_modules構造を使用して、package.jsonにあるものしかアクセスできない（厳格）。 インストールするパッケージはグローバルストアからハードリンクされ、ディスク容量をセーブ（効率的）。 上記の対応で、インストールも早くなる（速い）。 厳格、効率的、速いとモノリポサポートも公式サイトから、pnpmの特徴と言われています。ただ、npm8とyarnもモノリポサポートなので、一応不足点だと考えていないです。pnpmのモノリポをサポートは最後で少し話します。&#xA;ディスクスペース npm/yarn- ディスクスペース消耗のnode_modules npm/yarnはディスク容量使いすぎという不足点があって、同じパッケージを100回分インストールしたら、100分のパッケージがnode_modulesのディスクに保存されます。日常の例では、前のプロジェクトが終わって、node_modulesがそのまま残ってしまったら、大量のディスク容量を使うことがよくあります。これを解決するため、npkillがよく使われます。&#xA;$ npx npkill で現在フォルダ配下で全てのnode_modulesをスキャンして、動的で削除できます。&#xA;pnpm - 効率的なディスクスペース 一方、pnpmはパッケージを同一フォルダ（content-addressable store）に保存して、同じパッケージの同じばジョンを再度インストールしたら、ハードリンクを作るだけです。MacOsデフォルトの場所は~/.pnpm-storeになります。しかも、同じパッケージの違うバージョンは差分だけが新たに保存されます。そうしたら、インストールする時に、storeにあったら、再利用、なければ、ダンロードしてstoreに保存する形になります。&#xA;ハードリンクを使って、できたことは&#xA;インストールが非常に高速(ベンチマークでyarnのpnpモードより早い) ディスク容量節約 以下はexpressをインストールしたことがあるパソコンで再インストールする時のアウトプットです。ついでに、npm/yarnインストール時のアウトプットも貼っておきます。&#xA;pnpm&#xA;$ pnpm i express Packages: +52 ++++++++++++++++++++++++++++++++++++++++++++++++++++ Progress: resolved 52, reused 52, downloaded 0, added 0, done dependencies: + express 4.17.1 npm&#xA;$ npm i express npm WARN npm@1.</description>
+    </item>
   </channel>
 </rss>

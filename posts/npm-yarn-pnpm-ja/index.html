@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>npm/yarn の不足点と pnpm を推す理由 - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="npm vs yarn vs pnpm in Japanese" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/npm-yarn-pnpm-ja/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="npm/yarn の不足点と pnpm を推す理由">
+  <meta property="og:description" content="npm vs yarn vs pnpm in Japanese">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-06T11:46:46+09:00">
+    <meta property="article:modified_time" content="2021-12-06T11:46:46+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="npm/yarn の不足点と pnpm を推す理由">
+  <meta name="twitter:description" content="npm vs yarn vs pnpm in Japanese">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css"  disabled />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">npm/yarn の不足点と pnpm を推す理由</h1>
+			<div class="meta">Posted on Dec 6, 2021</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="pnpmとは">pnpmとは</h2>
+<p><a href="https://pnpm.io/">pnpm</a> 公式サイトによると、pnpmはperformant npmを表しています。</p>
+<blockquote>
+<p>Fast, disk space efficient package manager</p>
+</blockquote>
+<p>なので、pnpmはnpm/yarn同じような存在です。現在（2021年12月）、たくさんメジャーのオープンソースプロジェクト（<a href="https://github.com/vuejs/vue-next">vue</a>、<a href="https://github.com/prisma/prisma">prisma</a>&hellip;）は pnpmを使用しています。本文はnpm/yarnの不足点、とpnpmはどっやって解決したのかついにて詳細を見てみます。</p>
+<h2 id="結論">結論</h2>
+<p>npm/yarn - 不足点</p>
+<ul>
+<li>フラットのnode_modules構造は、引用していない任意のパッケージにもアクセスできてしまう。</li>
+<li>違うプロジェクトのパッケージが共有できなくて、ディスク容量消耗になる。</li>
+<li>インストールのスピードが遅い、node_modulesに重複のインストールがある。</li>
+</ul>
+<p>pnpm - 解決法</p>
+<ul>
+<li>シンボリックリンクを用い独自のnode_modules構造を使用して、package.jsonにあるものしかアクセスできない（厳格）。</li>
+<li>インストールするパッケージはグローバルストアからハードリンクされ、ディスク容量をセーブ（効率的）。</li>
+<li>上記の対応で、インストールも早くなる（速い）。</li>
+</ul>
+<p>厳格、効率的、速いとモノリポサポートも公式サイトから、pnpmの特徴と言われています。ただ、npm8とyarnもモノリポサポートなので、一応不足点だと考えていないです。pnpmのモノリポをサポートは最後で少し話します。</p>
+<h2 id="ディスクスペース">ディスクスペース</h2>
+<h3 id="npmyarn--ディスクスペース消耗のnode_modules">npm/yarn- ディスクスペース消耗のnode_modules</h3>
+<p>npm/yarnはディスク容量使いすぎという不足点があって、同じパッケージを100回分インストールしたら、100分のパッケージがnode_modulesのディスクに保存されます。日常の例では、前のプロジェクトが終わって、node_modulesがそのまま残ってしまったら、大量のディスク容量を使うことがよくあります。これを解決するため、<a href="https://npkill.js.org/">npkill</a>がよく使われます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ npx npkill
+</span></span></code></pre></div><p>で現在フォルダ配下で全てのnode_modulesをスキャンして、動的で削除できます。</p>
+<h3 id="pnpm---効率的なディスクスペース">pnpm - 効率的なディスクスペース</h3>
+<p>一方、pnpmはパッケージを同一フォルダ（content-addressable store）に保存して、同じパッケージの同じばジョンを再度インストールしたら、ハードリンクを作るだけです。MacOsデフォルトの場所は~/.pnpm-storeになります。しかも、同じパッケージの違うバージョンは差分だけが新たに保存されます。そうしたら、インストールする時に、storeにあったら、再利用、なければ、ダンロードしてstoreに保存する形になります。</p>
+<p>ハードリンクを使って、できたことは</p>
+<ul>
+<li>インストールが非常に高速(<a href="https://pnpm.io/benchmarks">ベンチマーク</a>でyarnの<a href="https://classic.yarnpkg.com/en/docs/pnp/">pnpモード</a>より早い)</li>
+<li>ディスク容量節約</li>
+</ul>
+<p>以下はexpressをインストールしたことがあるパソコンで再インストールする時のアウトプットです。ついでに、npm/yarnインストール時のアウトプットも貼っておきます。</p>
+<p>pnpm</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#fe8019">$</span> pnpm i express
+</span></span><span style="display:flex;"><span>Packages: <span style="color:#fe8019">+</span><span style="color:#d3869b">52</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+</span></span><span style="display:flex;"><span>Progress: resolved <span style="color:#d3869b">52</span>, reused <span style="color:#d3869b">52</span>, downloaded <span style="color:#d3869b">0</span>, added <span style="color:#d3869b">0</span>, done
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dependencies:
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">+</span> express <span style="color:#d3869b">4.17</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span></code></pre></div><p>npm</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ npm i express
+</span></span><span style="display:flex;"><span>npm WARN npm@1.0.0 No description
+</span></span><span style="display:flex;"><span>npm WARN npm@1.0.0 No repository field.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>+ express@4.17.1
+</span></span><span style="display:flex;"><span>added 50 packages from 37 contributors and audited 50 packages in 4.309s
+</span></span><span style="display:flex;"><span>found 0 vulnerabilities
+</span></span></code></pre></div><p>yarn</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#fe8019">$</span> yarn add express
+</span></span><span style="display:flex;"><span>yarn add v1<span style="color:#fe8019">.</span><span style="color:#d3869b">22.11</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#d3869b">1</span><span style="color:#fe8019">/</span><span style="color:#d3869b">4</span>] 🔍  Resolving packages<span style="color:#fe8019">...</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#d3869b">2</span><span style="color:#fe8019">/</span><span style="color:#d3869b">4</span>] 🚚  Fetching packages<span style="color:#fe8019">...</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#d3869b">3</span><span style="color:#fe8019">/</span><span style="color:#d3869b">4</span>] 🔗  Linking dependencies<span style="color:#fe8019">...</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#d3869b">4</span><span style="color:#fe8019">/</span><span style="color:#d3869b">4</span>] 🔨  Building fresh packages<span style="color:#fe8019">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>success Saved lockfile<span style="color:#fe8019">.</span>
+</span></span><span style="display:flex;"><span>success Saved <span style="color:#d3869b">29</span> new dependencies<span style="color:#fe8019">.</span>
+</span></span><span style="display:flex;"><span>info Direct dependencies
+</span></span><span style="display:flex;"><span>└─ express@<span style="color:#d3869b">4.17</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>info All dependencies
+</span></span><span style="display:flex;"><span>├─ accepts@<span style="color:#d3869b">1.3</span><span style="color:#fe8019">.</span><span style="color:#d3869b">7</span>
+</span></span><span style="display:flex;"><span>├─ array<span style="color:#fe8019">-</span>flatten@<span style="color:#d3869b">1.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ body<span style="color:#fe8019">-</span>parser@<span style="color:#d3869b">1.19</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ content<span style="color:#fe8019">-</span>disposition@<span style="color:#d3869b">0.5</span><span style="color:#fe8019">.</span><span style="color:#d3869b">3</span>
+</span></span><span style="display:flex;"><span>├─ cookie<span style="color:#fe8019">-</span>signature@<span style="color:#d3869b">1.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">6</span>
+</span></span><span style="display:flex;"><span>├─ cookie@<span style="color:#d3869b">0.4</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ destroy@<span style="color:#d3869b">1.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">4</span>
+</span></span><span style="display:flex;"><span>├─ ee<span style="color:#fe8019">-</span>first@<span style="color:#d3869b">1.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ express@<span style="color:#d3869b">4.17</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ finalhandler@<span style="color:#d3869b">1.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">2</span>
+</span></span><span style="display:flex;"><span>├─ forwarded@<span style="color:#d3869b">0.2</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ inherits@<span style="color:#d3869b">2.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">3</span>
+</span></span><span style="display:flex;"><span>├─ ipaddr<span style="color:#fe8019">.</span>js@<span style="color:#d3869b">1.9</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ media<span style="color:#fe8019">-</span>typer@<span style="color:#d3869b">0.3</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ merge<span style="color:#fe8019">-</span>descriptors@<span style="color:#d3869b">1.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ methods@<span style="color:#d3869b">1.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">2</span>
+</span></span><span style="display:flex;"><span>├─ mime<span style="color:#fe8019">-</span>db@<span style="color:#d3869b">1.51</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ mime@<span style="color:#d3869b">1.6</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ ms@<span style="color:#d3869b">2.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ negotiator@<span style="color:#d3869b">0.6</span><span style="color:#fe8019">.</span><span style="color:#d3869b">2</span>
+</span></span><span style="display:flex;"><span>├─ path<span style="color:#fe8019">-</span>to<span style="color:#fe8019">-</span>regexp@<span style="color:#d3869b">0.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">7</span>
+</span></span><span style="display:flex;"><span>├─ proxy<span style="color:#fe8019">-</span>addr@<span style="color:#d3869b">2.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">7</span>
+</span></span><span style="display:flex;"><span>├─ raw<span style="color:#fe8019">-</span>body@<span style="color:#d3869b">2.4</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ safer<span style="color:#fe8019">-</span>buffer@<span style="color:#d3869b">2.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">2</span>
+</span></span><span style="display:flex;"><span>├─ serve<span style="color:#fe8019">-</span><span style="color:#fe8019">static</span>@<span style="color:#d3869b">1.14</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>├─ type<span style="color:#fe8019">-</span>is@<span style="color:#d3869b">1.6</span><span style="color:#fe8019">.</span><span style="color:#d3869b">18</span>
+</span></span><span style="display:flex;"><span>├─ unpipe@<span style="color:#d3869b">1.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>├─ utils<span style="color:#fe8019">-</span>merge@<span style="color:#d3869b">1.0</span><span style="color:#fe8019">.</span><span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span>└─ vary@<span style="color:#d3869b">1.1</span><span style="color:#fe8019">.</span><span style="color:#d3869b">2</span>
+</span></span><span style="display:flex;"><span>✨  Done <span style="color:#fe8019">in</span> <span style="color:#d3869b">1.14</span>s<span style="color:#fe8019">.</span>
+</span></span></code></pre></div><p>pnpmはどのぐらいパッケージ再利用か、新しくダンロードしたかすぐ分かるようになっているので、アウトプットのわかりやすさと言っても少し勝つかなと思いますね。</p>
+<h2 id="node_modulesの構造と依存関係の解決">node_modulesの構造と依存関係の解決</h2>
+<p>これからは同じシンプルの例：barに依存するパッケージfooをインストールというシーンを考えてください。
+npm/yarnは現在の形になるまで3回大きなアップデートがあります。pnpmの改善点を理解するため、1つづつ見ていきましょう。</p>
+<h3 id="npm1---ネストされるnode_modules">npm1 - ネストされるnode_modules</h3>
+<p>fooはbarに依存するので、一番単純の考え方ではbarはfooのnode_modulesに入れればいいですね。
+npm1も同じ考え方なので、このような構造になります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    └── foo
+</span></span><span style="display:flex;"><span>        ├── index.d.ts
+</span></span><span style="display:flex;"><span>        ├── package.json
+</span></span><span style="display:flex;"><span>        └── node_modules
+</span></span><span style="display:flex;"><span>            └── bar
+</span></span><span style="display:flex;"><span>                ├── index.js
+</span></span><span style="display:flex;"><span>                └── package.json
+</span></span></code></pre></div><p>もしbarは他の依頼例えばlodashがあれば、barのnode_modulesに入って、nested node_modulesと言います。では、この構造はどのような問題点があるでしょうか？</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    └── foo
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        ├── package.json
+</span></span><span style="display:flex;"><span>        └── node_modules
+</span></span><span style="display:flex;"><span>            └── bar
+</span></span><span style="display:flex;"><span>                ├── index.js
+</span></span><span style="display:flex;"><span>                ├── package.json
+</span></span><span style="display:flex;"><span>                └── node_modules
+</span></span><span style="display:flex;"><span>                    └── lodash
+</span></span><span style="display:flex;"><span>                        ├── index.js
+</span></span><span style="display:flex;"><span>                        └── package.json
+</span></span></code></pre></div><p>そうです。これは無限にnestedになりがちです。深すぎる構造になったら、以下の問題が発生します。</p>
+<ul>
+<li>パスが長すぎて、windowsのパス長さの制限を超えてしまいます。</li>
+<li>重複のインストールが大量発生。仮にfooとbarが同じバージョンのloadshに依存性があったら、インストールしたら、別々のnode_modulesは全く同じlodashがあります。</li>
+<li>同じインスタンスのバリューが共有できないです。例えば、違う場所のReactを引用したら違うインスタンスになるので、共有すべき内部の変数は共有できないです。</li>
+</ul>
+<h3 id="npm3yarn---フラットのnode_modules">npm3/yarn - フラットのnode_modules</h3>
+<p>npm3から（yarnも同じ) flat node_modulesを採用されて、今まで使われています。nodejsの<a href="https://nodejs.org/api/modules.html#all-together">依存性解析</a>のアルゴリズムは現在のディレクトリにnode_modulesで見つからなければ、再帰的に親のディレクトリのnode_modulesに解析するルールがあって、これを利用して全てのパッケージをプロジェクト直下のnode_modulesにおいて、共有できないものと依存パスが長すぎる問題を解決できました。</p>
+<p>上記の例では以下のような構造になります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    └── bar
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json
+</span></span></code></pre></div><p>これもexpressだけをインストールしたら、node_modulesに50ぐらいのパッケージができてしまう原因です。
+ただ、新たな課題が出てきます。</p>
+<ol>
+<li>package.jsonに書いていないパッケージでもアクセスできる(<a href="https://rushjs.io/pages/advanced/phantom_deps/">Phantom</a>・幻影)。</li>
+<li>node_modulesインストールの不確定性（<a href="https://rushjs.io/pages/advanced/npm_doppelgangers/">Doppelgangers</a>・自分自身の姿を自分で見る幻覚）。</li>
+<li>flat node_modulesアルゴリズム自体が複雑で、時間かかる。</li>
+</ol>
+<h4 id="phantom">Phantom</h4>
+<p>barに依存性があるfooをインストールしたら、barもnode_modulesの配下なので、直接アクセスできます。
+仮に不注意でプロジェクトで使われたとしたら、いつかfooはbarを使わなくなったり、barのバージョンをアップグレードしたりするとしたら、プロジェクトのコードで引用しているbarの状態が変わって予期できないエラーの原因になる可能性があります。</p>
+<h4 id="doppelgangers">Doppelgangers</h4>
+<p>Doppelgangersは少し複雑になるので、上記の例からfooはlodash@1.0.0依存、barはlodash@1.0.1依存</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>foo - lodash@1.0.0
+</span></span><span style="display:flex;"><span>bar - lodash@1.0.1
+</span></span></code></pre></div><p>にしたら、nodejsの<a href="https://nodejs.org/api/modules.html#all-together">依存性解析</a>ルールでは、require(PACKAGE_NAME)のPACKAGE_NAMEはnode_modules配下のフォルダーと同じ必要、というのはPACKAGE_NAME＠VERSIONはできないです。そうしたら、構造は</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    ├── bar
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   ├── package.json
+</span></span><span style="display:flex;"><span>    │   └── node_modules
+</span></span><span style="display:flex;"><span>    │       └── lodash
+</span></span><span style="display:flex;"><span>    │           ├── index.js
+</span></span><span style="display:flex;"><span>    │           └── package.json(@1.0.1)
+</span></span><span style="display:flex;"><span>    └── lodash
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json(@1.0.0)
+</span></span></code></pre></div><p>と</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   ├── package.json
+</span></span><span style="display:flex;"><span>    │   └── node_modules
+</span></span><span style="display:flex;"><span>    │       └── lodash
+</span></span><span style="display:flex;"><span>    │           ├── index.js
+</span></span><span style="display:flex;"><span>    │           └── package.json(@1.0.0)
+</span></span><span style="display:flex;"><span>    ├── bar
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    └── lodash
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json(@1.0.1)
+</span></span></code></pre></div><p>どちらになるでしょうか？</p>
+<p>結果はどちらも可能です・・・</p>
+<p>package.jsonでの位置で決まります。fooが上なら、上の構造、じゃなければ下の構造。このような不確定性はDoppelgangersと言います。</p>
+<h3 id="npm5xyarn---フラットのnode_modulesとlock-file">npm5.x/yarn - フラットのnode_modulesとlock file</h3>
+<p>node_modulesインストールの不確定性の解決ため、lockファイルが導入されました。そうすれば、何回をインストールしても、同じような構造になることが可能になります。これもlockファイルを必ず、バージョン管理に入れて、手動で編集しない理由です。</p>
+<p>ただし、flatアルゴリズムの複雑さ、とPhantomアクセス、性能と安全の問題は未解決です。</p>
+<h3 id="pnpm---シンボリックリンクに基づくnode_modules構造">pnpm - シンボリックリンクに基づくnode_modules構造</h3>
+<p>この部分は複雑で公式サイトでの<a href="https://pnpm.io/symlinked-node-modules-structure">説明</a>は一番良い気がしますが、これに基づいて説明してみます。</p>
+<p>node_modulesが生成するまでのステップ大きく2つあります。</p>
+<h4 id="ハードリンクのフォルダー構造">ハードリンクのフォルダー構造</h4>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       └── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        └── bar@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── bar -&gt; &lt;store&gt;/bar
+</span></span></code></pre></div><p>一見他の構造と全く違って、最初のnode_modulesの配下は.pnpmというフォルダしかないです。.pnpmの配下は&lt;パッケージ名＠バージョン&gt;フォルダができて、その配下の&lt;パッケージ名&gt;フォルダはstoreのハードリンクです。これだけで動かないので、次のステップも大事です。</p>
+<h4 id="依頼解析用のシンボリックリンク">依頼解析用のシンボリックリンク</h4>
+<ul>
+<li>foo内にbarを引用するためのシンボリックリンク</li>
+<li>プロジェクトからfooを引用するためのシンボリックリンク</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo -&gt; ./.pnpm/foo@1.0.0/node_modules/foo
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        │       └── bar -&gt; ../../bar@1.0.0/node_modules/bar
+</span></span><span style="display:flex;"><span>        └── bar@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── bar -&gt; &lt;store&gt;/bar
+</span></span></code></pre></div><p>これで最もシンプルなpnpm node_modulesの構造になります。プロジェクトのコードはpackage.jsonにあるものしか引用できないことと、無駄なインストールが完全になしでできます。<a href="https://pnpm.io/how-peers-are-resolved">peers dependencies</a>は少し複雑になりますが、peer以外は全部このような構造を持つことができます。</p>
+<p>例えば、fooとbarは同時にlodashを依存としたら、以下のような構造になります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo -&gt; ./.pnpm/foo@1.0.0/node_modules/foo
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        │       ├── bar -&gt; ../../bar@1.0.0/node_modules/bar
+</span></span><span style="display:flex;"><span>        │       └── lodash -&gt; ../../lodash@1.0.0/node_modules/lodash
+</span></span><span style="display:flex;"><span>        ├── bar@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── bar -&gt; &lt;store&gt;/bar
+</span></span><span style="display:flex;"><span>        │       └── lodash -&gt; ../../lodash@1.0.0/node_modules/lodash
+</span></span><span style="display:flex;"><span>        └── lodash@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── lodash -&gt; &lt;store&gt;/lodash
+</span></span></code></pre></div><p>これで、どのような複雑の依存性でもこの深さのパスで完結は可能となって、革新的なnode_modules構造です。</p>
+<h3 id="pnpm以外の解決法">pnpm以外の解決法</h3>
+<h4 id="npm-global-style">npm global-style</h4>
+<p>npmもflat node_modulesの問題点を解決するため、<a href="https://docs.npmjs.com/cli/v8/using-npm/config#global-style">global-style</a>という設定でflat node_modulesを禁止することができますが、nested node_modules時代の問題に戻って、この解決法は広がっていないです。</p>
+<h4 id="dependency-check">dependency-check</h4>
+<p>npm/yarn自体で、解決しにくいので、<a href="https://github.com/dependency-check-team/dependency-check">dependency-check</a>というツールを使ってチェックします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ dependency-check ./package.json --verbose
+</span></span><span style="display:flex;"><span>Success! All dependencies used in the code are listed in package.json
+</span></span><span style="display:flex;"><span>Success! All dependencies in package.json are used in the code
+</span></span></code></pre></div><p>公式READMEの一部を見たら、やっていることは大体わかってくるでしょうか。</p>
+<p>他の解決法と比べて、pnpmはやっぱり一番スッキリしますね！</p>
+<h2 id="最後に">最後に</h2>
+<h3 id="基本のコマンド">基本のコマンド</h3>
+<p>上記の説明でpnpmは非常に複雑なイメージかもしれないですが、実は全く違います！
+npm/yarnを使ったことがある人は、ほぼ勉強コストなしでpnpmが使えます。いくつ例のコマンドを見てみましょう。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm install express
+</span></span><span style="display:flex;"><span>pnpm update express
+</span></span><span style="display:flex;"><span>pnpm remove express
+</span></span></code></pre></div><p>ほぼ知っているコマンドと変わらないですね！</p>
+<h3 id="モノリポサポート">モノリポサポート</h3>
+<p>pnpmはモノリポもサポートです。作者は<a href="https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a">lernaとの比較の文章</a>もあります。詳細を説明すると、長くなるので、ここは一例だけ紹介させます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm --parallel  run --recursive  --filter @meetsmore <span style="color:#fabd2f">test</span>
+</span></span></code></pre></div><p>やっていることは、非同期で@meetsmore配下のworkspaceでのnpm script testを実行するコマンドです。元々lernaとかモノリポ管理のライブラリー必要なシーンもpnpmだけ完結可能です。</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
