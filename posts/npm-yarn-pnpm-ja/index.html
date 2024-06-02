@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html><head lang="en">
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>npm/yarn の不足点と pnpm を推す理由 - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>npm/yarn の不足点と pnpm を推す理由(日本語) - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="npm vs yarn vs pnpm in Japanese" />
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content="https://xingyahao.com/posts/npm-yarn-pnpm-ja/">
   <meta property="og:site_name" content="Xing Yahao">
-  <meta property="og:title" content="npm/yarn の不足点と pnpm を推す理由">
+  <meta property="og:title" content="npm/yarn の不足点と pnpm を推す理由(日本語)">
   <meta property="og:description" content="npm vs yarn vs pnpm in Japanese">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
@@ -15,7 +15,7 @@
     <meta property="article:modified_time" content="2021-12-06T11:46:46+09:00">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="npm/yarn の不足点と pnpm を推す理由">
+  <meta name="twitter:title" content="npm/yarn の不足点と pnpm を推す理由(日本語)">
   <meta name="twitter:description" content="npm vs yarn vs pnpm in Japanese">
 <script src="https://xingyahao.com/js/feather.min.js"></script>
 	
@@ -56,7 +56,7 @@
 <main>
 	<article>
 		<div class="title">
-			<h1 class="title">npm/yarn の不足点と pnpm を推す理由</h1>
+			<h1 class="title">npm/yarn の不足点と pnpm を推す理由(日本語)</h1>
 			<div class="meta">Posted on Dec 6, 2021</div>
 		</div>
 		
@@ -322,8 +322,8 @@ npm/yarnを使ったことがある人は、ほぼ勉強コストなしでpnpm�
 </span></span></code></pre></div><p>ほぼ知っているコマンドと変わらないですね！</p>
 <h3 id="モノリポサポート">モノリポサポート</h3>
 <p>pnpmはモノリポもサポートです。作者は<a href="https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a">lernaとの比較の文章</a>もあります。詳細を説明すると、長くなるので、ここは一例だけ紹介させます。</p>
-<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm --parallel  run --recursive  --filter @meetsmore <span style="color:#fabd2f">test</span>
-</span></span></code></pre></div><p>やっていることは、非同期で@meetsmore配下のworkspaceでのnpm script testを実行するコマンドです。元々lernaとかモノリポ管理のライブラリー必要なシーンもpnpmだけ完結可能です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm --parallel  run --recursive  --filter apps <span style="color:#fabd2f">test</span>
+</span></span></code></pre></div><p>やっていることは、非同期でapps配下のworkspaceでのnpm script testを実行するコマンドです。元々lernaとかモノリポ管理のライブラリー必要なシーンもpnpmだけ完結可能です。</p>
 
 		</section>
 

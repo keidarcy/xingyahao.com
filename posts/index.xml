@@ -28,10 +28,10 @@
       <link>https://xingyahao.com/posts/npm-yarn-pnpm/</link>
       <pubDate>Mon, 10 Jan 2022 11:52:46 +0900</pubDate>
       <guid>https://xingyahao.com/posts/npm-yarn-pnpm/</guid>
-      <description>What is pnpm According to the official website of pnpm, pnpm stands for performant npm.&#xA;Fast, disk space efficient package manager&#xA;So, pnpm is similar to npm/yarn. Currently (December 2021), many major open source projects (vue, prisma&amp;hellip;) use pnpm. This article will take a closer look at the shortcomings of npm/yarn and how pnpm solved them.&#xA;Conclusion npm/yarn - Shortcomings&#xA;The flat node_modules structure allows access to any package that is not referenced.</description>
+      <description>What is pnpm? pnpm According to the official website, pnpm stands for performant npm.&#xA;Fast, disk space efficient package manager&#xA;So, pnpm is similar to npm/yarn. Currently (December 2021), many major open source projects (vue, prisma&amp;hellip;) use pnpm. This article will look at the shortcomings of npm/yarn and how pnpm solved them in detail.&#xA;Conclusion npm/yarn - Shortcomings&#xA;The flat node_modules structure allows access to any package that is not referenced.</description>
     </item>
     <item>
-      <title>npm/yarn の不足点と pnpm を推す理由</title>
+      <title>npm/yarn の不足点と pnpm を推す理由(日本語)</title>
       <link>https://xingyahao.com/posts/npm-yarn-pnpm-ja/</link>
       <pubDate>Mon, 06 Dec 2021 11:46:46 +0900</pubDate>
       <guid>https://xingyahao.com/posts/npm-yarn-pnpm-ja/</guid>

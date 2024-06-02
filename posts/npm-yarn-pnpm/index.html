@@ -62,33 +62,33 @@
 		
 
 		<section class="body">
-			<h2 id="what-is-pnpm">What is pnpm</h2>
-<p>According to the official website of <a href="https://pnpm.io/">pnpm</a>, pnpm stands for performant npm.</p>
+			<h2 id="what-is-pnpm">What is pnpm?</h2>
+<p><a href="https://pnpm.io/">pnpm</a> According to the official website, pnpm stands for performant npm.</p>
 <blockquote>
 <p>Fast, disk space efficient package manager</p>
 </blockquote>
-<p>So, pnpm is similar to npm/yarn. Currently (December 2021), many major open source projects (<a href="https://github.com/vuejs/vue-next">vue</a>, <a href="https://github.com/prisma/prisma">prisma</a>&hellip;) use pnpm. This article will take a closer look at the shortcomings of npm/yarn and how pnpm solved them.</p>
+<p>So, pnpm is similar to npm/yarn. Currently (December 2021), many major open source projects (<a href="https://github.com/vuejs/vue-next">vue</a>, <a href="https://github.com/prisma/prisma">prisma</a>&hellip;) use pnpm. This article will look at the shortcomings of npm/yarn and how pnpm solved them in detail.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>npm/yarn - Shortcomings</p>
 <ul>
 <li>The flat node_modules structure allows access to any package that is not referenced.</li>
 <li>Packages from different projects cannot be shared, resulting in disk space consumption.</li>
-<li>Installation is slow, and there are duplicates installed in node_modules.</li>
+<li>Installation speed is slow, and there are duplicate installations in node_modules.</li>
 </ul>
 <p>pnpm - Solution</p>
 <ul>
 <li>
-<p>Using a unique node_modules structure with symbolic links, only those in package.json can be accessed (strict).</p>
+<p>Uses a unique node_modules structure with symbolic links, so only what is in package.json can be accessed (strict).</p>
 </li>
 <li>
 <p>Packages to be installed are hard-linked from the global store, saving disk space (efficient).</p>
 </li>
 </ul>
 <p>The above measures also make installation faster (fast).</p>
-<p>Strict, efficient, and fast monorepo support are also said to be features of pnpm from the official website. However, since npm8 and yarn also support monorepo, I don&rsquo;t think it is a shortcoming. I will talk a little about pnpm&rsquo;s monorepo support at the end.</p>
+<p>Strict, efficient, and fast monorepo support are also said to be features of pnpm from the official website. However, since npm8 and yarn also support monorepo, I don&rsquo;t think it&rsquo;s a shortcoming. I&rsquo;ll talk a little about pnpm&rsquo;s monorepo support at the end.</p>
 <h2 id="disk-space">Disk space</h2>
-<h3 id="npmyarn--disk-space-consumption-of-node_modules">npm/yarn- Disk space consumption of node_modules</h3>
-<p>npm/yarn has a shortcoming in that it uses too much disk space. If you install the same package 100 times, 100 packages will be stored on the disk in node_modules. In everyday life, if the previous project is finished and node_modules is left as it is, it often uses a lot of disk space. To solve this, <a href="https://npkill.js.org/">npkill</a> is often used.</p>
+<h3 id="npmyarn---disk-space-consumption-node_modules">npm/yarn - Disk space consumption node_modules</h3>
+<p>npm/yarn has a shortcoming in that it uses too much disk space. If you install the same package 100 times, 100 packages will be stored on the disk in node_modules. In everyday examples, if the previous project is finished and node_modules is left as it is, it often uses a lot of disk space. To solve this, <a href="https://npkill.js.org/">npkill</a> is often used.</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ npx npkill
 </span></span></code></pre></div><p>You can scan all node_modules under the current folder and dynamically delete them.</p>
 <h3 id="pnpm---efficient-disk-space">pnpm - Efficient disk space</h3>
@@ -171,27 +171,27 @@ npm/yarn has had three major updates to reach its current form. Let&rsquo;s take
 npm1 uses the same concept, so the structure looks like this.</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
 </span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>└── foo
-</span></span><span style="display:flex;"><span>├── index.d.ts
-</span></span><span style="display:flex;"><span>├── package.json
-</span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>└── bar
-</span></span><span style="display:flex;"><span>├── index.js
-</span></span><span style="display:flex;"><span>└── package.json
+</span></span><span style="display:flex;"><span>    └── foo
+</span></span><span style="display:flex;"><span>        ├── index.d.ts
+</span></span><span style="display:flex;"><span>        ├── package.json
+</span></span><span style="display:flex;"><span>        └── node_modules
+</span></span><span style="display:flex;"><span>            └── bar
+</span></span><span style="display:flex;"><span>                ├── index.js
+</span></span><span style="display:flex;"><span>                └── package.json
 </span></span></code></pre></div><p>If bar has other requests, such as lodash, they will be included in bar&rsquo;s node_modules, which are called nested node_modules. So what are the problems with this structure?</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
 </span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>└── foo
-</span></span><span style="display:flex;"><span>├── index.js
-</span></span><span style="display:flex;"><span>├── package.json
-</span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>└── bar
-</span></span><span style="display:flex;"><span>├── index.js
-</span></span><span style="display:flex;"><span>├── package.json
-</span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>└── lodash
-</span></span><span style="display:flex;"><span>├── index.js
-</span></span><span style="display:flex;"><span>└── package.json
+</span></span><span style="display:flex;"><span>    └── foo
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        ├── package.json
+</span></span><span style="display:flex;"><span>        └── node_modules
+</span></span><span style="display:flex;"><span>            └── bar
+</span></span><span style="display:flex;"><span>                ├── index.js
+</span></span><span style="display:flex;"><span>                ├── package.json
+</span></span><span style="display:flex;"><span>                └── node_modules
+</span></span><span style="display:flex;"><span>                    └── lodash
+</span></span><span style="display:flex;"><span>                        ├── index.js
+</span></span><span style="display:flex;"><span>                        └── package.json
 </span></span></code></pre></div><p>Yes. This tends to be infinitely nested. If the structure becomes too deep, the following problems will occur.</p>
 <ul>
 <li>The path is too long and exceeds the path length limit of Windows.</li>
@@ -203,12 +203,12 @@ npm1 uses the same concept, so the structure looks like this.</p>
 <p>The above example has the following structure.</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
 </span></span><span style="display:flex;"><span>└── node_modules
-</span></span><span style="display:flex;"><span>├── foo
-</span></span><span style="display:flex;"><span>│ ├── index.js
-</span></span><span style="display:flex;"><span>│ └── package.json
-</span></span><span style="display:flex;"><span>└── bar
-</span></span><span style="display:flex;"><span>├── index.js
-</span></span><span style="display:flex;"><span>└── package.json
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    └── bar
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json
 </span></span></code></pre></div><p>This is also the reason why about 50 packages are created in node_modules if you install only express.</p>
 <p>However, a new problem arises.</p>
 <ol>
@@ -223,7 +223,121 @@ npm1 uses the same concept, so the structure looks like this.</p>
 </li>
 </ol>
 <h4 id="phantom">Phantom</h4>
-<p>If you install foo, which has a dependency on bar, bar will also be installed.</p>
+<p>If you install foo, which has a dependency on bar, you can access it directly because bar is also under node_modules.</p>
+<p>If foo is used in a project carelessly, or if foo stops using bar one day or if you upgrade the version of bar, the state of bar referenced in the project code may change, which may cause unexpected errors.</p>
+<h4 id="doppelgangers">Doppelgangers</h4>
+<p>Doppelgangers is a bit complicated, so in the above example, foo depends on <a href="mailto:lodash@1.0.0">lodash@1.0.0</a> and bar depends on <a href="mailto:lodash@1.0.1">lodash@1.0.1</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>foo - lodash@1.0.0
+</span></span><span style="display:flex;"><span>bar - lodash@1.0.1
+</span></span></code></pre></div><p>Then, according to the nodejs <a href="https://nodejs.org/api/modules.html#all-together">dependency analysis</a> rule, the PACKAGE_NAME in require(PACKAGE_NAME) must be the same as the folder under node_modules, which means that PACKAGE_NAME＠VERSION is not possible. Then the structure is</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    ├── bar
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   ├── package.json
+</span></span><span style="display:flex;"><span>    │   └── node_modules
+</span></span><span style="display:flex;"><span>    │       └── lodash
+</span></span><span style="display:flex;"><span>    │           ├── index.js
+</span></span><span style="display:flex;"><span>    │           └── package.json(@1.0.1)
+</span></span><span style="display:flex;"><span>    └── lodash
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json(@1.0.0)
+</span></span></code></pre></div><p>and</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   ├── package.json
+</span></span><span style="display:flex;"><span>    │   └── node_modules
+</span></span><span style="display:flex;"><span>    │       └── lodash
+</span></span><span style="display:flex;"><span>    │           ├── index.js
+</span></span><span style="display:flex;"><span>    │           └── package.json(@1.0.0)
+</span></span><span style="display:flex;"><span>    ├── bar
+</span></span><span style="display:flex;"><span>    │   ├── index.js
+</span></span><span style="display:flex;"><span>    │   └── package.json
+</span></span><span style="display:flex;"><span>    └── lodash
+</span></span><span style="display:flex;"><span>        ├── index.js
+</span></span><span style="display:flex;"><span>        └── package.json(@1.0.1)
+</span></span></code></pre></div><p>Which one will it be?</p>
+<p>Both are possible&hellip;</p>
+<p>It depends on the position in package.json. If foo is on top, you get the structure above, otherwise the structure below. This uncertainty is called Doppelgangers.</p>
+<h3 id="npm5xyarn---flat-node_modules-and-lock-file">npm5.x/yarn - Flat node_modules and lock file</h3>
+<p>To solve the uncertainty of node_modules installation, lock files were introduced. This makes it possible to have a similar structure no matter how many times you install it. This is another reason to always put lock files in version control and not edit them manually.</p>
+<p>However, the complexity of the flat algorithm, phantom access, and performance and safety issues remain unsolved.</p>
+<h3 id="pnpm---node_modules-structure-based-on-symbolic-links">pnpm - node_modules structure based on symbolic links</h3>
+<p>This part is complicated, and the explanation on the official website is the best, but I will explain it based on this.</p>
+<p>There are two main steps before node_modules is generated.</p>
+<h4 id="folder-structure-of-hard-links">Folder structure of hard links</h4>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       └── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        └── bar@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── bar -&gt; &lt;store&gt;/bar
+</span></span></code></pre></div><p>At first glance, it looks completely different from other structures, but the first node_modules only has a folder called .pnpm. Under .pnpm, a &lt;package name@version&gt; folder is created, and the <!-- raw HTML omitted --> folder under that is a hard link to the store. This alone won&rsquo;t work, so the next step is also important.</p>
+<h4 id="symbolic-link-for-request-analysis">Symbolic link for request analysis</h4>
+<ul>
+<li>Symbolic link to reference bar in foo</li>
+<li>Symbolic link to reference foo from the project</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo -&gt; ./.pnpm/foo@1.0.0/node_modules/foo
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        │       └── bar -&gt; ../../bar@1.0.0/node_modules/bar
+</span></span><span style="display:flex;"><span>        └── bar@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── bar -&gt; &lt;store&gt;/bar
+</span></span></code></pre></div><p>This is the simplest structure of pnpm node_modules. You can only quote the code in package.json, and there is no need to install anything unnecessary. <a href="https://pnpm.io/how-peers-are-resolved">peers dependencies</a> is a little complicated, but everything except peers can have this kind of structure.</p>
+<p>For example, if foo and bar depend on lodash at the same time, the structure will be as follows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── node_modules
+</span></span><span style="display:flex;"><span>    ├── foo -&gt; ./.pnpm/foo@1.0.0/node_modules/foo
+</span></span><span style="display:flex;"><span>    └── .pnpm
+</span></span><span style="display:flex;"><span>        ├── foo@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── foo -&gt; &lt;store&gt;/foo
+</span></span><span style="display:flex;"><span>        │       ├── bar -&gt; ../../bar@1.0.0/node_modules/bar
+</span></span><span style="display:flex;"><span>        │       └── lodash -&gt; ../../lodash@1.0.0/node_modules/lodash
+</span></span><span style="display:flex;"><span>        ├── bar@1.0.0
+</span></span><span style="display:flex;"><span>        │   └── node_modules
+</span></span><span style="display:flex;"><span>        │       ├── bar -&gt; &lt;store&gt;/bar
+</span></span><span style="display:flex;"><span>        │       └── lodash -&gt; ../../lodash@1.0.0/node_modules/lodash
+</span></span><span style="display:flex;"><span>        └── lodash@1.0.0
+</span></span><span style="display:flex;"><span>            └── node_modules
+</span></span><span style="display:flex;"><span>                └── lodash -&gt; &lt;store&gt;/lodash
+</span></span></code></pre></div><p>Now, any complex dependency can be completed with a path of this depth, making this an innovative node_modules structure.</p>
+<h3 id="solutions-other-than-pnpm">Solutions other than pnpm</h3>
+<h4 id="npm-global-style">npm global-style</h4>
+<p>npm also solves the problems of flat node_modules by setting <a href="https://docs.npmjs.com/cli/v8/using-npm/config#global-style">global-style</a>, but this solution has not spread due to the problems of the nested node_modules era.</p>
+<h4 id="dependency-check">dependency-check</h4>
+<p>Since it is difficult to solve the problem with npm/yarn itself, we will check it using a tool called <a href="https://github.com/dependency-check-team/dependency-check">dependency-check</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ dependency-check ./package.json --verbose
+</span></span><span style="display:flex;"><span>Success! All dependencies used in the code are listed in package.json
+</span></span><span style="display:flex;"><span>Success! All dependencies in package.json are used in the code
+</span></span></code></pre></div><p>If you look at part of the official README, you will probably understand what is being done.</p>
+<p>Compared to other solutions, pnpm is the most straightforward!</p>
+<h2 id="finally">Finally</h2>
+<h3 id="basic-commands">Basic commands</h3>
+<p>The above explanation may give you the impression that pnpm is very complicated, but in fact it is not at all!
+If you have used npm/yarn before, you can use pnpm with almost no learning cost. Let&rsquo;s look at a few example commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm install express
+</span></span><span style="display:flex;"><span>pnpm update express
+</span></span><span style="display:flex;"><span>pnpm remove express
+</span></span></code></pre></div><p>It&rsquo;s almost the same as the commands you already know!</p>
+<h3 id="monorepo-support">Monorepo support</h3>
+<p>pnpm also supports monorepos. The author also has a comparison with Lerna. It would be too long to explain in detail, so I will only show one example here.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm --parallel run --recursive --filter apps <span style="color:#fabd2f">test</span>
+</span></span></code></pre></div><p>What it does is a command that runs npm script test asynchronously in the workspace under apps. Even in situations where you would need a monorepo management library like Lerna, you can complete it with just pnpm.</p>
 
 		</section>
 
