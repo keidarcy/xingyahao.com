@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Javascript Monorepo Development Improvement Approaches - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Javascript monorepo development improvement approaches" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="Javascript Monorepo Development Improvement Approaches">
+  <meta property="og:description" content="Javascript monorepo development improvement approaches">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-01-16T09:25:36+09:00">
+    <meta property="article:modified_time" content="2023-01-16T09:25:36+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Javascript Monorepo Development Improvement Approaches">
+  <meta name="twitter:description" content="Javascript monorepo development improvement approaches">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css"  disabled />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Javascript Monorepo Development Improvement Approaches</h1>
+			<div class="meta">Posted on Jan 16, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<p>Monorepo (monorepo) refers to a pattern where all code of an application or microservice is stored in a single monolithic repository (usually Git).</p>
+<p>Until now, both backend and frontend have been managed in the same repository, the so-called JavaScript monorepo. The <a href="https://classic.yarnpkg.com/en/docs/yarn-workflow">yarn workspace</a> function is mainly used to share the backend/frontend and logic code, and also to avoid the need to switch between the two repositories. No more need to send out code reviews to multiple repositories. We were able to develop quickly because we only needed to clone and modify one repository.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/0b6954535479-20240604.png" alt="Multi-Repo vs Monorepo"></p>
+<p>However, looking back at the situation a year ago, there are two major problems.</p>
+<ul>
+<li>Lack of <a href="https://classic.yarnpkg.com/lang/en/">yarn 1</a> (henceforth referred to as yarn) functionality (see <a href="https://xingyahao.com/posts/npm-yarn-pnpm/">last year&rsquo;s article</a> for details) and new The inability to create a new project in the same repository as a workspace package.</li>
+<li>The developer experience is poor, as it takes more than 120 seconds to start up the local server for the environment.</li>
+</ul>
+<p>Once there was a debate in the team about whether to go with mono-rep or multi-rep, but at that time we chose multi-rep in favor of the project schedule. However, we found that the efficiency of development was lower than mono-repo, as common components were difficult to share, and code review for development across multiple repositories was difficult.</p>
+<p>I put my team in charge of these improvement tasks, and we have taken various measures to improve them this year.</p>
+<ul>
+<li>We were able to create new packages under the original monorepo, and we were able to reuse existing logic, etc. in a simple way.</li>
+<li>Local server startup time has been drastically reduced to 50% of the original time, improving the developer experience and increasing development speed.</li>
+</ul>
+<h1 id="various-initiatives">Various initiatives</h1>
+<h2 id="creating-a-shared-repository">Creating a shared repository</h2>
+<p>At the time, we were still in the process of deciding whether to go mono-repo or multi-repo, and since code-sharing was the issue at hand, we used [Github private npm registery](<a href="https://docs.github.com/en/packages/working-with-a-">https://docs.github.com/en/packages/working-with-a-</a> github-packages-registry/working-with-the-npm-registry), I was able to share the code that was copied and pasted in multiple places as npm packages. Using <a href="https://lerna.js.org/">Lerna</a>, I created backend/frontend/common packages for each, moved the necessary logic to the appropriate package in multiple repositories, updated it, and published the new version via CI. I made it so that the new version would be published by CI.</p>
+<p>However, when I actually put it into practice, I found the following problems.</p>
+<ul>
+<li>When you update the code in the shared repository, you need to wait for CI to update the new version.</li>
+<li>The version of the project repository is frequently updated</li>
+<li>Educating new engineers on how to use the shared repository</li>
+<li>Logic is distributed and difficult to debug</li>
+</ul>
+<p>Recognizing that these are the characteristics of shared repositories and therefore hard to solve, we have decided to continue with the monorepository policy.</p>
+<h2 id="migrate-to-yarn-berry">Migrate to yarn berry</h2>
+<p>Since yarn&rsquo;s <a href="https://classic.yarnpkg.com/blog/2018/02/15/nohoist/">hoist</a> is the main workspace problem, I tried a number of things to solve the hoist. First, I used yarn&rsquo;s nohoist, but the result was fundamentally unresolvable.</p>
+<p>Then I looked for an alternative to yarn, and yarn berry and pnpm are candidates. Considering the cost of migrating from the existing yarn, I decided to go with yarn berry. Currently, <a href="https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits">nmHoistingLimits</a> is set as workspaces, and the requested hoist specifies up to the package root, and the existing mono You can create a new workspace in the repo. I have also benefited from yarn berry in many ways, such as faster installs and easier management of patches.</p>
+<p>In addition, there are some things about yarn berry that I haven&rsquo;t implemented yet, such as <a href="https://yarnpkg.com/features/pnp">Plug&rsquo;n&rsquo;Play</a> and <a href="https://yarnpkg.com/features/zero-installs">Zero-Installs</a>. I have not adopted it because it has changed too much, but I will keep an eye on the community support for it in the future. We are also planning to introduce a plugin to measure the execution time of npm scripts as an observability to improve the developer experience.</p>
+<h2 id="introducing-nx">Introducing Nx</h2>
+<p>Since I had been using only the yarn workspace functionality, I found that executing the same command on multiple packages was redundant and difficult to use, so I decided to introduce a monorepo tool to make monorepo easier to use.</p>
+<p>We decided to introduce a monorepo tool to make monorepo easier to use. nx, Turborepo, and Lerna were in our consideration. nx was introduced because of its features such as parallel task execution, caching of calculation results, dependency visualization, and dependency environment analysis. nx is divided into nx core and nx plugins, and currently only nx core is installed. nx plugins are used in the nx core plugins. The installation is very simple. Installation is very simple, just create a new <code>nx.json</code>, add dependencies to each <code>package.json</code>, and you are almost done. The rest is to modify the existing npm script to use nx.</p>
+<p>We have not introduced nx plugins, but since we expect more microservices in the future, we may use the generator and executer of nx plugins to create new projects from templates.</p>
+<h2 id="introducing-swc">Introducing swc</h2>
+<p>Up to now, starting up the monorepo development environment has been consolidated into a single command, which is very simple as a new engineer. However, it was very time consuming and the trial and error loop for engineers was very slow. We split up each task and found that the most time consuming part was compiling the TS files.</p>
+<p>To solve this, instead of tsc, there was an improvement to use esbuild and swc. backend used <a href="https://nestjs.com/">Nestjs</a>, and nestjs needed the typescript emitDecoratorMetadata, esbuild does not support it, swc does, so I decided on swc. Just a note, swc does not do typecheck, so it is essential to use tsc in CI to do typecheck.</p>
+<p>The result of compile time for nearly 3500 TS files was <code>tsc: 40 seconds</code> vs <code>swc: 1 second</code>, a significant improvement.</p>
+<h2 id="upgrade-common-tools-and-common-configuration-files">Upgrade common tools and common configuration files</h2>
+<p>The versions and configuration files of the common requests for each package are scattered, for example, Typescript has different versions and configurations, and a different syntax that can be used. I can&rsquo;t apply new features using the old major version of <code>Pettier 1.x</code>. Mainly, the following requests</p>
+<ul>
+<li>Typescript</li>
+<li>Jest</li>
+<li>Eslint</li>
+<li>Prettier</li>
+<li>Nestjs</li>
+</ul>
+<p>First, I upgraded to the same latest version as possible. In addition, we have created one main configuration file (<code>tsconfig.json</code>, <code>.eslintrc</code>), which the other packages will inherit. Use <code>yarn up -i</code> to keep the same version for future upgrades.</p>
+<p>If you update Linter or Formatter or modify its settings, you may be afraid of git blame, which is hard to see in diffs, so you may not be able to change it easily. Actually, there is <a href="https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt">git blame &ndash;ignore-revs-file</a>, bulk fixes can be ignored; Github and mainstream editors are supported.</p>
+<h2 id="first-step-to-microservice">First step to microservice</h2>
+<p>We originally adopted monorepo, but the backend API side is almost a monolithic configuration, and the business logic and other code is in a very complex phase. Also, in order to prevent a single function from becoming very heavy due to increased memory and CPU usage, we came up with the idea of decoupling one service as a single package, taking advantage of the benefits of mono-repo.</p>
+<p>As a first step, we are implementing notification functions such as email and mobile push notifications independently, with each type of notification having a common interface. The original API required implementation to organize and send the information to be sent, but now, using the notification service, the necessary data can be sent to the notification side, and the SDK for sending each type of notification will be migrated to the notification side, making it very simple. The notification service also uses the pub/sub model for decoupling.</p>
+<p>Currently there are three microservices, but more microservices such as payment are possible in the future.</p>
+<h2 id="introducing-circleci-dynamic-config-and-private-orbs">Introducing circleci dynamic config and private orbs</h2>
+<p>Originally, circleci configuration file could not be split, and all CI for mono-repo was written in one file, exceeding 2300 lines, which was very difficult to understand, and CI for each package was not possible even though it was mono-repo. Then, <a href="https://circleci.com/docs/dynamic-config/">dynamic config</a> and [private orbs](<a href="https://circleci.com/blog/building-private-orbs">https://circleci.com/blog/building-private-orbs</a> /).</p>
+<p>dynamic config is a setup workflow that is added before the normal workflow and generates a separate configuration file like the original with this tamming. private orbs is a set of common logic like public orbs and provides the necessary functions as commands. The user only needs to pass this command and the necessary parameters and they are done.</p>
+<p>We will continue to make CI for each microservice independent, and also consolidate existing legacy CI such as lint and test into private orbs commands, aiming to make it more convenient to add and modify new applications.</p>
+<h1 id="conclusion-and-future-moves">Conclusion and future moves</h1>
+<p>We have made a lot of improvements throughout the year, and I think we have achieved good results, but there are still many areas that can be improved. For example, the next OKRs are to improve the development environment by getting the server up and running faster and decreasing the time to run Unit tests. Merging into the main monorepo to benefit projects that already exist in separate, split repositories. Terraform from <a href="https://github.com/hashicorp/hcl">HCL</a> to <a href="https://github.com/hashicorp/terraform-cdk">CDKTF</a> so that app engineers can also create server alerts. Migrated and added to monorepo, etc.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
