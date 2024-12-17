@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Fri, 19 Apr 2024 09:21:51 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 17 Dec 2024 09:21:51 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How We Improved Developer Experience and Reduced SRE Toil by Migrating to TypeScript-Based Infrastructure</title>
+      <link>https://xingyahao.com/posts/how-we-improved-developer-experience-and-reduced-sre-toil-by-migrating-to-typescript-based-infrastructure/</link>
+      <pubDate>Tue, 17 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/how-we-improved-developer-experience-and-reduced-sre-toil-by-migrating-to-typescript-based-infrastructure/</guid>
+      <description>The Challenge While managing infrastructure resources on service providers like AWS and GCP for multiple services, our engineering team frequently needed simple infrastructure changes - creating S3 buckets, modifying CloudFront behaviors, or updating IAM permissions. While we used Terraform, developers weren&amp;rsquo;t comfortable with HCL (HashiCorp Configuration Language), creating redundant or repetitive work for SRE team.&#xA;After evaluating several Infrastructure as Code (IaC) solutions including Pulumi, AWS CDK, AWS CloudFormation, we chose CDK for Terraform (CDKTF) because it offered:</description>
+    </item>
     <item>
       <title>Introducing E1s the K9s Inspired Cli for Aws Ecs</title>
       <link>https://xingyahao.com/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/</link>
