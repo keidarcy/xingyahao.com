@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>タイムスライスSLOでDatadogのSLO管理を効率化する - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Streamlining Datadog SLO management with time slice SLOS" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="タイムスライスSLOでDatadogのSLO管理を効率化する">
+  <meta property="og:description" content="Streamlining Datadog SLO management with time slice SLOS">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-27T11:52:46+09:00">
+    <meta property="article:modified_time" content="2024-12-27T11:52:46+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="タイムスライスSLOでDatadogのSLO管理を効率化する">
+  <meta name="twitter:description" content="Streamlining Datadog SLO management with time slice SLOS">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css"  disabled />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">タイムスライスSLOでDatadogのSLO管理を効率化する</h1>
+			<div class="meta">Posted on Dec 27, 2024</div>
+		</div>
+		
+
+		<section class="body">
+			<h3 id="はじめに">はじめに</h3>
+<p>DatadogのSLOには3種類のオプションがあります：モニターベース SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/monitor/">Monitor-based SLOs</a>)、メトリクスベース SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/metric/">Metric-based SLOs</a>)、そして新しく追加されたタイムスライス SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/time_slice/">Time Slice SLOs</a>)です。</p>
+<p>今回は、特にタイムスライス SLOの利便性とメリットについて、具体例を挙げて説明します。</p>
+<hr>
+<h3 id="従来の方法-モニターベース-slo">従来の方法: モニターベース SLO</h3>
+<p>タイムスライス SLOが登場する以前、たとえばNode.jsのExpress APIにおけるレイテンシーSLOを作成する場合、<strong>モニターベース SLO</strong>を使用して次のように設定していました。以下はTerraformを使った例です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#fe8019">resource</span> <span style="color:#b8bb26">&#34;datadog_monitor&#34; &#34;request_get_latency&#34;</span> {
+</span></span><span style="display:flex;"><span>  name    <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;📝 [SLO] Resource Get API has an abnormal latency&#34;</span>
+</span></span><span style="display:flex;"><span>  type    <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;query alert&#34;</span>
+</span></span><span style="display:flex;"><span>  message <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;Resource Get API latency is above 1 second&#34;</span>
+</span></span><span style="display:flex;"><span>  query   <span style="color:#fe8019">=</span> &lt;&lt;<span style="color:#fe8019">EOT</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">percentile</span>(<span style="color:#fe8019">last_5m</span>):<span style="color:#fe8019">p95</span>:<span style="color:#fe8019">trace</span>.<span style="color:#fe8019">express</span>.<span style="color:#fe8019">request</span>{<span style="color:#fe8019">resource_name</span>:<span style="color:#fe8019">get_</span><span style="color:#b8bb26">${</span>local.path<span style="color:#b8bb26">}</span>} &gt; <span style="color:#d3869b">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">EOT</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">monitor_thresholds</span> {
+</span></span><span style="display:flex;"><span>    critical <span style="color:#fe8019">=</span> <span style="color:#d3869b">1</span>.<span style="color:#d3869b">0</span><span style="color:#928374;font-style:italic"> # 1秒
+</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  evaluation_delay    <span style="color:#fe8019">=</span> <span style="color:#d3869b">300</span><span style="color:#928374;font-style:italic"> # 5分
+</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>  require_full_window <span style="color:#fe8019">=</span> <span style="color:#fabd2f">false</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">resource</span> <span style="color:#b8bb26">&#34;datadog_service_level_objective&#34; &#34;request_get_latency&#34;</span> {
+</span></span><span style="display:flex;"><span>  name        <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;🏝️ Get API p95 latency *monitor* SLO&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;monitor&#34;</span>
+</span></span><span style="display:flex;"><span>  description <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;99.9%の時間、Get APIのp95レイテンシーが1秒以下であること。&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">thresholds</span> {
+</span></span><span style="display:flex;"><span>    timeframe <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;30d&#34;</span>
+</span></span><span style="display:flex;"><span>    target    <span style="color:#fe8019">=</span> <span style="color:#d3869b">99</span>.<span style="color:#d3869b">9</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  monitor_ids <span style="color:#fe8019">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">datadog_monitor</span>.<span style="color:#fe8019">request_get_latency</span>.<span style="color:#fe8019">id</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>モニターベース SLOでは、SLOを作成する前にモニターの定義が必要です。この手間を軽減するために、タイムスライス SLOが登場しました。</p>
+<hr>
+<h3 id="新しい選択肢-タイムスライス-slo">新しい選択肢: タイムスライス SLO</h3>
+<p>タイムスライス SLOでは、<strong>モニターを別途作成する必要がなくなります</strong>。Terraformでの記述もシンプルで、以下のように1つのリソースで完結します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#fe8019">resource</span> <span style="color:#b8bb26">&#34;datadog_service_level_objective&#34; &#34;request_get_latency_time_slice&#34;</span> {
+</span></span><span style="display:flex;"><span>  name        <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;🏝️ Get API p95 latency *time slice* SLO&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;time_slice&#34;</span>
+</span></span><span style="display:flex;"><span>  description <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;99.0%の時間、Get APIのp95レイテンシーが1秒以下であること。&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">sli_specification</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">time_slice</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#fe8019">query</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">formula</span> {
+</span></span><span style="display:flex;"><span>          formula_expression <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;query1&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">query</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#fe8019">metric_query</span> {
+</span></span><span style="display:flex;"><span>            name  <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;query1&#34;</span>
+</span></span><span style="display:flex;"><span>            query <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;p95:trace.express.request{env:production,resource_name:get_${local.path}}&#34;</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      comparator             <span style="color:#fe8019">=</span> &#34;&lt;<span style="color:#fe8019">=</span>&#34;
+</span></span><span style="display:flex;"><span>      threshold              <span style="color:#fe8019">=</span> <span style="color:#d3869b">1</span>.<span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>      query_interval_seconds <span style="color:#fe8019">=</span> <span style="color:#d3869b">300</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">thresholds</span> {
+</span></span><span style="display:flex;"><span>    timeframe <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;30d&#34;</span>
+</span></span><span style="display:flex;"><span>    target    <span style="color:#fe8019">=</span> <span style="color:#d3869b">99</span>.<span style="color:#d3869b">0</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>このように、タイムスライス SLOでは、モニターを介さずに直接SLOを作成できます。コードの簡潔さからも、運用の負担が軽減されることがわかります。</p>
+<hr>
+<h3 id="運用画面の比較">運用画面の比較</h3>
+<p>タイムスライス SLOの詳細ページを見てみると、Error BudgetやBurn Rateの遷移、Timelineなどの情報が豊富で、運用がさらに効率的になっています。</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/df217aae9b8c-20241227.png" alt="time slice slo"></p>
+<p>一方、モニターベース SLOの詳細ページには、右上に「<strong>Export to Time Slice SLO</strong>」というオプションがあります。このボタンをクリックすると、既存のモニターベース SLOからタイムスライス SLOへの移行が簡単に行えます。</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cddc7164a341-20241227.png" alt="monitor based slo"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/fd6fc0b4f233-20241227.png" alt="export to time slice slo"></p>
+<hr>
+<h3 id="終わりに">終わりに</h3>
+<p>今回は、レイテンシーSLOを例に、<strong>モニターベース SLO</strong>と<strong>タイムスライス SLO</strong>の作成と運用を比較しました。その結果、タイムスライス SLOは設定の簡潔さ、豊富なデータ表示、そして運用効率の観点から非常に優れています。</p>
+<p>今後、SLOを作成する際には、タイムスライス SLOを優先的に検討することをおすすめします。</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

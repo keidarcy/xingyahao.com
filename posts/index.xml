@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Tue, 17 Dec 2024 09:21:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 27 Dec 2024 11:52:46 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>タイムスライスSLOでDatadogのSLO管理を効率化する</title>
+      <link>https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/</link>
+      <pubDate>Fri, 27 Dec 2024 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/</guid>
+      <description>はじめに DatadogのSLOには3種類のオプションがあります：モニターベース SLO (Monitor-based SLOs)、メトリクスベース SLO (Metric-based SLOs)、そして新しく追加されたタイムスライス SLO (Time Slice SLOs)です。&#xA;今回は、特にタイムスライス SLOの利便性とメリットについて、具体例を挙げて説明します。&#xA;従来の方法: モニターベース SLO タイムスライス SLOが登場する以前、たとえばNode.jsのExpress APIにおけるレイテンシーSLOを作成する場合、モニターベース SLOを使用して次のように設定していました。以下はTerraformを使った例です。&#xA;resource &amp;#34;datadog_monitor&amp;#34; &amp;#34;request_get_latency&amp;#34; { name = &amp;#34;📝 [SLO] Resource Get API has an abnormal latency&amp;#34; type = &amp;#34;query alert&amp;#34; message = &amp;#34;Resource Get API latency is above 1 second&amp;#34; query = &amp;lt;&amp;lt;EOT percentile(last_5m):p95:trace.express.request{resource_name:get_${local.path}} &amp;gt; 1 EOT monitor_thresholds { critical = 1.0 # 1秒 } evaluation_delay = 300 # 5分 require_full_window = false } resource &amp;#34;datadog_service_level_objective&amp;#34; &amp;#34;request_get_latency&amp;#34; { name = &amp;#34;🏝️ Get API p95 latency *monitor* SLO&amp;#34; type = &amp;#34;monitor&amp;#34; description = &amp;#34;99.</description>
+    </item>
     <item>
       <title>How We Improved Developer Experience and Reduced SRE Toil by Migrating to TypeScript-Based Infrastructure</title>
       <link>https://xingyahao.com/posts/how-we-improved-developer-experience-and-reduced-sre-toil-by-migrating-to-typescript-based-infrastructure/</link>

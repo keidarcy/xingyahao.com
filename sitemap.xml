@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://xingyahao.com/posts/how-we-improved-developer-experience-and-reduced-sre-toil-by-migrating-to-typescript-based-infrastructure/</loc>
-    <lastmod>2024-12-17T09:21:51+09:00</lastmod>
-  </url><url>
     <loc>https://xingyahao.com/posts/</loc>
-    <lastmod>2024-12-17T09:21:51+09:00</lastmod>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/posts/how-we-improved-developer-experience-and-reduced-sre-toil-by-migrating-to-typescript-based-infrastructure/</loc>
     <lastmod>2024-12-17T09:21:51+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/</loc>
