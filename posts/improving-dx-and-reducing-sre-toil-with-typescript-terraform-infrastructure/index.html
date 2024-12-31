@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Improving DX and Reducing SRE Toil with TypeScript Terraform Infrastructure - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="How we empowered developers to manage cloud infrastructure by migrating from Terraform to CDKTF, reducing SRE toil through TypeScript and automated PR workflows." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/improving-dx-and-reducing-sre-toil-with-typescript-terraform-infrastructure/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="Improving DX and Reducing SRE Toil with TypeScript Terraform Infrastructure">
+  <meta property="og:description" content="How we empowered developers to manage cloud infrastructure by migrating from Terraform to CDKTF, reducing SRE toil through TypeScript and automated PR workflows.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-17T09:21:51+09:00">
+    <meta property="article:modified_time" content="2024-12-17T09:21:51+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Improving DX and Reducing SRE Toil with TypeScript Terraform Infrastructure">
+  <meta name="twitter:description" content="How we empowered developers to manage cloud infrastructure by migrating from Terraform to CDKTF, reducing SRE toil through TypeScript and automated PR workflows.">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+	
+
+	
+	
+
+	
+	
+
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Improving DX and Reducing SRE Toil with TypeScript Terraform Infrastructure</h1>
+			<div class="meta">Posted on Dec 17, 2024</div>
+		</div>
+		
+
+		
+
+		<section class="body">
+			<p><img src="https://storage.googleapis.com/zenn-user-upload/efd42572ae73-20241217.png" alt=""></p>
+<h2 id="the-challenge">The Challenge</h2>
+<p>While managing infrastructure resources on service providers like AWS and GCP for multiple services, our engineering team frequently needed simple infrastructure changes - creating S3 buckets, modifying CloudFront behaviors, or updating IAM permissions. While we used Terraform, developers weren&rsquo;t comfortable with HCL (HashiCorp Configuration Language), creating redundant or repetitive work for SRE team.</p>
+<p>After evaluating several Infrastructure as Code (IaC) solutions including Pulumi, AWS CDK, AWS CloudFormation, we chose <a href="https://developer.hashicorp.com/terraform/cdktf">CDK for Terraform</a> (CDKTF) because it offered:</p>
+<ul>
+<li>Multi-cloud provider support</li>
+<li>Terraform&rsquo;s mature toolchain</li>
+<li>TypeScript integration for developer familiarity</li>
+</ul>
+<h2 id="implementation-journey">Implementation Journey</h2>
+<h3 id="migration-process">Migration Process</h3>
+<p>Our SRE team completed the migration from HCL to CDKTF in approximately 6 months. Key milestones included:</p>
+<ol>
+<li>Converting existing infrastructure to TypeScript-based CDKTF</li>
+<li>Implementing Atlantis for pull request automation</li>
+<li>Establishing security controls and review processes</li>
+<li>Setting up automated drift detection</li>
+</ol>
+<p>This transformation delivered immediate benefits:</p>
+<ul>
+<li>Reduced SRE team <a href="https://sre.google/sre-book/eliminating-toil/">toil</a></li>
+<li>Improved focus on scalability and observability</li>
+<li>Better infrastructure understanding across teams</li>
+<li>Increased overall productivity</li>
+</ul>
+<h3 id="setup">Setup</h3>
+<p>We chose <a href="https://bun.sh/">Bun</a> as our package manager and <a href="https://biomejs.dev/">Biome</a> as our linter for their superior CI installation speed and performance. The project setup is straightforward - our <code>cdktf.json</code> configuration simply specifies:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#fb4934">&#34;app&#34;</span>: <span style="color:#b8bb26">&#34;bun run main.ts&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For teams looking to start with a similar setup, I&rsquo;ve created a <a href="https://github.com/keidarcy/cdktf-bun-init">template repository</a> demonstrating the complete basic configuration.</p>
+<h3 id="multi-environment-management"><strong>Multi-Environment Management</strong></h3>
+<p>Our infrastructure spans multiple AWS accounts, GCP projects, and Datadog organizations. To avoid complexity in the sample code, I will only consider AWS in the following examples. We define different stacks for each account, using environment variables to determine which stack to initialize in the CDKTF main file. We use environment-specific stacks to:</p>
+<ul>
+<li>Isolate resources and prevent cross-impact</li>
+<li>Enable parallel work across teams</li>
+<li>Maintain separate state files in S3</li>
+</ul>
+<p>Here&rsquo;s our main CDKTF file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#fe8019">const</span> app <span style="color:#fe8019">=</span> <span style="color:#fe8019">new</span> App()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">const</span> isShared <span style="color:#fe8019">=</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;shared-staging&#39;</span> <span style="color:#fe8019">||</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;shared-prod&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">const</span> isProductA <span style="color:#fe8019">=</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;product-a-prod&#39;</span> <span style="color:#fe8019">||</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;product-a-staging&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">const</span> isProductB <span style="color:#fe8019">=</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;product-b-prod&#39;</span> <span style="color:#fe8019">||</span> NODE_ENV <span style="color:#fe8019">===</span> <span style="color:#b8bb26">&#39;product-b-staging&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">if</span> (isProductA) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">new</span> ProductAStack(app, <span style="color:#b8bb26">`product-a-</span><span style="color:#b8bb26">${</span>NODE_ENV<span style="color:#b8bb26">}</span><span style="color:#b8bb26">`</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">if</span> (isShared) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">new</span> SharedStack(app, <span style="color:#b8bb26">`shared-</span><span style="color:#b8bb26">${</span>NODE_ENV<span style="color:#b8bb26">}</span><span style="color:#b8bb26">`</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">if</span> (isProductB) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">new</span> ProductBStack(app, <span style="color:#b8bb26">`product-b-</span><span style="color:#b8bb26">${</span>NODE_ENV<span style="color:#b8bb26">}</span><span style="color:#b8bb26">`</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app.synth()
+</span></span></code></pre></div><h3 id="atlantis-integration">Atlantis Integration</h3>
+<p>In Atlantis, we define pre-workflow hooks as those that handle different environments. While this approach might seem brute force, Bun&rsquo;s performance makes it highly efficient:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#fb4934">pre_workflow_hooks</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#fb4934">run</span>: |<span style="color:#b8bb26">
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      bun install --production &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      NODE_ENV=product-a-staging cdktf synth --output ./product-a-staging &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      # Additional environments</span>      
+</span></span></code></pre></div><p>Our <code>atlantis.yaml</code> in the repository root defines projects:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#fb4934">version</span>: <span style="color:#d3869b">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#fb4934">projects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#fb4934">name</span>: product-a-staging
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">dir</span>: staging/stacks/product-a-staging
+</span></span><span style="display:flex;"><span>    <span style="color:#928374;font-style:italic"># Additional project definitions...</span>
+</span></span></code></pre></div><p>After set up, <code>Atlantis</code> listens to GitHub webhooks and responds to PR. When a team member comments like <code>atlantis plan -p product-a-staging</code>, <code>Atlantis</code> executes a Terraform plan for the product-a staging environment. Similarly, <code>atlantis apply -p product-a-staging</code> applies the previously generated plan to the corresponding environment.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/1ccafc7d4fdf-20241217.png" alt=""></p>
+<p>This automation ensures our master branch accurately reflects the deployed infrastructure state. While we primarily manage infrastructure through code, we maintain manual console access for incident response and staging environment testing. To keep infrastructure code synchronized with the actual state, we implemented daily drift detection that identifies and reports any discrepancies between code and deployed resources.</p>
+<h3 id="security-and-automation"><strong>Security and Automation</strong></h3>
+<p><strong>Access Control</strong></p>
+<p>We implemented a balanced security approach:</p>
+<ul>
+<li>All organization members can contribute code</li>
+<li>Anyone can trigger <strong><code>atlantis plan</code></strong></li>
+<li>Only SRE team members can execute <strong><code>atlantis apply</code></strong></li>
+<li>Changes must be applied before merging to master</li>
+</ul>
+<p><strong>Drift Detection</strong></p>
+<p>We automated infrastructure drift detection using GitHub Actions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#fb4934">name</span>: Drift Detection Check
+</span></span><span style="display:flex;"><span><span style="color:#fb4934">run-name</span>: drift-detection
+</span></span><span style="display:flex;"><span><span style="color:#fb4934">on</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">schedule</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#fb4934">cron</span>: <span style="color:#b8bb26">&#34;00 00 * * 0-5&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fb4934">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#fb4934">drift-check</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">runs-on</span>: ubuntu-latest
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#fb4934">name</span>: Checkout
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">uses</span>: actions/checkout@v4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#fb4934">name</span>: Plan product-a-staging
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">if</span>: github.event.schedule == &#39;00 00 * * 0-5&#39;
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#fb4934">NODE_ENV</span>: product-a-staging
+</span></span><span style="display:flex;"><span>          <span style="color:#fb4934">STACK</span>: product-a-staging
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">run</span>: |<span style="color:#b8bb26">
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">          gh pr comment $PR_NUMBER --body &#34;atlantis plan -d $NODE_ENV/stacks/$STACK&#34;</span>          
+</span></span></code></pre></div><p>This system:</p>
+<ul>
+<li>Creates one PR and runs plans for all different stacks daily</li>
+<li>Collects results and sends Slack notifications with plan links</li>
+<li>Runs before work hours to allow immediate attention to any differences</li>
+<li>Maintains infrastructure consistency</li>
+</ul>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/3c10e7446b51-20241217.png" alt=""></p>
+<h3 id="resource-tagging">Resource Tagging</h3>
+<p>We&rsquo;ve implemented a sophisticated tagging system to organize and track resources:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#fe8019">export</span> <span style="color:#fe8019">class</span> TagsAddingAspect <span style="color:#fe8019">implements</span> IAspect {
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">constructor</span>(<span style="color:#fe8019">private</span> tagsToAdd: <span style="color:#fabd2f">Record</span>&lt;<span style="color:#fb4934">string</span>, <span style="color:#b8bb26;font-weight:bold">Record</span>&lt;<span style="color:#b8bb26;font-weight:bold">string</span>, <span style="color:#b8bb26;font-weight:bold">string</span>&gt;<span style="color:#fe8019">&gt;</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  visit(node: <span style="color:#fabd2f">IConstruct</span>)<span style="color:#fe8019">:</span> <span style="color:#fe8019">void</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> (isTaggableConstruct(node)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fe8019">for</span> (<span style="color:#fe8019">const</span> [key, value] <span style="color:#fe8019">of</span> <span style="color:#fabd2f">Object</span>.entries(<span style="color:#fe8019">this</span>.tagsToAdd)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">if</span> (node.node.path.includes(key)) {
+</span></span><span style="display:flex;"><span>          <span style="color:#fe8019">const</span> currentTags <span style="color:#fe8019">=</span> node.tagsInput <span style="color:#fe8019">||</span> {}
+</span></span><span style="display:flex;"><span>          node.tags <span style="color:#fe8019">=</span> { ...value, ...currentTags }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">type</span> TaggableConstruct <span style="color:#fe8019">=</span> IConstruct <span style="color:#fe8019">&amp;</span> {
+</span></span><span style="display:flex;"><span>  tags<span style="color:#fe8019">?:</span> { [key: <span style="color:#fabd2f">string</span>]<span style="color:#fe8019">:</span> <span style="color:#fabd2f">string</span> }
+</span></span><span style="display:flex;"><span>  tagsInput<span style="color:#fe8019">?:</span> { [key: <span style="color:#fabd2f">string</span>]<span style="color:#fe8019">:</span> <span style="color:#fabd2f">string</span> }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">function</span> isTaggableConstruct(x: <span style="color:#fabd2f">IConstruct</span>)<span style="color:#fe8019">:</span> x <span style="color:#fe8019">is</span> TaggableConstruct {
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">const</span> isTaggable <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#39;tags&#39;</span> <span style="color:#fe8019">in</span> x <span style="color:#fe8019">&amp;&amp;</span> <span style="color:#b8bb26">&#39;tagsInput&#39;</span> <span style="color:#fe8019">in</span> x
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">const</span> isNotDataSource <span style="color:#fe8019">=</span> <span style="color:#fe8019">!</span>(x <span style="color:#fe8019">instanceof</span> TerraformDataSource)
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">return</span> isTaggable <span style="color:#fe8019">&amp;&amp;</span> isNotDataSource
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In stack file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span>Aspects.<span style="color:#fe8019">of</span>(<span style="color:#fe8019">this</span>).add(
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">new</span> TagsAddingAspect({
+</span></span><span style="display:flex;"><span>    atlantis<span style="color:#fe8019">:</span> {
+</span></span><span style="display:flex;"><span>      app_name<span style="color:#fe8019">:</span> APP_NAME.ATLANTIS,
+</span></span><span style="display:flex;"><span>      area_name<span style="color:#fe8019">:</span> AREA_NAME.COMPANY_SHARED,
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>This system ensures consistent tagging across resources with minimal code duplication. We add <code>app_name</code> and <code>area_name</code> to all resources as cost allocation tags and an indicator to understand resource scope.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/f1a46b68f43c-20241217.png" alt=""></p>
+<h2 id="challenges-andfuture-improvements"><strong>Challenges and</strong> Future Improvements</h2>
+<h3 id="continuous-reconciliation">Continuous Reconciliation</h3>
+<p>Inspired by ArgoCD&rsquo;s approach to Kubernetes resource management, we&rsquo;re exploring <a href="https://github.com/padok-team/burrito">Burrito</a> to bring similar continuous state reconciliation to our Terraform ecosystem, potentially eliminating the need for scheduled drift detection.</p>
+<h3 id="stack-optimization">Stack Optimization</h3>
+<p>As our stacks grow, we face challenges with:</p>
+<ul>
+<li>Increasing Terraform command execution time</li>
+<li>Resource coupling</li>
+<li>Atlantis locks blocking development</li>
+</ul>
+<p>We&rsquo;re planning to implement more granular stack separation to address these issues.</p>
+<h3 id="community-considerations">Community Considerations</h3>
+<p>The CDKTF community, while growing, isn&rsquo;t as active as the traditional Terraform or AWS CDK communities. Additionally, OpenTofu&rsquo;s uncertain commitment to support creates a consideration point for long-term planning. We&rsquo;re actively monitoring these aspects to ensure our infrastructure strategy remains sustainable. Note: While we&rsquo;ve confirmed CDKTF is currently OpenTofu compatible, there&rsquo;s no official <a href="https://github.com/opentofu/opentofu/issues/1335">guarantee</a>.</p>
+<h3 id="terraform-module-support">Terraform Module Support</h3>
+<p>One significant advantage of CDKTF is its Terraform module support, and TypeScript provides strong type-checking. However, when using Terraform Modules, any <a href="https://developer.hashicorp.com/terraform/language/expressions/types#maps-objects">map</a> type HCL variables become <code>any</code> in TypeScript, which compromises type safety. Due to this incomplete type support, we remain conservative in our use of Terraform modules.</p>
+<h3 id="developer-team-involvement">Developer Team Involvement</h3>
+<p>While CDKTF migration has significantly increased developer contributions to our infrastructure repository, the SRE team aims to foster even more involvement. We continue looking for ways to encourage broader participation from our development teams.</p>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>Our migration to CDKTF has significantly improved our infrastructure management:</p>
+<ul>
+<li>Increased developer participation in infrastructure changes</li>
+<li>Enhanced security through automated workflows</li>
+<li>Better resource organization and tracking</li>
+<li>Reduced operational overhead</li>
+</ul>
+<p>While challenges remain, particularly around performance and community support, the benefits have justified our decision. We continue to iterate on our implementation, focusing on automation, security, and developer experience.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGTFKPMCX2"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-FGTFKPMCX2');
+        }
+      </script>
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
