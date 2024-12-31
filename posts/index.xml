@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Mon, 30 Dec 2024 11:46:46 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 31 Dec 2024 09:21:51 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Integrate E1s to Improve Daily Operations with Security</title>
+      <link>https://xingyahao.com/posts/integrate-e1s-to-improve-daily-operations-with-security/</link>
+      <pubDate>Tue, 31 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/integrate-e1s-to-improve-daily-operations-with-security/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Managing infrastructure security and operational efficiency is critical for modern tech teams. In my organization, we implemented a feature allowing developers to access databases via ORM methods, which required duplicating deployments for developer access. Previously, we relied on dedicated EC2 instances and specific pipelines to facilitate this process. However, this approach presented several challenges:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Managing SSH keys&lt;/strong&gt; for server access.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Limited scalability&lt;/strong&gt; and significant operational overhead.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Complex CI/CD pipelines&lt;/strong&gt; tied to EC2 instances.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;High AWS costs&lt;/strong&gt; due to persistent EC2 usage.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Security risks&lt;/strong&gt; from less granular access control and limited audit capabilities.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;To address these issues, I integrated &lt;a href=&#34;https://github.com/keidarcy/e1s&#34;&gt;e1s&lt;/a&gt;(a CLI tool to manage ECS resources in the terminal) with the ECS Exec, replacing the EC2-based workflow for database access. This transition simplified operations, reduced costs, and enhanced security.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Migrating Next.js Landing Page Projects from Vercel to AWS</title>
       <link>https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/</link>

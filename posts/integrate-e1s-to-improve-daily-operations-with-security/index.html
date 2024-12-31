@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Integrate E1s to Improve Daily Operations with Security - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/integrate-e1s-to-improve-daily-operations-with-security/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="Integrate E1s to Improve Daily Operations with Security">
+  <meta property="og:description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-31T09:21:51+09:00">
+    <meta property="article:modified_time" content="2024-12-31T09:21:51+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Integrate E1s to Improve Daily Operations with Security">
+  <meta name="twitter:description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+	
+
+	
+	
+
+	
+	
+
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Integrate E1s to Improve Daily Operations with Security</h1>
+			<div class="meta">Posted on Dec 31, 2024</div>
+		</div>
+		
+
+		
+
+		<section class="body">
+			<h2 id="introduction">Introduction</h2>
+<p>Managing infrastructure security and operational efficiency is critical for modern tech teams. In my organization, we implemented a feature allowing developers to access databases via ORM methods, which required duplicating deployments for developer access. Previously, we relied on dedicated EC2 instances and specific pipelines to facilitate this process. However, this approach presented several challenges:</p>
+<ul>
+<li><strong>Managing SSH keys</strong> for server access.</li>
+<li><strong>Limited scalability</strong> and significant operational overhead.</li>
+<li><strong>Complex CI/CD pipelines</strong> tied to EC2 instances.</li>
+<li><strong>High AWS costs</strong> due to persistent EC2 usage.</li>
+<li><strong>Security risks</strong> from less granular access control and limited audit capabilities.</li>
+</ul>
+<p>To address these issues, I integrated <a href="https://github.com/keidarcy/e1s">e1s</a>(a CLI tool to manage ECS resources in the terminal) with the ECS Exec, replacing the EC2-based workflow for database access. This transition simplified operations, reduced costs, and enhanced security.</p>
+<p>This blog outlines the transformation, comparing the old and new workflows, and highlights the benefits of the integration.</p>
+<h2 id="old-vs-new-workflow">Old vs. New Workflow</h2>
+<h3 id="old-workflow-ec2-based-operations">Old Workflow: EC2-Based Operations</h3>
+<p><strong>Access via Dedicated EC2 Instances</strong></p>
+<ul>
+<li>Team members used SSH keys to log into specific EC2 servers.</li>
+<li>Operational tasks were performed manually on these instances.</li>
+</ul>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/c733932fd992-20241231.png" alt="old-workflow.png"></p>
+<p><strong>New Workflow: ECS-Based Operations with e1s</strong></p>
+<ul>
+<li>Team members use <a href="https://github.com/keidarcy/e1s">e1s</a> to connect directly to ECS containers based on IAM roles granted through <a href="https://github.com/onelogin/onelogin-python-aws-assume-role">OneLogin</a>, our company-wide identity provider.</li>
+<li>ECS Exec enables seamless container access without intermediary servers.</li>
+</ul>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cbe42adfc429-20241231.png" alt="new-workflow.png"></p>
+<h2 id="benefits-overview">Benefits Overview</h2>
+<h3 id="reduced-complexity"><strong>Reduced Complexity</strong></h3>
+<ul>
+<li>Eliminates the need for SSH keys and dedicated EC2 servers, reducing manual operations related to key management.</li>
+<li>Simplifies CI workflows by removing EC2 deployment requirements.</li>
+</ul>
+<h3 id="enhanced-security"><strong>Enhanced Security</strong></h3>
+<ul>
+<li>No longer requires managing SSH keys, eliminating risks from forgotten or misplaced keys.</li>
+<li>Isolates production secrets to specific ECS containers.</li>
+<li>Enforces Role-Based Access Control (RBAC) through OneLogin-granted IAM roles.</li>
+<li>Logs ECS Exec output to S3 for improved auditing and traceability.</li>
+</ul>
+<h3 id="cost-efficiency"><strong>Cost Efficiency</strong></h3>
+<ul>
+<li>Significantly reduces AWS expenses by removing persistent EC2 instances.</li>
+<li>Lowers CI costs by eliminating EC2-specific deployment pipelines.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Migrating to <a href="https://github.com/keidarcy/e1s">e1s</a> has transformed our operations, offering a leaner, more secure, and cost-efficient workflow. I hope <a href="https://github.com/keidarcy/e1s">e1s</a> becomes a part of your toolkit, simplifying your operations just as it has for us!</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGTFKPMCX2"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-FGTFKPMCX2');
+        }
+      </script>
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
