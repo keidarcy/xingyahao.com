@@ -326,6 +326,8 @@ npm/yarnを使ったことがある人は、ほぼ勉強コストなしでpnpm�
 <p>pnpmはモノリポもサポートです。作者は<a href="https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a">lernaとの比較の文章</a>もあります。詳細を説明すると、長くなるので、ここは一例だけ紹介させます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pnpm --parallel  run --recursive  --filter apps <span style="color:#fabd2f">test</span>
 </span></span></code></pre></div><p>やっていることは、非同期でapps配下のworkspaceでのnpm script testを実行するコマンドです。元々lernaとかモノリポ管理のライブラリー必要なシーンもpnpmだけ完結可能です。</p>
+<hr>
+<p><em>Originally published at <a href="https://engineering.meetsmore.com/entry/2021/12/06/112931">https://engineering.meetsmore.com</a> on December 6, 2021.</em></p>
 
 		</section>
 
