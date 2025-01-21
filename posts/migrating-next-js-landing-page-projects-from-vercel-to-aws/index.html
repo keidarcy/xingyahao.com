@@ -71,9 +71,9 @@
 <p><img src="https://storage.googleapis.com/zenn-user-upload/70eacf78c244-20241231.png" alt="Next.js Migration May 2 2024.png"></p>
 <h2 id="what-did-we-migrate"><strong>What Did We Migrate?</strong></h2>
 <p>To help understand the changes, here is a simplified version of our system diagram before and after migration:</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/0bac76004cba-20241231.png" alt="d1.png"></p>
-<p>Before migration, we had multiple Vercel projects routed by a Lambda@Edge function, which added significant complexity to our infrastructure.</p>
 <p><img src="https://storage.googleapis.com/zenn-user-upload/9b9a750b6370-20241231.png" alt="2.png"></p>
+<p>Before migration, we had multiple Vercel projects routed by a Lambda@Edge function, which added significant complexity to our infrastructure.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/0bac76004cba-20241231.png" alt="d1.png"></p>
 <p>After migration, we used the same ECS cluster to host API applications and multiple landing page projects. Server-to-server communication benefited from AWS’s private network, improving performance.</p>
 <h2 id="what-we-gained-from-migration"><strong>What We Gained from Migration</strong></h2>
 <h3 id="cost-efficiency-and-predictability"><strong>Cost Efficiency and Predictability</strong></h3>
