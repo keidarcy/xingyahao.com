@@ -70,6 +70,9 @@
 <p><a href="https://github.com/keidarcy/kubectl-eks-viewer">https://github.com/keidarcy/kubectl-eks-viewer</a></p>
 <p><code>kubectl-eks-viewer</code> is a kubectl plugin that brings AWS EKS resources into your kubectl workflow. With a single command, you can view all your EKS-specific resources like nodegroups, pod identity associations, and addons. It follows kubectl conventions, so you can use familiar flags like <code>--context</code> to switch clusters or <code>--output=jsonpath</code> to extract specific information - just like you do with kubectl.</p>
 <h2 id="sample-usage">Sample Usage</h2>
+<ul>
+<li>Basic Usage</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl eks-viewer
 </span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> cluster <span style="color:#fe8019">===</span>
 </span></span><span style="display:flex;"><span>NAME   VERSION   STATUS   PLATFORM VERSION   AUTH MODE
@@ -94,8 +97,14 @@
 </span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> insights <span style="color:#fe8019">===</span>
 </span></span><span style="display:flex;"><span>NAME       CATEGORY    STATUS
 </span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer pod-identity-associations --context &lt;context-name&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer access-entries -o<span style="color:#fe8019">=</span>jsonpath<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;{.items.access-entries[0].AccessEntryArn}&#34;</span>
+</span></span></code></pre></div><ul>
+<li>Get pod-identity-associations resource only with different context</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer pod-identity-associations --context &lt;context-name&gt;
+</span></span></code></pre></div><ul>
+<li>Get access-entries only with jsonpath expression</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer access-entries -o<span style="color:#fe8019">=</span>jsonpath<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;{.items.access-entries[0].AccessEntryArn}&#34;</span>
 </span></span></code></pre></div><h2 id="feedback">Feedback</h2>
 <p>Would love to hear your feedback! Let me know if you find it useful or if there are any features you&rsquo;d like to see. If you have any feature requests or bug reports, please submit them through GitHub <a href="https://github.com/keidarcy/kubectl-eks-viewer/issues">Issues</a>.</p>
 
