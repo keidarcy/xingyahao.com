@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Tue, 31 Dec 2024 09:21:51 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2025 09:21:51 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</title>
+      <link>https://xingyahao.com/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/</link>
+      <pubDate>Sat, 01 Feb 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/</guid>
+      <description>&lt;p&gt;As a developer working with Amazon EKS (Elastic Kubernetes Service), I often found myself juggling between different tools like &lt;code&gt;eksctl&lt;/code&gt;, &lt;code&gt;aws-cli&lt;/code&gt;, and &lt;code&gt;kubectl&lt;/code&gt; to manage and view EKS resources. While &lt;code&gt;kubectl&lt;/code&gt; provides a great interface for Kubernetes resources, accessing AWS-specific EKS resources required switching to other tools, breaking the workflow and reducing productivity.&lt;/p&gt;&#xA;&lt;p&gt;The most common task was simply checking the status of EKS-related AWS resources - What are the desired count of my nodegroups? What addons are installed? What pod identity associations exist? Getting this information required multiple commands across different tools. I wanted a single command that could show me everything at once, following the familiar kubectl patterns I use every day.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</title>
       <link>https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/</link>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="kubectl-eks-viewer - A kubectl plugin to seamlessly bridge kubectl and AWS CLI for EKS resource management" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI">
+  <meta property="og:description" content="kubectl-eks-viewer - A kubectl plugin to seamlessly bridge kubectl and AWS CLI for EKS resource management">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-01T09:21:51+09:00">
+    <meta property="article:modified_time" content="2025-02-01T09:21:51+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI">
+  <meta name="twitter:description" content="kubectl-eks-viewer - A kubectl plugin to seamlessly bridge kubectl and AWS CLI for EKS resource management">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+	
+
+	
+	
+
+	
+	
+
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</h1>
+			<div class="meta">Posted on Feb 1, 2025</div>
+		</div>
+		
+
+		
+
+		<section class="body">
+			<p>As a developer working with Amazon EKS (Elastic Kubernetes Service), I often found myself juggling between different tools like <code>eksctl</code>, <code>aws-cli</code>, and <code>kubectl</code> to manage and view EKS resources. While <code>kubectl</code> provides a great interface for Kubernetes resources, accessing AWS-specific EKS resources required switching to other tools, breaking the workflow and reducing productivity.</p>
+<p>The most common task was simply checking the status of EKS-related AWS resources - What are the desired count of my nodegroups? What addons are installed? What pod identity associations exist? Getting this information required multiple commands across different tools. I wanted a single command that could show me everything at once, following the familiar kubectl patterns I use every day.</p>
+<h2 id="what-is-kubectl-eks-viewer">What is kubectl-eks-viewer?</h2>
+<p><a href="https://github.com/keidarcy/kubectl-eks-viewer">https://github.com/keidarcy/kubectl-eks-viewer</a></p>
+<p><code>kubectl-eks-viewer</code> is a kubectl plugin that brings AWS EKS resources into your kubectl workflow. With a single command, you can view all your EKS-specific resources like nodegroups, pod identity associations, and addons. It follows kubectl conventions, so you can use familiar flags like <code>--context</code> to switch clusters or <code>--output=jsonpath</code> to extract specific information - just like you do with kubectl.</p>
+<h2 id="sample-usage">Sample Usage</h2>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl eks-viewer
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> cluster <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>NAME   VERSION   STATUS   PLATFORM VERSION   AUTH MODE
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> access-entries <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>ACCESS ENTRY PRINCIPAL ARN    KUBERNETES GROUPS    ACCESS POLICIES
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> nodegroups <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>NAME      STATUS   INSTANCE TYPE   DESIRED SIZE   MIN SIZE   MAX SIZE   VERSION   AMI TYPE     CAPACITY TYPE
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> fargate-profiles <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>NAME   SELECTOR NAMESPACE   SELECTOR LABELS   POD EXECUTION ROLE ARN     SUBNETS     STATUS
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> pod-identity-associations <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>ARN    AMESPACE   SERVICE ACCOUNT NAME   IAM ROLE ARN      OWNER ARN
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">===</span> insights <span style="color:#fe8019">===</span>
+</span></span><span style="display:flex;"><span>NAME       CATEGORY    STATUS
+</span></span><span style="display:flex;"><span>&lt;REDACTED&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer pod-identity-associations --context &lt;context-name&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl eks-viewer access-entries -o<span style="color:#fe8019">=</span>jsonpath<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;{.items.access-entries[0].AccessEntryArn}&#34;</span>
+</span></span></code></pre></div><h2 id="feedback">Feedback</h2>
+<p>Would love to hear your feedback! Let me know if you find it useful or if there are any features you&rsquo;d like to see.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2025  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGTFKPMCX2"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-FGTFKPMCX2');
+        }
+      </script>
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
