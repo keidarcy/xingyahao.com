@@ -128,7 +128,7 @@
 </span></span><span style="display:flex;"><span>  - <span style="color:#fb4934">run</span>: |<span style="color:#b8bb26">
 </span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      bun install --production &amp;&amp;
 </span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      NODE_ENV=product-a-staging cdktf synth --output ./product-a-staging &amp;&amp;
-</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      # Additional environments</span>      
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">      # Additional environments</span>
 </span></span></code></pre></div><p>Our <code>atlantis.yaml</code> in the repository root defines projects:</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#fb4934">version</span>: <span style="color:#d3869b">3</span>
 </span></span><span style="display:flex;"><span><span style="color:#fb4934">projects</span>:
@@ -168,7 +168,7 @@
 </span></span><span style="display:flex;"><span>          <span style="color:#fb4934">NODE_ENV</span>: product-a-staging
 </span></span><span style="display:flex;"><span>          <span style="color:#fb4934">STACK</span>: product-a-staging
 </span></span><span style="display:flex;"><span>        <span style="color:#fb4934">run</span>: |<span style="color:#b8bb26">
-</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">          gh pr comment $PR_NUMBER --body &#34;atlantis plan -d $NODE_ENV/stacks/$STACK&#34;</span>          
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">          gh pr comment $PR_NUMBER --body &#34;atlantis plan -d $NODE_ENV/stacks/$STACK&#34;</span>
 </span></span></code></pre></div><p>This system:</p>
 <ul>
 <li>Creates one PR and runs plans for all different stacks daily</li>
@@ -180,7 +180,7 @@
 <h3 id="resource-tagging">Resource Tagging</h3>
 <p>We&rsquo;ve implemented a sophisticated tagging system to organize and track resources:</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#fe8019">export</span> <span style="color:#fe8019">class</span> TagsAddingAspect <span style="color:#fe8019">implements</span> IAspect {
-</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">constructor</span>(<span style="color:#fe8019">private</span> tagsToAdd: <span style="color:#fabd2f">Record</span>&lt;<span style="color:#fb4934">string</span>, <span style="color:#b8bb26;font-weight:bold">Record</span>&lt;<span style="color:#b8bb26;font-weight:bold">string</span>, <span style="color:#b8bb26;font-weight:bold">string</span>&gt;<span style="color:#fe8019">&gt;</span>) {}
+</span></span><span style="display:flex;"><span>  <span style="color:#fe8019">constructor</span>(<span style="color:#fe8019">private</span> tagsToAdd: <span style="color:#fabd2f">Record</span>&lt;<span style="color:#fb4934">string</span>, <span style="color:#b8bb26;font-weight:bold">Record</span>&lt;<span style="color:#fb4934">string</span>, <span style="color:#b8bb26;font-weight:bold">string</span>&gt;&gt;) {}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  visit(node: <span style="color:#fabd2f">IConstruct</span>)<span style="color:#fe8019">:</span> <span style="color:#fe8019">void</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> (isTaggableConstruct(node)) {

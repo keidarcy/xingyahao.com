@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">
+  <meta property="og:site_name" content="Xing Yahao">
+  <meta property="og:title" content="A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter">
+  <meta property="og:description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-29T09:21:51+09:00">
+    <meta property="article:modified_time" content="2025-04-29T09:21:51+09:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter">
+  <meta name="twitter:description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned">
+<script src="https://xingyahao.com/js/feather.min.js"></script>
+	
+	
+        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+	
+
+	
+	
+
+	
+	
+
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://xingyahao.com/">Xing Yahao</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</h1>
+			<div class="meta">Posted on Apr 29, 2025</div>
+		</div>
+		
+
+		
+
+		<section class="body">
+			<h2 id="context">Context</h2>
+<p>In our organization, we encountered increasing complexity with our applications and realized that we could leverage the benefits of Kubernetes over Amazon ECS. We already had a managed EKS cluster and had deployed some internal tools on Kubernetes, appreciating the platform&rsquo;s convenience. As a result, we decided to migrate all of our running applications to Kubernetes.</p>
+<p>We are currently in the process of migrating about 100 ECS services to Kubernetes. A portion of our production traffic (around 20%) is already running on Kubernetes, and several internal tools are also being handled by the cluster. Before routing more critical traffic to Kubernetes, I wanted to ensure that the upgrade to EKS v1.32 would cause minimal disruption to our production services.</p>
+<p>In the past, I had managed internal tools within the Kubernetes cluster and had upgraded Kubernetes versions a few times without careful planning. This time, I aimed for a comprehensive strategy to avoid any service interruptions. I scheduled a one-hour maintenance window for safety, intending to achieve zero downtime.</p>
+<p>My main references for the upgrade were the <a href="https://eksworkshop.com/docs/fundamentals/cluster-upgrades/">EKS Cluster Upgrades</a> guide from the <a href="https://eksworkshop.com/">EKS Workshop</a> and the <a href="https://docs.aws.amazon.com/eks/latest/best-practices/cluster-upgrades.html">Best Practices for Cluster Upgrades</a>.</p>
+<h2 id="before-the-upgrade">Before the Upgrade</h2>
+<h3 id="infrasture-overview">Infrasture overview</h3>
+<ul>
+<li>All AWS resources are managed with Terraform</li>
+<li>Atlantis runs to execute plans and apply changes.</li>
+<li>All applications are deployed via ArgoCD</li>
+<li>Worker nodes, except for Karpenter nodes provisioned by Karpenter.</li>
+<li>One managed node group for Karpenter,</li>
+</ul>
+<h3 id="upgrade-checklist">Upgrade checklist</h3>
+<ul>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md">Kubernetes v1.32 changelog</a></li>
+<li><a href="https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions-standard.html#kubernetes-1-32">EKS v1.32 release notes</a></li>
+<li><a href="https://karpenter.sh/v1.4/upgrading/compatibility/">Karpenter Compatibility Matrix</a></li>
+<li>EKS Upgrade Insights: This feature helps you check upgrade compatibility and provides recommendations.
+<ul>
+<li><a href="https://kubernetes.io/releases/version-skew-policy/">Version Skew Policy</a></li>
+<li><a href="https://github.com/doitintl/kube-no-trouble">kube-no-trouble</a> to scan for deprecated APIs</li>
+<li>Addon compatibility check with the following script:</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#fe8019">for</span> ADDON in <span style="color:#fe8019">$(</span>aws eks list-addons --cluster-name $CLUSTER_NAME --query <span style="color:#b8bb26">&#39;addons&#39;</span> --output text<span style="color:#fe8019">)</span>; <span style="color:#fe8019">do</span>
+</span></span><span style="display:flex;"><span> <span style="color:#fabd2f">echo</span> <span style="color:#b8bb26">&#34;### </span>$ADDON<span style="color:#b8bb26">&#34;</span>
+</span></span><span style="display:flex;"><span> aws eks describe-addon-versions --addon-name $ADDON --query <span style="color:#b8bb26">&#39;addons[0].addonVersions[*].addonVersion&#39;</span> --kubernetes-version 1.32 --output text
+</span></span><span style="display:flex;"><span> <span style="color:#fabd2f">echo</span> <span style="color:#b8bb26">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">done</span>
+</span></span></code></pre></div><h2 id="upgrade-steps">Upgrade Steps</h2>
+<p>I started with a staging environment to test the upgrade process before applying changes to production. During the upgrade, I continuously monitored several services.</p>
+<h3 id="karpenter-version">Karpenter Version</h3>
+<p>Since v1.32 does not support the current version of Karpenter we were using, I upgraded Karpenter via ArgoCD before upgrading the control plane. This process was smooth, completing in about a minute, and no nodes were recreated during this step.</p>
+<h3 id="control-plane-upgrade">Control Plane Upgrade</h3>
+<p>I applied the following change through Atlantis:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#fe8019">resource</span> <span style="color:#b8bb26">&#34;aws_eks_cluster&#34; &#34;cluster&#34;</span> {
+</span></span><span style="display:flex;"><span>  name                      <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;eks-cluster-name&#34;</span>
+</span></span><span style="display:flex;"><span>  version                   <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;1.32&#34;</span><span style="color:#928374;font-style:italic">  # Updated from 1.31 to 1.32
+</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>  ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>However, I noticed that Atlantis became unresponsive during the upgrade, and while the AWS console showed the upgrade completed after about 10 minutes, the Terraform apply logs were lost.</p>
+<p>Interestingly, I realized that Karpenter detected the version upgrade even before EKS reported it as finished and immediately began replacing nodes with the new version.</p>
+<p>Here is the production environment control plane upgrade Atlantis Terraform output.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/f125e40e8b29-20250429.png" alt="Screenshot 2025-04-29 at 19.43.11.png"></p>
+<h3 id="karpenter-managed-nodes-update">Karpenter Managed Nodes Update</h3>
+<p>After checking the events, I saw that Karpenter detected the version drift in under a minute. Over 30 nodes were replaced, which took about 20 minutes.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/bff484695b94-20250429.png" alt="Screenshot 2025-04-29 at 19.52.59.png"></p>
+<p>One important lesson I learned here is that the <code>spec.disruption.budgets[].nodes</code> value in the NodePool controls the speed of node replacement. The default value is 10%, meaning a gradual update will occur with 10% voluntary disruption. If <code>nodes</code> is set to <code>0</code>, Karpenter will prevent any nodes from being considered for voluntary disruption, giving us more control over when worker nodes are updated.</p>
+<p>Another common issue I encountered was deployment replicas conflicting with the PodDisruptionBudget (PDB) when both the replica count and PDB were set to 1.</p>
+<h3 id="managed-node-group-update">Managed Node Group Update</h3>
+<p>The managed node group, which is primarily used for Karpenter, is also managed by Terraform. I updated it as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>resource &#34;aws_eks_node_group&#34; &#34;example&#34; {
+</span></span><span style="display:flex;"><span>  cluster_name    = &#34;eks-cluster-name&#34;
+</span></span><span style="display:flex;"><span>  node_group_name = &#34;default&#34;
+</span></span><span style="display:flex;"><span>  version         = &#34;1.32&#34;
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The update was performed as a rolling update. I monitored pod cordon and eviction processes, followed by the launching of new pods. The update took around 10 minutes.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/8a1247607279-20250429.png" alt="Screenshot 2025-04-29 at 18.21.54.png"></p>
+<h3 id="addon-update">Addon Update</h3>
+<p>Using the previous script, I discovered that all addons needed to be updated. I updated them to the latest version via Terraform:</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>resource &#34;aws_eks_addon&#34; &#34;example&#34; {
+</span></span><span style="display:flex;"><span>  cluster_name                = aws_eks_cluster.example.name
+</span></span><span style="display:flex;"><span>  addon_name                  = &#34;kube-proxy&#34;
+</span></span><span style="display:flex;"><span>  addon_version               = &#34;v1.32.0-eksbuild.2&#34;
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This step took approximately 4 minutes.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/1843f4693361-20250429.png" alt="Screenshot 2025-04-29 at 18.23.15.png"></p>
+<h3 id="upgrade-production-environment">Upgrade Production Environment</h3>
+<p>After gaining insights from the staging environment upgrade, I proceeded with the production upgrade at a slower pace. The upgrade order was: <code>control plane</code> ⇒ <code>managed node group</code> ⇒ <code>Karpenter managed nodes</code> ⇒ <code>addon</code>.</p>
+<p>By slowing down the pace of Karpenter’s node replacement, the entire upgrade took around 1 hour.</p>
+<h3 id="monitoring-and-observability">Monitoring and Observability</h3>
+<p>Throughout the upgrade, I actively monitored application metrics, pod lifecycle events, and Karpenter activity to ensure minimal service disruption.</p>
+<p>One important observation: services <strong>without high availability configurations</strong> (i.e., single replica deployments or missing PDBs) experienced <strong>brief downtime of approximately one minute</strong> during node replacement or pod eviction. These gaps in redundancy made otherwise smooth infrastructure changes visible at the application layer.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/8aa9b5b61ae6-20250429.png" alt="Screenshot 2025-04-29 at 17.56.40.png"></p>
+<p>The <strong>entire upgrade process</strong>, from the initial control plane version bump to node group rollouts and addon updates, <strong>took about 2 hours</strong>, including 2 environments pre-checks and post-upgrade validation.</p>
+<p>These are events during upgrade.</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/44b5675cf3f4-20250429.png" alt="Screenshot 2025-04-29 at 17.51.19.png"></p>
+<h2 id="errors-encountered-and-learnings">Errors Encountered and Learnings</h2>
+<p>Thanks to this upgrade, I found our cluster internals and the behavior of cluster components during disruptive events. A few notable issues surfaced that helped shape our future upgrade and architecture strategy:</p>
+<h3 id="failedattachvolume">FailedAttachVolume</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1 FailedAttachVolume: Multi-Attach error for volume &#34;&lt;REDACTED&gt;&#34; Volume is already exclusively attached to one node and can&#39;t be attached to another
+</span></span></code></pre></div><p>This error typically occurs when a pod is rescheduled to a new node while its associated EBS volume is still attached to the previous node.</p>
+<h3 id="disruptionblocked">DisruptionBlocked</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>**DisruptionBlocked**: PDB &#34;&lt;REDACTED&gt;&#34; prevents pod evictions
+</span></span></code></pre></div><p>This is caused when a PodDisruptionBudget (PDB) blocks voluntary disruptions, often due to having only one pod replica. This reinforced the need to ensure that production workloads are highly available — ideally with at least 2 replicas — and that PDB configurations are reviewed prior to upgrades.</p>
+<h3 id="managed-node-group-update-1">Managed node group update</h3>
+<p>Since Kubernetes v1.32 is the last version that supports Amazon Linux 2 (AL2) AMIs, and our managed node group still uses AL2, I’ll need to upgrade the AMI type before the next version. I’m also considering moving Karpenter to run on Fargate, since it’s the only component that requires a managed node group. This could reduce maintenance and make future upgrades easier.</p>
+<h2 id="reflections-and-next-steps">Reflections and Next Steps</h2>
+<p>This upgrade helped our team deepen our understanding of EKS, Terraform, and the operational nuances of Kubernetes upgrades. A few key takeaways:</p>
+<ul>
+<li><strong>Karpenter reacts immediately</strong> to version changes and may start replacing nodes before the control plane officially reports the upgrade as complete. It&rsquo;s important to sequence upgrades carefully and use <code>spec.disruption.budgets.nodes</code> to control rollout speed.</li>
+<li><strong>High availability matters</strong>. We saw brief (~1 minute) downtime for non-HA services, even though the infrastructure behaved as expected. Going forward, we’ll define clear availability goals for every service.</li>
+<li><strong>PodDisruptionBudget configuration</strong> can silently block upgrades if misaligned with replica counts. We’ll revisit our PDB and replica settings to ensure smooth disruptions.</li>
+<li><strong>Control plane logging</strong> will be enabled to gain visibility into transient issues and make future upgrades easier to debug.</li>
+<li><strong>Maintenance windows may be unnecessary</strong> for critical services if they are properly configured for high availability. This upgrade showed us that a one-hour window wasn’t strictly needed, and we can aim for zero-downtime in future upgrades.+++</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2025  © Xing Yahao |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGTFKPMCX2"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-FGTFKPMCX2');
+        }
+      </script>
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
