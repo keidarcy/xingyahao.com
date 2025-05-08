@@ -72,18 +72,18 @@
 <h2 id="before-the-upgrade">Before the Upgrade</h2>
 <h3 id="infrasture-overview">Infrasture overview</h3>
 <ul>
-<li>All AWS resources are managed with Terraform</li>
+<li>All AWS resources are managed with Terraform.</li>
 <li>Atlantis runs to execute plans and apply changes.</li>
-<li>All applications are deployed via ArgoCD</li>
+<li>All applications are deployed via ArgoCD.</li>
 <li>Worker nodes, except for Karpenter nodes provisioned by Karpenter.</li>
-<li>One managed node group for Karpenter,</li>
+<li>One managed node group for Karpenter.</li>
 </ul>
 <h3 id="upgrade-checklist">Upgrade checklist</h3>
 <ul>
 <li><a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md">Kubernetes v1.32 changelog</a></li>
 <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions-standard.html#kubernetes-1-32">EKS v1.32 release notes</a></li>
 <li><a href="https://karpenter.sh/v1.4/upgrading/compatibility/">Karpenter Compatibility Matrix</a></li>
-<li>EKS Upgrade Insights: This feature helps you check upgrade compatibility and provides recommendations.
+<li>EKS Upgrade Insights: This feature helps you check upgrade compatibility and provides recommendations
 <ul>
 <li><a href="https://kubernetes.io/releases/version-skew-policy/">Version Skew Policy</a></li>
 <li><a href="https://github.com/doitintl/kube-no-trouble">kube-no-trouble</a> to scan for deprecated APIs</li>
