@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
-    <lastBuildDate>Tue, 29 Apr 2025 09:21:51 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 11 Aug 2025 18:23:00 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubectl-execrec: Session Recording for kubectl exec for auditing and compliance with security</title>
+      <link>https://xingyahao.com/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/</guid>
+      <description>&lt;h2 id=&#34;why-i-created-this-plugin&#34;&gt;Why I Created This Plugin&lt;/h2&gt;&#xA;&lt;p&gt;Kubernetes has built-in audit logs, but they only capture API calls, not the actual session content. When you use &lt;code&gt;kubectl exec&lt;/code&gt;, you get audit entries showing who accessed which pod, but not what commands were run or what output was produced.&lt;/p&gt;&#xA;&lt;p&gt;For comprehensive security monitoring, tools like &lt;a href=&#34;https://falco.org/&#34;&gt;Falco&lt;/a&gt; provide real-time threat detection across containers and Kubernetes. However, these are heavy solutions designed for enterprise security teams.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</title>
       <link>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</link>

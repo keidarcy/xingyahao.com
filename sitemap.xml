@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</loc>
-    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+    <loc>https://xingyahao.com/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/</loc>
-    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</loc>
     <lastmod>2025-04-29T09:21:51+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/</loc>
