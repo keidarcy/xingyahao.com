@@ -7,6 +7,42 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
+    <lastBuildDate>Mon, 11 Aug 2025 18:23:00 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS</title>
+      <link>https://xingyahao.com/categories/aws/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/categories/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DevTools</title>
+      <link>https://xingyahao.com/categories/devtools/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/categories/devtools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IaC</title>
+      <link>https://xingyahao.com/categories/iac/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/categories/iac/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Study</title>
+      <link>https://xingyahao.com/categories/study/</link>
+      <pubDate>Tue, 31 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/categories/study/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Content</title>
+      <link>https://xingyahao.com/categories/content/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/categories/content/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

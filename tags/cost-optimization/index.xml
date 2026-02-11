@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cost-Optimization on Xing Yahao</title>
+    <link>https://xingyahao.com/tags/cost-optimization/</link>
+    <description>Recent content in Cost-Optimization on Xing Yahao</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© Xing Yahao</copyright>
+    <lastBuildDate>Mon, 30 Dec 2024 11:46:46 +0900</lastBuildDate>
+    <atom:link href="https://xingyahao.com/tags/cost-optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrating Next.js Landing Page Projects from Vercel to AWS</title>
+      <link>https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;My team manages multiple landing page projects, including around 100,000 pages. Vercel initially served us well, especially with its preview URL feature for rapid feedback and built-in Next.js support to start development quickly. However, many of you may have seen this famous tweet about the surprising Vercel cost.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://storage.googleapis.com/zenn-user-upload/f33169715eb4-20241231.png&#34; alt=&#34;Screenshot 2024-12-30 at 14.40.48.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;My team experienced a similar moment: our monthly costs jumped from ~$2,000 to ~$3,500 due to a single server error happening in one day. This led us to migrate to AWS ECS, a decision that significantly &lt;strong&gt;improved performance and cost efficiency.&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How Do We Optimize Mongodb Latency and Save Money</title>
+      <link>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</link>
+      <pubDate>Thu, 04 Jan 2024 22:21:06 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</guid>
+      <description>&lt;h2 id=&#34;context&#34;&gt;Context&lt;/h2&gt;&#xA;&lt;p&gt;My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&amp;rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.&lt;/p&gt;&#xA;&lt;p&gt;As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance. As a temporary solution, we scaled up the production cluster tiers, resulting in a 40% increase in our billing. The following graphs are the average MongoDB read latency and monthly billing shift before the project. As you can see we were facing a critical period.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

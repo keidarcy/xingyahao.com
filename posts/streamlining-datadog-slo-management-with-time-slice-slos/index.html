@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>タイムスライスSLOでDatadogのSLO管理を効率化する - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Streamlining Datadog SLO management with time slice SLOS" />
+	<link rel="canonical" href="https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/" />
+	<meta property="og:description" content="Streamlining Datadog SLO management with time slice SLOS" />
+	<meta property="twitter:description" content="Streamlining Datadog SLO management with time slice SLOS" />
 	<meta property="og:url" content="https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="タイムスライスSLOでDatadogのSLO管理を効率化する">
@@ -13,58 +18,90 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-27T11:52:46+09:00">
     <meta property="article:modified_time" content="2024-12-27T11:52:46+09:00">
+    <meta property="article:tag" content="Datadog">
+    <meta property="article:tag" content="Slo">
+    <meta property="article:tag" content="Observability">
+    <meta property="article:tag" content="Sre">
+    <meta property="article:tag" content="Monitoring">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="タイムスライスSLOでDatadogのSLO管理を効率化する">
   <meta name="twitter:description" content="Streamlining Datadog SLO management with time slice SLOS">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"タイムスライスSLOでDatadogのSLO管理を効率化する\"",
+		"description": "\"Streamlining Datadog SLO management with time slice SLOS\"",
+		"datePublished": "2024-12-27T11:52:46\u002b09:00",
+		"dateModified": "2024-12-27T11:52:46\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">タイムスライスSLOでDatadogのSLO管理を効率化する</h1>
-			<div class="meta">Posted on Dec 27, 2024</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">タイムスライスSLOでDatadogのSLO管理を効率化する</h1>
+				<div class="meta">Posted on Dec 27, 2024</div>
+			</div>
+			
 
-		<section class="body">
-			<h3 id="はじめに">はじめに</h3>
+			<section class="body">
+				<h3 id="はじめに">はじめに</h3>
 <p>DatadogのSLOには3種類のオプションがあります：モニターベース SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/monitor/">Monitor-based SLOs</a>)、メトリクスベース SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/metric/">Metric-based SLOs</a>)、そして新しく追加されたタイムスライス SLO (<a href="https://docs.datadoghq.com/service_management/service_level_objectives/time_slice/">Time Slice SLOs</a>)です。</p>
 <p>今回は、特にタイムスライス SLOの利便性とメリットについて、具体例を挙げて説明します。</p>
 <hr>
@@ -137,31 +174,90 @@
 <hr>
 <h3 id="運用画面の比較">運用画面の比較</h3>
 <p>タイムスライス SLOの詳細ページを見てみると、Error BudgetやBurn Rateの遷移、Timelineなどの情報が豊富で、運用がさらに効率的になっています。</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/df217aae9b8c-20241227.png" alt="time slice slo"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/df217aae9b8c-20241227.png" alt="time slice slo" loading="lazy" decoding="async">
+</p>
 <p>一方、モニターベース SLOの詳細ページには、右上に「<strong>Export to Time Slice SLO</strong>」というオプションがあります。このボタンをクリックすると、既存のモニターベース SLOからタイムスライス SLOへの移行が簡単に行えます。</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/cddc7164a341-20241227.png" alt="monitor based slo"></p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/fd6fc0b4f233-20241227.png" alt="export to time slice slo"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cddc7164a341-20241227.png" alt="monitor based slo" loading="lazy" decoding="async">
+</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/fd6fc0b4f233-20241227.png" alt="export to time slice slo" loading="lazy" decoding="async">
+</p>
 <hr>
 <h3 id="終わりに">終わりに</h3>
 <p>今回は、レイテンシーSLOを例に、<strong>モニターベース SLO</strong>と<strong>タイムスライス SLO</strong>の作成と運用を比較しました。その結果、タイムスライス SLOは設定の簡潔さ、豊富なデータ表示、そして運用効率の観点から非常に優れています。</p>
 <p>今後、SLOを作成する際には、タイムスライス SLOを優先的に検討することをおすすめします。</p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/datadog">datadog</a></li>
+						
+						<li><a href="/tags/slo">slo</a></li>
+						
+						<li><a href="/tags/observability">observability</a></li>
+						
+						<li><a href="/tags/sre">sre</a></li>
+						
+						<li><a href="/tags/monitoring">monitoring</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></li>
+					
+					<li><a href="/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/">Reducing SRE Toil with TypeScript IaC - CDK for Terraform</a></li>
+					
+					<li><a href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">How Do We Optimize Mongodb Latency and Save Money</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#はじめに">はじめに</a></li>
+        <li><a href="#従来の方法-モニターベース-slo">従来の方法: モニターベース SLO</a></li>
+        <li><a href="#新しい選択肢-タイムスライス-slo">新しい選択肢: タイムスライス SLO</a></li>
+        <li><a href="#運用画面の比較">運用画面の比較</a></li>
+        <li><a href="#終わりに">終わりに</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

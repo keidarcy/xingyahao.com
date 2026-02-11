@@ -3,34 +3,42 @@
 	<head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Xing Yahao | Home </title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="" />
+	<meta name="description" content="Engineering blog about AWS, Kubernetes, SRE, and developer productivity." />
+	<link rel="canonical" href="https://xingyahao.com/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/" />
+	<meta property="og:description" content="Engineering blog about AWS, Kubernetes, SRE, and developer productivity." />
+	<meta property="twitter:description" content="Engineering blog about AWS, Kubernetes, SRE, and developer productivity." />
 	<link rel="alternate" type="application/rss+xml" href="https://xingyahao.com/index.xml" title="Xing Yahao" />
 	<meta property="og:url" content="https://xingyahao.com/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="Xing Yahao">
+  <meta property="og:description" content="Engineering blog about AWS, Kubernetes, SRE, and developer productivity.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Xing Yahao">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+  <meta name="twitter:description" content="Engineering blog about AWS, Kubernetes, SRE, and developer productivity.">
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
 	
 </head>
 
@@ -38,137 +46,171 @@
 		<div class="content">
 			<header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
 			
-			<main class="list">
-				<div class="site-description"></div>
-				
-				
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">kubectl-execrec: Session Recording for kubectl exec for auditing and compliance with security</a></h1>
-					<time>Aug 11, 2025</time>
-					<br><div class="description">
+			<div class="content-layout">
+				<main class="list">
+					<div class="site-description"></div>
+					
+					
+					
+					<section class="list-item" data-search-item data-search-text="kubectl-execrec: session recording for kubectl exec for auditing and compliance with security  why i created this plugin https://github.com/keidarc/kubectl-execrec
+kubernetes has built-in audit logs, but they only capture api calls, not the actual session content. when you use kubectl exec, you get audit entries showing who accessed which pod, but not what commands were run or what output was produced.
+for comprehensive security monitoring, tools like falco provide real-time threat detection across containers and kubernetes. however, these are heavy solutions designed for enterprise security teams.
+">
+						<h1 class="title"><a href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">kubectl-execrec: Session Recording for kubectl exec for auditing and compliance with security</a></h1>
+						<time>Aug 11, 2025</time>
+						<br><div class="description">
 	
 	The plugin you need just record `kubectl exec` sessions with minimal changes to existing workflows. No complex setup, no additional infrastructure, just session recording.
 	
 </div>
-					<a class="readmore" href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</a></h1>
-					<time>Apr 29, 2025</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="a comprehensive amazon eks v1.32 upgrade log with terraform and karpenter context in our organization, we encountered increasing complexity with our applications and realized that we could leverage the benefits of kubernetes over amazon ecs. we already had a managed eks cluster and had deployed some internal tools on kubernetes, appreciating the platform&amp;rsquo;s convenience. as a result, we decided to migrate all of our running applications to kubernetes.
+we are currently in the process of migrating about 100 ecs services to kubernetes. a portion of our production traffic (around 20%) is already running on kubernetes, and several internal tools are also being handled by the cluster. before routing more critical traffic to kubernetes, i wanted to ensure that the upgrade to eks v1.32 would cause minimal disruption to our production services.
+">
+						<h1 class="title"><a href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</a></h1>
+						<time>Apr 29, 2025</time>
+						<br><div class="description">
 	
 	Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned
 	
 </div>
-					<a class="readmore" href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</a></h1>
-					<time>Feb 1, 2025</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="introducing kubectl-eks-viewer bridge the gap between kubectl and aws cli as a developer working with amazon eks (elastic kubernetes service), i often found myself juggling between different tools like eksctl, aws-cli, and kubectl to manage and view eks resources. while kubectl provides a great interface for kubernetes resources, accessing aws-specific eks resources required switching to other tools, breaking the workflow and reducing productivity.
+the most common task was simply checking the status of eks-related aws resources - what are the desired count of my nodegroups? what addons are installed? what pod identity associations exist? getting this information required multiple commands across different tools. i wanted a single command that could show me everything at once, following the familiar kubectl patterns i use every day.
+">
+						<h1 class="title"><a href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</a></h1>
+						<time>Feb 1, 2025</time>
+						<br><div class="description">
 	
 	kubectl-eks-viewer - A kubectl plugin to seamlessly bridge kubectl and AWS CLI for EKS resource management
 	
 </div>
-					<a class="readmore" href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></h1>
-					<time>Dec 31, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="aws ecsの日常運用とセキュリティの改善ためのe1sの使用 はじめに いまのでは、私がいるsreチームは開発者がormメソッドを通じてデータベースにアクセスできる機能を提供していました。これには、セキュリティを確保しながら本番環境の最新スキーマを維持する必要のため、本番環境複製して、開発者アクセス用の環境を提供してきました。
+以前、システムの本番トラフィックは完全にec2からecsに移行しましたが、データベースアクセスのワークフローはレガシーな移行が完了していなかったため、引き続き専用のec2インスタンスに依存していました。しかし、このアプローチにはいくつかの課題がありました：
+sshキーの管理：サーバーアクセス用 スケーラビリティの制限：運用オーバーヘッド 複雑なci/cdパイプライン：ec2インスタンスに紐づいている 高額なawsコスト：継続的なec2使用による セキュリティリスク：粒度の低いアクセス制御と限られた監査機能 これらの問題に対処するため、e1s（ターミナルでecsリソースを管理するcliツール）をecs execと統合し、データベースアクセスのec2ベースのワークフローを置き換えました。この移行により、運用が簡素化され、コストが削減され、セキュリティが向上しました。
+旧ワークフローと新ワークフローの比較 旧ワークフロー：専用ec2インスタンス経由のアクセス
+チームメンバーは特定のec2サーバーにsshキーを使用してログイン 運用タスクはこれらのインスタンス上で手動実行 新ワークフロー：e1sを使用したecsベースの運用
+チームメンバーは、onelogin aws assume role cli（oneloginは私たちの会社全体で使用しているidプロバイダー）を使用して、awsの一時的な認証情報を取得します。 セキュリティ上の理由から、本番コンテナのexecは無効にしたままで、運用コンテナに対してecs execアクセスを有効にします。 チームメンバーは、e1sを使用し、特定のaws認証情報でecs execを簡単に実行して、監査ログが完全に記録された状態でコンテナを操作します。 メリット概要 複雑さの軽減 sshキーと専用ec2サーバーの必要性を排除し、キー管理に関連する手動運用を削減 ec2デプロイメント要件を削除することでciワークフローを簡素化 セキュリティの強化 sshキーの管理が不要となり、忘れたり紛失したりするリスクを排除 本番環境のシークレットを特定のecsコンテナに分離 onelogin付与のiamロールを通じてロールベースのアクセス制御（rbac）を強制 ecs execの出力をs3にログ記録し、監査とトレーサビリティを向上 コスト効率 継続的なec2インスタンスを削除することでaws費用を大幅に削減 ec2固有のデプロイメントパイプラインを排除することでciコストを削減 結論 現代のテックチームにとって、インフラストラクチャのセキュリティと運用効率の管理は重要です。e1sへの移行により、私たちの運用はよりスリムで、より安全で、よりコスト効率の良いワークフローへと改善されました。e1sが皆様のツールキットの一部となり、私たちと同様に運用を簡素化することを願っています！
+">
+						<h1 class="title"><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></h1>
+						<time>Dec 31, 2024</time>
+						<br><div class="description">
 	
 	How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.
 	
 </div>
-					<a class="readmore" href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></h1>
-					<time>Dec 31, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="integrate e1s to improve aws ecs daily operations with security introduction in my organization, we maintained a feature that allows developers to access databases via orm methods. this required duplicating the environment to provide a separate environment for developer access, ensuring security while maintaining an up-to-date deployment with the latest schema for production.
+previously, we had fully migrated the system production traffic from ec2 to ecs, but the database access workflow continued to rely on dedicated ec2 instances due to the incomplete legacy migration. however, this approach introduced several challenges:
+">
+						<h1 class="title"><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></h1>
+						<time>Dec 31, 2024</time>
+						<br><div class="description">
 	
 	How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.
 	
 </div>
-					<a class="readmore" href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">Migrating Next.js Landing Page Projects from Vercel to AWS</a></h1>
-					<time>Dec 30, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="migrating next.js landing page projects from vercel to aws introduction my team manages multiple landing page projects, including around 100,000 pages. vercel initially served us well, especially with its preview url feature for rapid feedback and built-in next.js support to start development quickly. however, many of you may have seen this famous tweet about the surprising vercel cost.
+my team experienced a similar moment: our monthly costs jumped from ~$2,000 to ~$3,500 due to a single server error happening in one day. this led us to migrate to aws ecs, a decision that significantly improved performance and cost efficiency.
+">
+						<h1 class="title"><a href="/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">Migrating Next.js Landing Page Projects from Vercel to AWS</a></h1>
+						<time>Dec 30, 2024</time>
+						<br><div class="description">
 	
 	Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency
 	
 </div>
-					<a class="readmore" href="/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/streamlining-datadog-slo-management-with-time-slice-slos/">タイムスライスSLOでDatadogのSLO管理を効率化する</a></h1>
-					<time>Dec 27, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="タイムスライスsloでdatadogのslo管理を効率化する はじめに datadogのsloには3種類のオプションがあります：モニターベース slo (monitor-based slos)、メトリクスベース slo (metric-based slos)、そして新しく追加されたタイムスライス slo (time slice slos)です。
+今回は、特にタイムスライス sloの利便性とメリットについて、具体例を挙げて説明します。
+従来の方法: モニターベース slo タイムスライス sloが登場する以前、たとえばnode.jsのexpress apiにおけるレイテンシーsloを作成する場合、モニターベース sloを使用して次のように設定していました。以下はterraformを使った例です。
+resource &amp;#34;datadog_monitor&amp;#34; &amp;#34;request_get_latency&amp;#34; { name = &amp;#34;📝 [slo] resource get api has an abnormal latency&amp;#34; type = &amp;#34;query alert&amp;#34; message = &amp;#34;resource get api latency is above 1 second&amp;#34; query = &amp;lt;&amp;lt;eot percentile(last_5m):p95:trace.express.request{resource_name:get_${local.path}} &amp;gt; 1 eot monitor_thresholds { critical = 1.0 # 1秒 } evaluation_delay = 300 # 5分 require_full_window = false } resource &amp;#34;datadog_service_level_objective&amp;#34; &amp;#34;request_get_latency&amp;#34; { name = &amp;#34;🏝️ get api p95 latency *monitor* slo&amp;#34; type = &amp;#34;monitor&amp;#34; description = &amp;#34;99.9%の時間、get apiのp95レイテンシーが1秒以下であること。&amp;#34; thresholds { timeframe = &amp;#34;30d&amp;#34; target = 99.9 } monitor_ids = [ datadog_monitor.request_get_latency.id ] } モニターベース sloでは、sloを作成する前にモニターの定義が必要です。この手間を軽減するために、タイムスライス sloが登場しました。
+">
+						<h1 class="title"><a href="/posts/streamlining-datadog-slo-management-with-time-slice-slos/">タイムスライスSLOでDatadogのSLO管理を効率化する</a></h1>
+						<time>Dec 27, 2024</time>
+						<br><div class="description">
 	
 	Streamlining Datadog SLO management with time slice SLOS
 	
 </div>
-					<a class="readmore" href="/posts/streamlining-datadog-slo-management-with-time-slice-slos/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/">Reducing SRE Toil with TypeScript IaC - CDK for Terraform</a></h1>
-					<time>Dec 17, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/streamlining-datadog-slo-management-with-time-slice-slos/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="reducing sre toil with typescript iac - cdk for terraform  the challenge while managing infrastructure resources on service providers like aws and gcp for multiple services, our engineering team frequently needed simple infrastructure changes - creating s3 buckets, modifying cloudfront behaviors, or updating iam permissions. while we used terraform, developers weren&amp;rsquo;t comfortable with hcl (hashicorp configuration language), creating redundant or repetitive work for sre team.
+after evaluating several infrastructure as code (iac) solutions including pulumi, aws cdk, aws cloudformation, we chose cdk for terraform (cdktf) because it offered:
+">
+						<h1 class="title"><a href="/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/">Reducing SRE Toil with TypeScript IaC - CDK for Terraform</a></h1>
+						<time>Dec 17, 2024</time>
+						<br><div class="description">
 	
 	How we empowered developers to manage cloud infrastructure by migrating from Terraform to CDKTF, reducing SRE toil through TypeScript and automated PR workflows.
 	
 </div>
-					<a class="readmore" href="/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/">Introducing E1s the K9s Inspired Cli for Aws Ecs</a></h1>
-					<time>Apr 19, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="introducing e1s the k9s inspired cli for aws ecs  if you&amp;rsquo;re working with aws ecs like me, no matter whether with fargate or ec2, managing resources can sometimes be a challenge to using aws-cli. you might look for something that brings the ease of k9s to k8s, thee1s aims to become the tool you&amp;rsquo;ve been waiting for. if you&amp;rsquo;re working with aws ecs, managing resources with aws-cli can sometimes be a challenge, whether you&amp;rsquo;re using fargate or ec2. for those seeking the ease of k9s for kubernetes, e1s is the tool you&amp;rsquo;ve been waiting for.
+">
+						<h1 class="title"><a href="/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/">Introducing E1s the K9s Inspired Cli for Aws Ecs</a></h1>
+						<time>Apr 19, 2024</time>
+						<br><div class="description">
 	
 	E1S - Easily Manage AWS ECS Resources in Terminal(~k9s for ECS)
 	
 </div>
-					<a class="readmore" href="/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">How Do We Optimize Mongodb Latency and Save Money</a></h1>
-					<time>Jan 4, 2024</time>
-					<br><div class="description">
+						<a class="readmore" href="/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/">Read more ⟶</a>
+					</section>
+					
+					<section class="list-item" data-search-item data-search-text="how do we optimize mongodb latency and save money context my organization has used mongodb on mongodb atlas for over 6 years. our backend api language is typescript, and we use mongoose as our orm. while we appreciate our tech stack&amp;rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.
+as our active users and product grew this year, we noticed a significant regression in endpoint response time. this indicated a major issue with mongodb’s performance. as a temporary solution, we scaled up the production cluster tiers, resulting in a 40% increase in our billing. the following graphs are the average mongodb read latency and monthly billing shift before the project. as you can see we were facing a critical period.
+">
+						<h1 class="title"><a href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">How Do We Optimize Mongodb Latency and Save Money</a></h1>
+						<time>Jan 4, 2024</time>
+						<br><div class="description">
 	
 	Here is how I reduce MongoDB latency and save cloud service cost
 	
 </div>
-					<a class="readmore" href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">Read more ⟶</a>
-				</section>
-				
-				
+						<a class="readmore" href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">Read more ⟶</a>
+					</section>
+					
+					<p class="search-empty" data-search-empty hidden>No matching posts found.</p>
+					
 
 <ul class="pagination">
 	<span class="page-item page-prev">
@@ -182,14 +224,203 @@
 </ul>
 
 
-			</main>
+				</main>
+				<aside class="taxonomy-sidebar" aria-label="Taxonomies">
+  <section class="taxonomy-group">
+    <h2>Search</h2>
+    <div class="search-box side-search-box">
+      <label class="search-label" for="post-search">Search posts</label>
+      <div class="search-input-wrap">
+        <span class="search-icon" aria-hidden="true">🔎</span>
+        <input id="post-search" type="search" placeholder="Search articles..." autocomplete="off" data-search-input />
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="taxonomy-group">
+    <h2>Tags</h2>
+    <ul class="taxonomy-cloud">
+      
+      <li>
+        <a href="/tags/aws/">Aws <span>6</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/cdktf/">Cdktf <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/cli/">Cli <span>3</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/compliance/">Compliance <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/cost-optimization/">Cost-Optimization <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/database/">Database <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/datadog/">Datadog <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/developer-experience/">Developer-Experience <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/devtools/">Devtools <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/e1s/">E1s <span>3</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/ecs/">Ecs <span>3</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/eks/">Eks <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/engineering/">Engineering <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/infrastructure/">Infrastructure <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/javascript/">Javascript <span>4</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/karpenter/">Karpenter <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/kubectl/">Kubectl <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/kubernetes/">Kubernetes <span>3</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/migration/">Migration <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/mongodb/">Mongodb <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/monitoring/">Monitoring <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/monorepo/">Monorepo <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/nextjs/">Nextjs <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/nodejs/">Nodejs <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/npm/">Npm <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/observability/">Observability <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/performance/">Performance <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/pnpm/">Pnpm <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/security/">Security <span>3</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/slo/">Slo <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/sre/">Sre <span>5</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/terraform/">Terraform <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/typescript/">Typescript <span>1</span></a>
+      </li>
+      
+      <li>
+        <a href="/tags/yarn/">Yarn <span>4</span></a>
+      </li>
+      
+    </ul>
+  </section>
+  
+
+  
+  <section class="taxonomy-group">
+    <h2>Categories</h2>
+    <ul class="taxonomy-cloud">
+      
+      <li>
+        <a href="/categories/aws/">AWS <span>8</span></a>
+      </li>
+      
+      <li>
+        <a href="/categories/content/">Content <span>4</span></a>
+      </li>
+      
+      <li>
+        <a href="/categories/devtools/">DevTools <span>5</span></a>
+      </li>
+      
+      <li>
+        <a href="/categories/iac/">IaC <span>2</span></a>
+      </li>
+      
+      <li>
+        <a href="/categories/study/">Study <span>9</span></a>
+      </li>
+      
+    </ul>
+  </section>
+  
+</aside>
+
+			</div>
+			<script src="/js/search.js"></script>
 			<footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

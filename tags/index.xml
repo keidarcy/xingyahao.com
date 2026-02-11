@@ -7,6 +7,245 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© Xing Yahao</copyright>
+    <lastBuildDate>Mon, 11 Aug 2025 18:23:00 +0900</lastBuildDate>
     <atom:link href="https://xingyahao.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cli</title>
+      <link>https://xingyahao.com/tags/cli/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/cli/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Compliance</title>
+      <link>https://xingyahao.com/tags/compliance/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/compliance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubectl</title>
+      <link>https://xingyahao.com/tags/kubectl/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/kubectl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://xingyahao.com/tags/kubernetes/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>https://xingyahao.com/tags/security/</link>
+      <pubDate>Mon, 11 Aug 2025 18:23:00 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Aws</title>
+      <link>https://xingyahao.com/tags/aws/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Eks</title>
+      <link>https://xingyahao.com/tags/eks/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/eks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Karpenter</title>
+      <link>https://xingyahao.com/tags/karpenter/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/karpenter/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terraform</title>
+      <link>https://xingyahao.com/tags/terraform/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/terraform/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>E1s</title>
+      <link>https://xingyahao.com/tags/e1s/</link>
+      <pubDate>Tue, 31 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/e1s/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ecs</title>
+      <link>https://xingyahao.com/tags/ecs/</link>
+      <pubDate>Tue, 31 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/ecs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sre</title>
+      <link>https://xingyahao.com/tags/sre/</link>
+      <pubDate>Tue, 31 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/sre/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cost-Optimization</title>
+      <link>https://xingyahao.com/tags/cost-optimization/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/cost-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Migration</title>
+      <link>https://xingyahao.com/tags/migration/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/migration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nextjs</title>
+      <link>https://xingyahao.com/tags/nextjs/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/nextjs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Performance</title>
+      <link>https://xingyahao.com/tags/performance/</link>
+      <pubDate>Mon, 30 Dec 2024 11:46:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/performance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Datadog</title>
+      <link>https://xingyahao.com/tags/datadog/</link>
+      <pubDate>Fri, 27 Dec 2024 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/datadog/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monitoring</title>
+      <link>https://xingyahao.com/tags/monitoring/</link>
+      <pubDate>Fri, 27 Dec 2024 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/monitoring/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Observability</title>
+      <link>https://xingyahao.com/tags/observability/</link>
+      <pubDate>Fri, 27 Dec 2024 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/observability/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Slo</title>
+      <link>https://xingyahao.com/tags/slo/</link>
+      <pubDate>Fri, 27 Dec 2024 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/slo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cdktf</title>
+      <link>https://xingyahao.com/tags/cdktf/</link>
+      <pubDate>Tue, 17 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/cdktf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>https://xingyahao.com/tags/infrastructure/</link>
+      <pubDate>Tue, 17 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Typescript</title>
+      <link>https://xingyahao.com/tags/typescript/</link>
+      <pubDate>Tue, 17 Dec 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/typescript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devtools</title>
+      <link>https://xingyahao.com/tags/devtools/</link>
+      <pubDate>Fri, 19 Apr 2024 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/devtools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Database</title>
+      <link>https://xingyahao.com/tags/database/</link>
+      <pubDate>Thu, 04 Jan 2024 22:21:06 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mongodb</title>
+      <link>https://xingyahao.com/tags/mongodb/</link>
+      <pubDate>Thu, 04 Jan 2024 22:21:06 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Developer-Experience</title>
+      <link>https://xingyahao.com/tags/developer-experience/</link>
+      <pubDate>Mon, 16 Jan 2023 09:25:36 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/developer-experience/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Engineering</title>
+      <link>https://xingyahao.com/tags/engineering/</link>
+      <pubDate>Mon, 16 Jan 2023 09:25:36 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Javascript</title>
+      <link>https://xingyahao.com/tags/javascript/</link>
+      <pubDate>Mon, 16 Jan 2023 09:25:36 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/javascript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monorepo</title>
+      <link>https://xingyahao.com/tags/monorepo/</link>
+      <pubDate>Mon, 16 Jan 2023 09:25:36 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/monorepo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Yarn</title>
+      <link>https://xingyahao.com/tags/yarn/</link>
+      <pubDate>Mon, 16 Jan 2023 09:25:36 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/yarn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nodejs</title>
+      <link>https://xingyahao.com/tags/nodejs/</link>
+      <pubDate>Mon, 10 Jan 2022 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Npm</title>
+      <link>https://xingyahao.com/tags/npm/</link>
+      <pubDate>Mon, 10 Jan 2022 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/npm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pnpm</title>
+      <link>https://xingyahao.com/tags/pnpm/</link>
+      <pubDate>Mon, 10 Jan 2022 11:52:46 +0900</pubDate>
+      <guid>https://xingyahao.com/tags/pnpm/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

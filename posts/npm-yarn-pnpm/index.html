@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Shortcomings of npm/yarn and reasons for recommending pnpm - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="npm vs yarn vs pnpm" />
+	<link rel="canonical" href="https://xingyahao.com/posts/npm-yarn-pnpm/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/npm-yarn-pnpm/" />
+	<meta property="og:description" content="npm vs yarn vs pnpm" />
+	<meta property="twitter:description" content="npm vs yarn vs pnpm" />
 	<meta property="og:url" content="https://xingyahao.com/posts/npm-yarn-pnpm/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="Shortcomings of npm/yarn and reasons for recommending pnpm">
@@ -13,58 +18,90 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2022-01-10T11:52:46+09:00">
     <meta property="article:modified_time" content="2022-01-10T11:52:46+09:00">
+    <meta property="article:tag" content="Nodejs">
+    <meta property="article:tag" content="Npm">
+    <meta property="article:tag" content="Yarn">
+    <meta property="article:tag" content="Pnpm">
+    <meta property="article:tag" content="Javascript">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Shortcomings of npm/yarn and reasons for recommending pnpm">
   <meta name="twitter:description" content="npm vs yarn vs pnpm">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"Shortcomings of npm/yarn and reasons for recommending pnpm\"",
+		"description": "\"npm vs yarn vs pnpm\"",
+		"datePublished": "2022-01-10T11:52:46\u002b09:00",
+		"dateModified": "2022-01-10T11:52:46\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/npm-yarn-pnpm/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">Shortcomings of npm/yarn and reasons for recommending pnpm</h1>
-			<div class="meta">Posted on Jan 10, 2022</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">Shortcomings of npm/yarn and reasons for recommending pnpm</h1>
+				<div class="meta">Posted on Jan 10, 2022</div>
+			</div>
+			
 
-		<section class="body">
-			<h2 id="what-is-pnpm">What is pnpm?</h2>
+			<section class="body">
+				<h2 id="what-is-pnpm">What is pnpm?</h2>
 <p><a href="https://pnpm.io/">pnpm</a> According to the official website, pnpm stands for performant npm.</p>
 <blockquote>
 <p>Fast, disk space efficient package manager</p></blockquote>
@@ -342,22 +379,90 @@ If you have used npm/yarn before, you can use pnpm with almost no learning cost.
 <hr>
 <p><em>Originally published at <a href="https://engineering.meetsmore.com/entry/2021/12/06/112931">https://engineering.meetsmore.com</a> on December 6, 2021.</em></p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/nodejs">nodejs</a></li>
+						
+						<li><a href="/tags/npm">npm</a></li>
+						
+						<li><a href="/tags/yarn">yarn</a></li>
+						
+						<li><a href="/tags/pnpm">pnpm</a></li>
+						
+						<li><a href="/tags/javascript">javascript</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/npm-yarn-pnpm-ja/">npm/yarn の不足点と pnpm を推す理由(Japanese)</a></li>
+					
+					<li><a href="/posts/javascript-monorepo-development-improvement-approaches/">Javascript Monorepo Development Improvement Approaches</a></li>
+					
+					<li><a href="/posts/javascript-monorepo-development-improvement-approaches-ja/">JavaScript Monorepo 開発改善への取り組みについて(Japanese)</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-pnpm">What is pnpm?</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#disk-space">Disk space</a>
+      <ul>
+        <li><a href="#npmyarn---disk-space-consumption-node_modules">npm/yarn - Disk space consumption node_modules</a></li>
+        <li><a href="#pnpm---efficient-disk-space">pnpm - Efficient disk space</a></li>
+      </ul>
+    </li>
+    <li><a href="#node_modules-structure-and-dependency-resolution">Node_modules structure and dependency resolution</a>
+      <ul>
+        <li><a href="#npm1---nested-node_modules">npm1 - nested node_modules</a></li>
+        <li><a href="#npm3yarn---flat-node_modules">npm3/yarn - flat node_modules</a></li>
+        <li><a href="#npm5xyarn---flat-node_modules-and-lock-file">npm5.x/yarn - Flat node_modules and lock file</a></li>
+        <li><a href="#pnpm---node_modules-structure-based-on-symbolic-links">pnpm - node_modules structure based on symbolic links</a></li>
+        <li><a href="#solutions-other-than-pnpm">Solutions other than pnpm</a></li>
+      </ul>
+    </li>
+    <li><a href="#finally">Finally</a>
+      <ul>
+        <li><a href="#basic-commands">Basic commands</a></li>
+        <li><a href="#monorepo-support">Monorepo support</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

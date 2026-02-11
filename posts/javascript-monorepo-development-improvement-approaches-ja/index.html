@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>JavaScript Monorepo 開発改善への取り組みについて(Japanese) - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Javascript monorepo development improvement approaches in Japanese" />
+	<link rel="canonical" href="https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches-ja/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches-ja/" />
+	<meta property="og:description" content="Javascript monorepo development improvement approaches in Japanese" />
+	<meta property="twitter:description" content="Javascript monorepo development improvement approaches in Japanese" />
 	<meta property="og:url" content="https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches-ja/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="JavaScript Monorepo 開発改善への取り組みについて(Japanese)">
@@ -13,60 +18,93 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2022-12-16T09:25:36+09:00">
     <meta property="article:modified_time" content="2022-12-16T09:25:36+09:00">
+    <meta property="article:tag" content="Javascript">
+    <meta property="article:tag" content="Monorepo">
+    <meta property="article:tag" content="Yarn">
+    <meta property="article:tag" content="Developer-Experience">
+    <meta property="article:tag" content="Engineering">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="JavaScript Monorepo 開発改善への取り組みについて(Japanese)">
   <meta name="twitter:description" content="Javascript monorepo development improvement approaches in Japanese">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"JavaScript Monorepo 開発改善への取り組みについて(Japanese)\"",
+		"description": "\"Javascript monorepo development improvement approaches in Japanese\"",
+		"datePublished": "2022-12-16T09:25:36\u002b09:00",
+		"dateModified": "2022-12-16T09:25:36\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches-ja/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">JavaScript Monorepo 開発改善への取り組みについて(Japanese)</h1>
-			<div class="meta">Posted on Dec 16, 2022</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">JavaScript Monorepo 開発改善への取り組みについて(Japanese)</h1>
+				<div class="meta">Posted on Dec 16, 2022</div>
+			</div>
+			
 
-		<section class="body">
-			<p>Monorepo(モノレポ)とは、アプリケーションやマイクロサービスの全コードを単一のモノリシックなリポジトリ (普通は Git) に保存するパターンを指します。</p>
+			<section class="body">
+				<p>Monorepo(モノレポ)とは、アプリケーションやマイクロサービスの全コードを単一のモノリシックなリポジトリ (普通は Git) に保存するパターンを指します。</p>
 <p>今まで backend/frontend ともに JavaScript で同じリポジトリで管理されて、いわゆる JavaScript の モノレポです。主に <a href="https://classic.yarnpkg.com/en/docs/yarn-workflow">yarn workspace</a> 機能を使って、backend/frontend とロジックのコードをシェアーして、また、それぞれのレポジトリの切り替えが必要なく、コードレビューを複数に出す必要もなくなりました。一つのリポジトリさえクローンして修正すればいいので、素早く開発できました。</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/0b6954535479-20240604.png" alt="Multi-Repo vs Monorepo"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/0b6954535479-20240604.png" alt="Multi-Repo vs Monorepo" loading="lazy" decoding="async">
+</p>
 <p>しかし、一年前状況を振り返ったら、二つ大きな問題点があります。</p>
 <ul>
 <li><a href="https://classic.yarnpkg.com/lang/en/">yarn 1</a> (以降 yarn と呼びます)の機能不足(詳細は<a href="https://xingyahao.com/posts/npm-yarn-pnpm-ja/">去年の記事</a>)で新規プロジェクトを同じリポジトリに workspace の package として作れないこと。</li>
@@ -78,7 +116,7 @@
 <li>新規の package を元のモノレポ配下に作ることができて、既存のロジックなどを簡易に再利用できました。</li>
 <li>ローカルサーバの立ち上がる時間は元の50%まで激減して、開発者体験向上や開発スピードが上がりました。</li>
 </ul>
-<h1 id="様々な取り組み">様々な取り組み</h1>
+<h2 id="様々な取り組み">様々な取り組み</h2>
 <h2 id="shared-リポジトリの作成">shared リポジトリの作成</h2>
 <p>当時モノレポかマルチレポかまだ決まっていない段階で、取り敢えずコードシェアーが目の前の問題なので、<a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry">Github private npm registery</a> を利用して、複数箇所にコピペされていたコードをnpm packageにして、共有できました。<a href="https://lerna.js.org/">Lerna</a> を使って、backend/frontend/共通 それぞれの package を作って複数のリポジトリに必要なロジックを該当の package 移して、更新したら、CIで新バージョンを publish と作りました。</p>
 <p>しかし、実際に運用してみたら、以下の問題点があります。</p>
@@ -120,27 +158,81 @@
 <p>元々 circleci の設定ファイルが分割できず、モノレポの CI が全て一つのファイルに記述されて、2300行を超えて、非常にわかりづらかったし、モノレポなのに package ごとの CI はできなかったです。そこで、登場したのが <a href="https://circleci.com/docs/dynamic-config/">dynamic config</a> と <a href="https://circleci.com/blog/building-private-orbs/">private orbs</a>。</p>
 <p>dynamic config は通常の workflow の前に、setup workflow 追加されて、分割した設定ファイルをこのタンミングで元のようなファイルを生成します。private orbs は public orbs のように共通のロジックをまとめて、必要な機能をコマンドとして提供して、利用する側はこちらのコマンドと必要なパラメータを渡れば終わりです。</p>
 <p>今後は引き続き各 microservice の CI を独立して、既存のレガシーの CI の lint や test なども private orbs のコマンドに集約、新規追加や修正などをより便利にできるように目指しています。</p>
-<h1 id="まとめと今後の動き">まとめと今後の動き</h1>
+<h2 id="まとめと今後の動き">まとめと今後の動き</h2>
 <p>一年間通して、沢山の改善を行って、良い結果になったと思いますが、改善できるところまだまだ沢山あります。例えば、次の OKR として、開発環境の改善として、サーバをより早く立ち上がり、Unit テストの実行時間の減少があります。すでに、分割した別のリポジトリに存在しているプロジェクトを恩恵を受けるため、メインのモノレポにマージ。アプリエンジニアもサーバアラートを作成できるように、terraform を <a href="https://github.com/hashicorp/hcl">HCL</a> から <a href="https://github.com/hashicorp/terraform-cdk">CDKTF</a> に移行してモノレポに追加などがあります。</p>
 <hr>
 <p><em>Originally published at <a href="https://engineering.meetsmore.com/entry/2022/12/16/183916">https://engineering.meetsmore.com</a> on December 16, 2022.</em></p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/javascript">javascript</a></li>
+						
+						<li><a href="/tags/monorepo">monorepo</a></li>
+						
+						<li><a href="/tags/yarn">yarn</a></li>
+						
+						<li><a href="/tags/developer-experience">developer-experience</a></li>
+						
+						<li><a href="/tags/engineering">engineering</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/javascript-monorepo-development-improvement-approaches/">Javascript Monorepo Development Improvement Approaches</a></li>
+					
+					<li><a href="/posts/npm-yarn-pnpm/">Shortcomings of npm/yarn and reasons for recommending pnpm</a></li>
+					
+					<li><a href="/posts/npm-yarn-pnpm-ja/">npm/yarn の不足点と pnpm を推す理由(Japanese)</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#様々な取り組み">様々な取り組み</a></li>
+    <li><a href="#shared-リポジトリの作成">shared リポジトリの作成</a></li>
+    <li><a href="#yarn-berry-に移行">yarn berry に移行</a></li>
+    <li><a href="#nx-の導入">Nx の導入</a></li>
+    <li><a href="#swc-の導入">swc の導入</a></li>
+    <li><a href="#共通ツールのアップグレードと設定ファイルの共通化">共通ツールのアップグレードと設定ファイルの共通化</a></li>
+    <li><a href="#microservice-化の第一歩">microservice 化の第一歩</a></li>
+    <li><a href="#circleci-dynamic-config-と-private-orbs-の導入">circleci dynamic config と private orbs の導入</a></li>
+    <li><a href="#まとめと今後の動き">まとめと今後の動き</a></li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

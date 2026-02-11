@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned" />
+	<link rel="canonical" href="https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/" />
+	<meta property="og:description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned" />
+	<meta property="twitter:description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned" />
 	<meta property="og:url" content="https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter">
@@ -13,58 +18,90 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-04-29T09:21:51+09:00">
     <meta property="article:modified_time" content="2025-04-29T09:21:51+09:00">
+    <meta property="article:tag" content="Aws">
+    <meta property="article:tag" content="Eks">
+    <meta property="article:tag" content="Terraform">
+    <meta property="article:tag" content="Karpenter">
+    <meta property="article:tag" content="Kubernetes">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter">
   <meta name="twitter:description" content="Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter\"",
+		"description": "\"Detailed guide on upgrading Amazon EKS to v1.32 using Terraform and Karpenter, focusing on zero-downtime strategy and lessons learned\"",
+		"datePublished": "2025-04-29T09:21:51\u002b09:00",
+		"dateModified": "2025-04-29T09:21:51\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</h1>
-			<div class="meta">Posted on Apr 29, 2025</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</h1>
+				<div class="meta">Posted on Apr 29, 2025</div>
+			</div>
+			
 
-		<section class="body">
-			<h2 id="context">Context</h2>
+			<section class="body">
+				<h2 id="context">Context</h2>
 <p>In our organization, we encountered increasing complexity with our applications and realized that we could leverage the benefits of Kubernetes over Amazon ECS. We already had a managed EKS cluster and had deployed some internal tools on Kubernetes, appreciating the platform&rsquo;s convenience. As a result, we decided to migrate all of our running applications to Kubernetes.</p>
 <p>We are currently in the process of migrating about 100 ECS services to Kubernetes. A portion of our production traffic (around 20%) is already running on Kubernetes, and several internal tools are also being handled by the cluster. Before routing more critical traffic to Kubernetes, I wanted to ensure that the upgrade to EKS v1.32 would cause minimal disruption to our production services.</p>
 <p>In the past, I had managed internal tools within the Kubernetes cluster and had upgraded Kubernetes versions a few times without careful planning. This time, I aimed for a comprehensive strategy to avoid any service interruptions. I scheduled a one-hour maintenance window for safety, intending to achieve zero downtime.</p>
@@ -110,10 +147,12 @@
 </span></span></code></pre></div><p>However, I noticed that Atlantis became unresponsive during the upgrade, and while the AWS console showed the upgrade completed after about 10 minutes, the Terraform apply logs were lost.</p>
 <p>Interestingly, I realized that Karpenter detected the version upgrade even before EKS reported it as finished and immediately began replacing nodes with the new version.</p>
 <p>Here is the production environment control plane upgrade Atlantis Terraform output.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/f125e40e8b29-20250429.png" alt="Screenshot 2025-04-29 at 19.43.11.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/f125e40e8b29-20250429.png" alt="Screenshot 2025-04-29 at 19.43.11.png" loading="lazy" decoding="async">
+</p>
 <h3 id="karpenter-managed-nodes-update">Karpenter Managed Nodes Update</h3>
 <p>After checking the events, I saw that Karpenter detected the version drift in under a minute. Over 30 nodes were replaced, which took about 20 minutes.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/bff484695b94-20250429.png" alt="Screenshot 2025-04-29 at 19.52.59.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/bff484695b94-20250429.png" alt="Screenshot 2025-04-29 at 19.52.59.png" loading="lazy" decoding="async">
+</p>
 <p>One important lesson I learned here is that the <code>spec.disruption.budgets[].nodes</code> value in the NodePool controls the speed of node replacement. The default value is 10%, meaning a gradual update will occur with 10% voluntary disruption. If <code>nodes</code> is set to <code>0</code>, Karpenter will prevent any nodes from being considered for voluntary disruption, giving us more control over when worker nodes are updated.</p>
 <p>Another common issue I encountered was deployment replicas conflicting with the PodDisruptionBudget (PDB) when both the replica count and PDB were set to 1.</p>
 <h3 id="managed-node-group-update">Managed Node Group Update</h3>
@@ -125,7 +164,8 @@
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The update was performed as a rolling update. I monitored pod cordon and eviction processes, followed by the launching of new pods. The update took around 10 minutes.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/8a1247607279-20250429.png" alt="Screenshot 2025-04-29 at 18.21.54.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/8a1247607279-20250429.png" alt="Screenshot 2025-04-29 at 18.21.54.png" loading="lazy" decoding="async">
+</p>
 <h3 id="addon-update">Addon Update</h3>
 <p>Using the previous script, I discovered that all addons needed to be updated. I updated them to the latest version via Terraform:</p>
 <div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>resource &#34;aws_eks_addon&#34; &#34;example&#34; {
@@ -135,17 +175,20 @@
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This step took approximately 4 minutes.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/1843f4693361-20250429.png" alt="Screenshot 2025-04-29 at 18.23.15.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/1843f4693361-20250429.png" alt="Screenshot 2025-04-29 at 18.23.15.png" loading="lazy" decoding="async">
+</p>
 <h3 id="upgrade-production-environment">Upgrade Production Environment</h3>
 <p>After gaining insights from the staging environment upgrade, I proceeded with the production upgrade at a slower pace. The upgrade order was: <code>control plane</code> ⇒ <code>managed node group</code> ⇒ <code>Karpenter managed nodes</code> ⇒ <code>addon</code>.</p>
 <p>By slowing down the pace of Karpenter’s node replacement, the entire upgrade took around 1 hour.</p>
 <h3 id="monitoring-and-observability">Monitoring and Observability</h3>
 <p>Throughout the upgrade, I actively monitored application metrics, pod lifecycle events, and Karpenter activity to ensure minimal service disruption.</p>
 <p>One important observation: services <strong>without high availability configurations</strong> (i.e., single replica deployments or missing PDBs) experienced <strong>brief downtime of approximately one minute</strong> during node replacement or pod eviction. These gaps in redundancy made otherwise smooth infrastructure changes visible at the application layer.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/8aa9b5b61ae6-20250429.png" alt="Screenshot 2025-04-29 at 17.56.40.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/8aa9b5b61ae6-20250429.png" alt="Screenshot 2025-04-29 at 17.56.40.png" loading="lazy" decoding="async">
+</p>
 <p>The <strong>entire upgrade process</strong>, from the initial control plane version bump to node group rollouts and addon updates, <strong>took about 2 hours</strong>, including 2 environments pre-checks and post-upgrade validation.</p>
 <p>These are events during upgrade.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/44b5675cf3f4-20250429.png" alt="Screenshot 2025-04-29 at 17.51.19.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/44b5675cf3f4-20250429.png" alt="Screenshot 2025-04-29 at 17.51.19.png" loading="lazy" decoding="async">
+</p>
 <h2 id="errors-encountered-and-learnings">Errors Encountered and Learnings</h2>
 <p>Thanks to this upgrade, I found our cluster internals and the behavior of cluster components during disruptive events. A few notable issues surfaced that helped shape our future upgrade and architecture strategy:</p>
 <h3 id="failedattachvolume">FailedAttachVolume</h3>
@@ -166,22 +209,95 @@
 <li><strong>Maintenance windows may be unnecessary</strong> for critical services if they are properly configured for high availability. This upgrade showed us that a one-hour window wasn’t strictly needed, and we can aim for zero-downtime in future upgrades.+++</li>
 </ul>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/aws">aws</a></li>
+						
+						<li><a href="/tags/eks">eks</a></li>
+						
+						<li><a href="/tags/terraform">terraform</a></li>
+						
+						<li><a href="/tags/karpenter">karpenter</a></li>
+						
+						<li><a href="/tags/kubernetes">kubernetes</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</a></li>
+					
+					<li><a href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">kubectl-execrec: Session Recording for kubectl exec for auditing and compliance with security</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#context">Context</a></li>
+    <li><a href="#before-the-upgrade">Before the Upgrade</a>
+      <ul>
+        <li><a href="#infrasture-overview">Infrasture overview</a></li>
+        <li><a href="#upgrade-checklist">Upgrade checklist</a></li>
+      </ul>
+    </li>
+    <li><a href="#upgrade-steps">Upgrade Steps</a>
+      <ul>
+        <li><a href="#karpenter-version">Karpenter Version</a></li>
+        <li><a href="#control-plane-upgrade">Control Plane Upgrade</a></li>
+        <li><a href="#karpenter-managed-nodes-update">Karpenter Managed Nodes Update</a></li>
+        <li><a href="#managed-node-group-update">Managed Node Group Update</a></li>
+        <li><a href="#addon-update">Addon Update</a></li>
+        <li><a href="#upgrade-production-environment">Upgrade Production Environment</a></li>
+        <li><a href="#monitoring-and-observability">Monitoring and Observability</a></li>
+      </ul>
+    </li>
+    <li><a href="#errors-encountered-and-learnings">Errors Encountered and Learnings</a>
+      <ul>
+        <li><a href="#failedattachvolume">FailedAttachVolume</a></li>
+        <li><a href="#disruptionblocked">DisruptionBlocked</a></li>
+        <li><a href="#managed-node-group-update-1">Managed node group update</a></li>
+      </ul>
+    </li>
+    <li><a href="#reflections-and-next-steps">Reflections and Next Steps</a></li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

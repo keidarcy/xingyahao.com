@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>AWS ECSの日常運用とセキュリティの改善ためのE1sの使用 - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow." />
+	<link rel="canonical" href="https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/" />
+	<meta property="og:description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow." />
+	<meta property="twitter:description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow." />
 	<meta property="og:url" content="https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="AWS ECSの日常運用とセキュリティの改善ためのE1sの使用">
@@ -13,58 +18,90 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-31T09:21:51+09:00">
     <meta property="article:modified_time" content="2024-12-31T09:21:51+09:00">
+    <meta property="article:tag" content="Aws">
+    <meta property="article:tag" content="Ecs">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Sre">
+    <meta property="article:tag" content="E1s">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="AWS ECSの日常運用とセキュリティの改善ためのE1sの使用">
   <meta name="twitter:description" content="How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"AWS ECSの日常運用とセキュリティの改善ためのE1sの使用\"",
+		"description": "\"How we improved our daily operations by integrating e1s with ECS Exec with simplified operations, enhanced security through IAM roles workflow.\"",
+		"datePublished": "2024-12-31T09:21:51\u002b09:00",
+		"dateModified": "2024-12-31T09:21:51\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</h1>
-			<div class="meta">Posted on Dec 31, 2024</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</h1>
+				<div class="meta">Posted on Dec 31, 2024</div>
+			</div>
+			
 
-		<section class="body">
-			<h2 id="はじめに">はじめに</h2>
+			<section class="body">
+				<h2 id="はじめに">はじめに</h2>
 <p>いまのでは、私がいるSREチームは開発者がORMメソッドを通じてデータベースにアクセスできる機能を提供していました。これには、セキュリティを確保しながら本番環境の最新スキーマを維持する必要のため、本番環境複製して、開発者アクセス用の環境を提供してきました。</p>
 <p>以前、システムの本番トラフィックは完全にEC2からECSに移行しましたが、データベースアクセスのワークフローはレガシーな移行が完了していなかったため、引き続き専用のEC2インスタンスに依存していました。しかし、このアプローチにはいくつかの課題がありました：</p>
 <ul>
@@ -81,14 +118,16 @@
 <li>チームメンバーは特定のEC2サーバーにSSHキーを使用してログイン</li>
 <li>運用タスクはこれらのインスタンス上で手動実行</li>
 </ul>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/cbe42adfc429-20241231.png" alt="old-workflow.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cbe42adfc429-20241231.png" alt="old-workflow.png" loading="lazy" decoding="async">
+</p>
 <p><strong>新ワークフロー：e1sを使用したECSベースの運用</strong></p>
 <ul>
 <li>チームメンバーは、<a href="https://github.com/onelogin/onelogin-python-aws-assume-role">onelogin aws assume role cli</a>（OneLoginは私たちの会社全体で使用しているIDプロバイダー）を使用して、AWSの一時的な認証情報を取得します。</li>
 <li>セキュリティ上の理由から、本番コンテナのexecは無効にしたままで、運用コンテナに対してECS Execアクセスを有効にします。</li>
 <li>チームメンバーは、<a href="https://github.com/keidarcy/e1s">e1s</a>を使用し、特定のAWS認証情報でECS Execを簡単に実行して、監査ログが完全に記録された状態でコンテナを操作します。</li>
 </ul>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/c733932fd992-20241231.png" alt="new-workflow.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/c733932fd992-20241231.png" alt="new-workflow.png" loading="lazy" decoding="async">
+</p>
 <h2 id="メリット概要">メリット概要</h2>
 <h3 id="複雑さの軽減"><strong>複雑さの軽減</strong></h3>
 <ul>
@@ -110,22 +149,79 @@
 <h2 id="結論">結論</h2>
 <p>現代のテックチームにとって、インフラストラクチャのセキュリティと運用効率の管理は重要です。<a href="https://github.com/keidarcy/e1s">e1s</a>への移行により、私たちの運用はよりスリムで、より安全で、よりコスト効率の良いワークフローへと改善されました。<a href="https://github.com/keidarcy/e1s">e1s</a>が皆様のツールキットの一部となり、私たちと同様に運用を簡素化することを願っています！</p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/aws">aws</a></li>
+						
+						<li><a href="/tags/ecs">ecs</a></li>
+						
+						<li><a href="/tags/security">security</a></li>
+						
+						<li><a href="/tags/sre">sre</a></li>
+						
+						<li><a href="/tags/e1s">e1s</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></li>
+					
+					<li><a href="/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/">Introducing E1s the K9s Inspired Cli for Aws Ecs</a></li>
+					
+					<li><a href="/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/">kubectl-execrec: Session Recording for kubectl exec for auditing and compliance with security</a></li>
+					
+					<li><a href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#はじめに">はじめに</a></li>
+    <li><a href="#旧ワークフローと新ワークフローの比較">旧ワークフローと新ワークフローの比較</a></li>
+    <li><a href="#メリット概要">メリット概要</a>
+      <ul>
+        <li><a href="#複雑さの軽減"><strong>複雑さの軽減</strong></a></li>
+        <li><a href="#セキュリティの強化"><strong>セキュリティの強化</strong></a></li>
+        <li><a href="#コスト効率"><strong>コスト効率</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#結論">結論</a></li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

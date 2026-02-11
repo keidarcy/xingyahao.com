@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>How Do We Optimize Mongodb Latency and Save Money - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Here is how I reduce MongoDB latency and save cloud service cost" />
+	<link rel="canonical" href="https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/" />
+	<meta property="og:description" content="Here is how I reduce MongoDB latency and save cloud service cost" />
+	<meta property="twitter:description" content="Here is how I reduce MongoDB latency and save cloud service cost" />
 	<meta property="og:url" content="https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="How Do We Optimize Mongodb Latency and Save Money">
@@ -13,68 +18,104 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-01-04T22:21:06+09:00">
     <meta property="article:modified_time" content="2024-01-04T22:21:06+09:00">
+    <meta property="article:tag" content="Mongodb">
+    <meta property="article:tag" content="Performance">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Cost-Optimization">
+    <meta property="article:tag" content="Sre">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="How Do We Optimize Mongodb Latency and Save Money">
   <meta name="twitter:description" content="Here is how I reduce MongoDB latency and save cloud service cost">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"How Do We Optimize Mongodb Latency and Save Money\"",
+		"description": "\"Here is how I reduce MongoDB latency and save cloud service cost\"",
+		"datePublished": "2024-01-04T22:21:06\u002b09:00",
+		"dateModified": "2024-01-04T22:21:06\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">How Do We Optimize Mongodb Latency and Save Money</h1>
-			<div class="meta">Posted on Jan 4, 2024</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">How Do We Optimize Mongodb Latency and Save Money</h1>
+				<div class="meta">Posted on Jan 4, 2024</div>
+			</div>
+			
 
-		<section class="body">
-			<h1 id="context">Context</h1>
+			<section class="body">
+				<h2 id="context">Context</h2>
 <p>My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.</p>
 <p>As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance. As a temporary solution, we scaled up the production cluster tiers, resulting in a 40% increase in our billing. The following graphs are the average MongoDB read latency and monthly billing shift before the project. As you can see we were facing a critical period.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/138cec513004-20240531.webp" alt="Average read latency before the project"></p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/1cd31adee4ac-20240531.webp" alt="MongoDB Atlas monthly billing before the project"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/138cec513004-20240531.webp" alt="Average read latency before the project" loading="lazy" decoding="async">
+</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/1cd31adee4ac-20240531.webp" alt="MongoDB Atlas monthly billing before the project" loading="lazy" decoding="async">
+</p>
 <p>Our development team started a project to optimize MongoDB settings, queries, and billing. Here is what we learned from this project.</p>
 <h2 id="configuration-optimization">Configuration optimization</h2>
 <h3 id="always-sets-timeout">Always Sets Timeout</h3>
 <p>We previously had some large collections with over 100 million rows. Since MongoDB’s <a href="https://www.mongodb.com/docs/manual/core/wiredtiger/">WiredTiger</a> engine has limited read/write tickets, if one query takes too long, it could block all other queries, potentially leading to an incident, as shown in the chart below where each dot represents one slow query. And be aware that, the y-axis is minute, which means some queries take more than 1 minute!</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt="">
-<img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt=""></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt="5f419bd74cbf 20240531" loading="lazy" decoding="async">
+
+<img src="https://storage.googleapis.com/zenn-user-upload/5f419bd74cbf-20240531.webp" alt="5f419bd74cbf 20240531" loading="lazy" decoding="async">
+</p>
 <p>To address this, we divided our API server into user-facing API which should always be fast, and background job API which can endure heavier computational latencies. By setting appropriate timeouts for each, we avoided application crashes due to extremely slow queries.</p>
 <h3 id="take-advantage-of-secondary-nodes">Take Advantage of Secondary Nodes</h3>
 <p>We use a standard MongoDB replica set with 3 nodes, Primary-Secondary-Secondary (P-S-S). We initially struggled to effectively use the secondary nodes. In the past, I have investigated and found some useful ideas. However, due to priorities, etc., I could not make any changes. This time I didn’t stop until I had an answer and made changes.</p>
@@ -111,7 +152,8 @@
 <li>Log slow queries and review optimization effect</li>
 </ul>
 <p>MongoDB Atlas provides a powerful UI to analyze all slow queries. However, it only persists data of one day. After the index is created or optimized query, it’s hard to understand how it works or visualize easily. I exported all slow query data and built similar charts that make checking the impact of optimization easy.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/66fde3d97894-20240531.webp" alt="Self-host slow query scatter plot"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/66fde3d97894-20240531.webp" alt="Self-host slow query scatter plot" loading="lazy" decoding="async">
+</p>
 <ul>
 <li>Write a good query to use a good index</li>
 </ul>
@@ -119,21 +161,26 @@
 <h3 id="design-mongodb-schema">Design MongoDB schema</h3>
 <p>Because MongoDB is a NoSQL database, offers great flexibility in schema design, rather than constructing your application to match a strictly defined data model, you can construct a data model that matches your use case and application functionality. <a href="https://www.mongodb.com/basics/embedded-mongodb">Embedding</a> is recommended, rather than using references (similar to foreign keys in relational databases).</p>
 <p>For example, there are major endpoints that return values containing the review count of a user. After I changed it from <code>user.reviews.length</code> to <code>user.reviewCount</code> <a href="https://stackoverflow.com/questions/12808934/what-is-p99-latency">p90</a> of one endpoint reduced from 1.5s to 0.3s.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/cc5c7fffcc6e-20240531.webp" alt="P90 reduced from 1.5s to 0.3s"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/cc5c7fffcc6e-20240531.webp" alt="P90 reduced from 1.5s to 0.3s" loading="lazy" decoding="async">
+</p>
 <h3 id="avoid-unnecessary-data-queries">Avoid Unnecessary Data Queries</h3>
 <p>In the previous user review example, it’s not only a database query change, but also a change in the JavaScript side. After the database returns a large payload then mongoose(ORM) validates and parses the payload to JavaScript which is a heavy operation blocking the event loop.</p>
 <p>And list queries should always be paginated to avoid crazy long lists which is usually unnecessary.</p>
 <h2 id="the-result-after-all-optimization">The result after all optimization</h2>
 <p>As a result, we successfully solved major performance issues. In the average read latency graph over a year, you can find how much improved compared to the latency before the project.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/3ee1b7c69677-20240531.webp" alt="Average read latency afte 1 year"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/3ee1b7c69677-20240531.webp" alt="Average read latency afte 1 year" loading="lazy" decoding="async">
+</p>
 <p>Specifically, for slow queries, we achieved significant improvements, as shown in the chart below. We got all user-facing slow queries down from 9 seconds to around 2 seconds.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/fefce465754c-20240531.webp" alt="Slow queries before the project"></p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/ac2889027b69-20240531.webp" alt="Slow queries after the project"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/fefce465754c-20240531.webp" alt="Slow queries before the project" loading="lazy" decoding="async">
+</p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/ac2889027b69-20240531.webp" alt="Slow queries after the project" loading="lazy" decoding="async">
+</p>
 <h2 id="cost-reduction">Cost reduction</h2>
 <p>After all performance optimization, we came back to solve the billing issue. First, we found out CPU usage is very low, so we reduced CPU. Then we want to reduce memory, however, we need to reduce the index size to half of the memory size to ensure it fits in the WiredTiger engine <a href="https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-storage.wiredTiger.engineConfig.cacheSizeGB"><strong>cacheSizeGB</strong></a>. If indexes don’t fit in RAM, indexes are stored on disk which is extremely slow.</p>
 <p>We came up with a solution to archive some old development-purpose log data. After archived, we used the <a href="https://www.mongodb.com/docs/manual/reference/command/compact/">compact</a> command to rebuild indexes and release disk space.</p>
 <p>After all is done, we downgrade the memory tier in November. As you can see, monthly billing shifts over the year, there is a decrease in November. However, in the previous average read latency chart, there is a little increase around November that’s the impact of downgrade memory but we accept that’s the trade-off of cost reduction. We reached a point where we could offer high-performance, low-latency services to our growing business without risking cloud bankruptcy.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/e9535c3e4e90-20240531.webp" alt="MongoDB Atlas monthly billing after 1 year"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/e9535c3e4e90-20240531.webp" alt="MongoDB Atlas monthly billing after 1 year" loading="lazy" decoding="async">
+</p>
 <h2 id="future-improvement">Future improvement</h2>
 <h3 id="index-consistency">Index consistency</h3>
 <p>As creating index in MongoDB(&gt; v4.2), MongoDB background is deprecated, creating index will lock collection. We disabled <a href="https://mongoosejs.com/docs/guide.html#indexes">auto index creation</a> and used <a href="https://www.mongodb.com/docs/manual/tutorial/build-indexes-on-replica-sets/">rolling index</a> feature to create them. Then We faced an inconsistent index in code and production. We need to develop a method to keep indexes in the code and production database consistent.</p>
@@ -145,22 +192,93 @@
 <hr>
 <p><em>Originally published at <a href="https://engineering.meetsmore.com/entry/2023/12/08/192812">https://engineering.meetsmore.com</a> on December 8, 2023.</em></p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/mongodb">mongodb</a></li>
+						
+						<li><a href="/tags/performance">performance</a></li>
+						
+						<li><a href="/tags/database">database</a></li>
+						
+						<li><a href="/tags/cost-optimization">cost-optimization</a></li>
+						
+						<li><a href="/tags/sre">sre</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">Migrating Next.js Landing Page Projects from Vercel to AWS</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/">Integrate E1s to Improve AWS ECS Daily Operations with Security</a></li>
+					
+					<li><a href="/posts/streamlining-datadog-slo-management-with-time-slice-slos/">タイムスライスSLOでDatadogのSLO管理を効率化する</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#context">Context</a></li>
+    <li><a href="#configuration-optimization">Configuration optimization</a>
+      <ul>
+        <li><a href="#always-sets-timeout">Always Sets Timeout</a></li>
+        <li><a href="#take-advantage-of-secondary-nodes">Take Advantage of Secondary Nodes</a></li>
+        <li><a href="#connection-pool">Connection pool</a></li>
+      </ul>
+    </li>
+    <li><a href="#queries-optimization">Queries optimization</a>
+      <ul>
+        <li><a href="#build-proper-indexes">Build proper indexes</a></li>
+        <li><a href="#design-mongodb-schema">Design MongoDB schema</a></li>
+        <li><a href="#avoid-unnecessary-data-queries">Avoid Unnecessary Data Queries</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-result-after-all-optimization">The result after all optimization</a></li>
+    <li><a href="#cost-reduction">Cost reduction</a></li>
+    <li><a href="#future-improvement">Future improvement</a>
+      <ul>
+        <li><a href="#index-consistency">Index consistency</a></li>
+        <li><a href="#message-queue">Message queue</a></li>
+        <li><a href="#improve-schema">Improve schema</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 

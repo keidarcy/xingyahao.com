@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Karpenter on Xing Yahao</title>
+    <link>https://xingyahao.com/tags/karpenter/</link>
+    <description>Recent content in Karpenter on Xing Yahao</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© Xing Yahao</copyright>
+    <lastBuildDate>Tue, 29 Apr 2025 09:21:51 +0900</lastBuildDate>
+    <atom:link href="https://xingyahao.com/tags/karpenter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</title>
+      <link>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</link>
+      <pubDate>Tue, 29 Apr 2025 09:21:51 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</guid>
+      <description>&lt;h2 id=&#34;context&#34;&gt;Context&lt;/h2&gt;&#xA;&lt;p&gt;In our organization, we encountered increasing complexity with our applications and realized that we could leverage the benefits of Kubernetes over Amazon ECS. We already had a managed EKS cluster and had deployed some internal tools on Kubernetes, appreciating the platform&amp;rsquo;s convenience. As a result, we decided to migrate all of our running applications to Kubernetes.&lt;/p&gt;&#xA;&lt;p&gt;We are currently in the process of migrating about 100 ECS services to Kubernetes. A portion of our production traffic (around 20%) is already running on Kubernetes, and several internal tools are also being handled by the cluster. Before routing more critical traffic to Kubernetes, I wanted to ensure that the upgrade to EKS v1.32 would cause minimal disruption to our production services.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

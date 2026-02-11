@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database on Xing Yahao</title>
+    <link>https://xingyahao.com/tags/database/</link>
+    <description>Recent content in Database on Xing Yahao</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© Xing Yahao</copyright>
+    <lastBuildDate>Thu, 04 Jan 2024 22:21:06 +0900</lastBuildDate>
+    <atom:link href="https://xingyahao.com/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Do We Optimize Mongodb Latency and Save Money</title>
+      <link>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</link>
+      <pubDate>Thu, 04 Jan 2024 22:21:06 +0900</pubDate>
+      <guid>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</guid>
+      <description>&lt;h2 id=&#34;context&#34;&gt;Context&lt;/h2&gt;&#xA;&lt;p&gt;My organization has used MongoDB on MongoDB Atlas for over 6 years. Our backend API language is TypeScript, and we use Mongoose as our ORM. While we appreciate our tech stack&amp;rsquo;s productivity, we also find it challenging to improve server endpoint latency and balance cloud costs.&lt;/p&gt;&#xA;&lt;p&gt;As our active users and product grew this year, we noticed a significant regression in endpoint response time. This indicated a major issue with MongoDB’s performance. As a temporary solution, we scaled up the production cluster tiers, resulting in a 40% increase in our billing. The following graphs are the average MongoDB read latency and monthly billing shift before the project. As you can see we were facing a critical period.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

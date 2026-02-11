@@ -2,16 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://xingyahao.com/privacy/</loc>
+    <lastmod>2026-02-11T12:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/</loc>
+    <lastmod>2026-02-11T12:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/aws/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/cli/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/compliance/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/devtools/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/kubectl/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
     <loc>https://xingyahao.com/posts/kubectl-execrec-session-recording-for-kubectl-exec-for-auditing-and-compliance-with-security/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/kubernetes/</loc>
     <lastmod>2025-08-11T18:23:00+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/</loc>
     <lastmod>2025-08-11T18:23:00+09:00</lastmod>
   </url><url>
-    <loc>https://xingyahao.com/</loc>
+    <loc>https://xingyahao.com/tags/security/</loc>
+    <lastmod>2025-08-11T18:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/</loc>
     <lastmod>2025-08-11T18:23:00+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/</loc>
+    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/aws/</loc>
+    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/eks/</loc>
+    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/iac/</loc>
+    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/karpenter/</loc>
+    <lastmod>2025-04-29T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/terraform/</loc>
     <lastmod>2025-04-29T09:21:51+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/</loc>
@@ -20,38 +65,115 @@
     <loc>https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/</loc>
     <lastmod>2024-12-31T09:21:51+09:00</lastmod>
   </url><url>
+    <loc>https://xingyahao.com/tags/e1s/</loc>
+    <lastmod>2024-12-31T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/ecs/</loc>
+    <lastmod>2024-12-31T09:21:51+09:00</lastmod>
+  </url><url>
     <loc>https://xingyahao.com/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security/</loc>
     <lastmod>2024-12-31T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/sre/</loc>
+    <lastmod>2024-12-31T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/study/</loc>
+    <lastmod>2024-12-31T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/categories/content/</loc>
+    <lastmod>2024-12-30T11:46:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/cost-optimization/</loc>
+    <lastmod>2024-12-30T11:46:46+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/</loc>
     <lastmod>2024-12-30T11:46:46+09:00</lastmod>
   </url><url>
+    <loc>https://xingyahao.com/tags/migration/</loc>
+    <lastmod>2024-12-30T11:46:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/nextjs/</loc>
+    <lastmod>2024-12-30T11:46:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/performance/</loc>
+    <lastmod>2024-12-30T11:46:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/datadog/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/monitoring/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/observability/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/slo/</loc>
+    <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
     <loc>https://xingyahao.com/posts/streamlining-datadog-slo-management-with-time-slice-slos/</loc>
     <lastmod>2024-12-27T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/cdktf/</loc>
+    <lastmod>2024-12-17T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/infrastructure/</loc>
+    <lastmod>2024-12-17T09:21:51+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/reducing-sre-toil-with-typescript-iac-cdk-for-terraform/</loc>
     <lastmod>2024-12-17T09:21:51+09:00</lastmod>
   </url><url>
+    <loc>https://xingyahao.com/tags/typescript/</loc>
+    <lastmod>2024-12-17T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/devtools/</loc>
+    <lastmod>2024-04-19T09:21:51+09:00</lastmod>
+  </url><url>
     <loc>https://xingyahao.com/posts/introducing-e1s-the-k9s-inspired-cli-for-aws-ecs/</loc>
     <lastmod>2024-04-19T09:21:51+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/database/</loc>
+    <lastmod>2024-01-04T22:21:06+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/how-do-we-optimize-mongodb-latency-and-save-money/</loc>
     <lastmod>2024-01-04T22:21:06+09:00</lastmod>
   </url><url>
+    <loc>https://xingyahao.com/tags/mongodb/</loc>
+    <lastmod>2024-01-04T22:21:06+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/developer-experience/</loc>
+    <lastmod>2023-01-16T09:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/engineering/</loc>
+    <lastmod>2023-01-16T09:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/javascript/</loc>
+    <lastmod>2023-01-16T09:25:36+09:00</lastmod>
+  </url><url>
     <loc>https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches/</loc>
+    <lastmod>2023-01-16T09:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/monorepo/</loc>
+    <lastmod>2023-01-16T09:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/yarn/</loc>
     <lastmod>2023-01-16T09:25:36+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/javascript-monorepo-development-improvement-approaches-ja/</loc>
     <lastmod>2022-12-16T09:25:36+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/nodejs/</loc>
+    <lastmod>2022-01-10T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/npm/</loc>
+    <lastmod>2022-01-10T11:52:46+09:00</lastmod>
+  </url><url>
+    <loc>https://xingyahao.com/tags/pnpm/</loc>
+    <lastmod>2022-01-10T11:52:46+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/npm-yarn-pnpm/</loc>
     <lastmod>2022-01-10T11:52:46+09:00</lastmod>
   </url><url>
     <loc>https://xingyahao.com/posts/npm-yarn-pnpm-ja/</loc>
     <lastmod>2021-12-06T11:46:46+09:00</lastmod>
-  </url><url>
-    <loc>https://xingyahao.com/categories/</loc>
-  </url><url>
-    <loc>https://xingyahao.com/tags/</loc>
   </url>
 </urlset>

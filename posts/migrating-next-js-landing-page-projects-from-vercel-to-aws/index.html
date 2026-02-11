@@ -3,7 +3,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Migrating Next.js Landing Page Projects from Vercel to AWS - Xing Yahao</title><link rel="icon" type="image/png" href=https://xingyahao.com/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency" />
+	<link rel="canonical" href="https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/" />
+	<meta name="robots" content="index,follow" />
 	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/" />
+	<meta property="og:description" content="Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency" />
+	<meta property="twitter:description" content="Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency" />
 	<meta property="og:url" content="https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/">
   <meta property="og:site_name" content="Xing Yahao">
   <meta property="og:title" content="Migrating Next.js Landing Page Projects from Vercel to AWS">
@@ -13,67 +18,103 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-30T11:46:46+09:00">
     <meta property="article:modified_time" content="2024-12-30T11:46:46+09:00">
+    <meta property="article:tag" content="Nextjs">
+    <meta property="article:tag" content="Aws">
+    <meta property="article:tag" content="Migration">
+    <meta property="article:tag" content="Performance">
+    <meta property="article:tag" content="Cost-Optimization">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Migrating Next.js Landing Page Projects from Vercel to AWS">
   <meta name="twitter:description" content="Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency">
-<script src="https://xingyahao.com/js/feather.min.js"></script>
+<script src="/js/feather.min.js"></script>
 	
 	
-        <link href="https://xingyahao.com/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
-
-	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://xingyahao.com/css/main.5cebd7d4fb2b97856af8d32a6def16164fcf7d844e98e236fcb3559655020373.css" />
-		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://xingyahao.com/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.a0365b20801b821dcb1176d4f06a1bc160e04f342324c362fbd3487bb2c5be82.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="/css/dark.d22e2a2879d933a4b781535fc4c4c716e9f9d35ea4986dd0cbabda82effc4bdd.css"  disabled />
 	
 
 	
 	
 
+	
+	
+
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": "\"Migrating Next.js Landing Page Projects from Vercel to AWS\"",
+		"description": "\"Migrating Next.js Landing Page Projects from Vercel to AWS, a decision that significantly improved performance and cost efficiency\"",
+		"datePublished": "2024-12-30T11:46:46\u002b09:00",
+		"dateModified": "2024-12-30T11:46:46\u002b09:00",
+		"url": "\"https://xingyahao.com/posts/migrating-next-js-landing-page-projects-from-vercel-to-aws/\"",
+		"author": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "\"Xing Yahao\""
+		}
+	}
+	</script>
 	
 </head>
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://xingyahao.com/">Xing Yahao</a>
+		<a href="/">Xing Yahao</a>
 	</div>
 	<nav>
 		
 		<a href="/">Home</a>
 		
+		<a href="/privacy">Privacy</a>
+		
 		<a href="/posts">All posts</a>
 		
+		<a href="/tags">Tags</a>
+		
+		<a href="/categories">Categories</a>
+		
 		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
-		<script src="https://xingyahao.com/js/themetoggle.js"></script>
+		<script src="/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">Migrating Next.js Landing Page Projects from Vercel to AWS</h1>
-			<div class="meta">Posted on Dec 30, 2024</div>
-		</div>
-		
 
-		
+<div class="content-layout post-layout">
+	<main>
+		<article>
+			<div class="title">
+				<h1 class="title">Migrating Next.js Landing Page Projects from Vercel to AWS</h1>
+				<div class="meta">Posted on Dec 30, 2024</div>
+			</div>
+			
 
-		<section class="body">
-			<h2 id="introduction">Introduction</h2>
+			<section class="body">
+				<h2 id="introduction">Introduction</h2>
 <p>My team manages multiple landing page projects, including around 100,000 pages. Vercel initially served us well, especially with its preview URL feature for rapid feedback and built-in Next.js support to start development quickly. However, many of you may have seen this famous tweet about the surprising Vercel cost.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/f33169715eb4-20241231.png" alt="Screenshot 2024-12-30 at 14.40.48.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/f33169715eb4-20241231.png" alt="Screenshot 2024-12-30 at 14.40.48.png" loading="lazy" decoding="async">
+</p>
 <p>My team experienced a similar moment: our monthly costs jumped from ~$2,000 to ~$3,500 due to a single server error happening in one day. This led us to migrate to AWS ECS, a decision that significantly <strong>improved performance and cost efficiency.</strong></p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/70eacf78c244-20241231.png" alt="Next.js Migration May 2 2024.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/70eacf78c244-20241231.png" alt="Next.js Migration May 2 2024.png" loading="lazy" decoding="async">
+</p>
 <h2 id="what-did-we-migrate"><strong>What Did We Migrate?</strong></h2>
 <p>To help understand the changes, here is a simplified version of our system diagram before and after migration:</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/9b9a750b6370-20241231.png" alt="2.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/9b9a750b6370-20241231.png" alt="2.png" loading="lazy" decoding="async">
+</p>
 <p>Before migration, we had multiple Vercel projects routed by a Lambda@Edge function, which added significant complexity to our infrastructure.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/0bac76004cba-20241231.png" alt="d1.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/0bac76004cba-20241231.png" alt="d1.png" loading="lazy" decoding="async">
+</p>
 <p>After migration, we used the same ECS cluster to host API applications and multiple landing page projects. Server-to-server communication benefited from AWS’s private network, improving performance.</p>
 <h2 id="what-we-gained-from-migration"><strong>What We Gained from Migration</strong></h2>
 <h3 id="cost-efficiency-and-predictability"><strong>Cost Efficiency and Predictability</strong></h3>
@@ -84,7 +125,8 @@
 <li><strong>CloudFront:</strong> CloudFront Security Bundles.</li>
 </ul>
 <p>To retain the preview URL feature, we implemented it using GitHub Actions and CloudFormation.</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/01351346273a-20241231.png" alt="Screenshot 2024-12-31 at 10.44.09.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/01351346273a-20241231.png" alt="Screenshot 2024-12-31 at 10.44.09.png" loading="lazy" decoding="async">
+</p>
 <h3 id="simplified-system-complexity"><strong>Simplified System Complexity</strong></h3>
 <p>Before migration, caching was a major pain point. With at least three layers - Redis for API responses, Vercel’s cache, and CloudFront—cache invalidation was often challenging. Vercel’s cache, in particular, required complete rebuilds and redeployments to clear.</p>
 <p>After the migration:</p>
@@ -95,29 +137,88 @@
 </ul>
 <h3 id="improved-performance"><strong>Improved Performance</strong></h3>
 <p>Hosting on ECS yielded significant performance improvements, boosting our SEO rankings in Google Search Console:</p>
-<p><img src="https://storage.googleapis.com/zenn-user-upload/2ecbcdb19103-20241231.png" alt="screenshot_2024-10-08_at_15.57.19_720.png"></p>
+<p><img src="https://storage.googleapis.com/zenn-user-upload/2ecbcdb19103-20241231.png" alt="screenshot_2024-10-08_at_15.57.19_720.png" loading="lazy" decoding="async">
+</p>
 <h3 id="enhanced-observability"><strong>Enhanced Observability</strong></h3>
 <p>We already had a robust observability setup for ECS, including logs, metrics, and tracing. After the migration, landing page projects aligned seamlessly with this observability framework, providing consistent insights into our systems. This made troubleshooting and performance optimization much easier.</p>
 <h2 id="conclusion"><strong>Conclusion</strong></h2>
 <p>This migration validated our decision and provided a stable foundation for future growth. For teams facing similar challenges with scaling and costs, carefully evaluating infrastructure needs can reveal that sometimes, traditional approaches offer the most innovative solutions.</p>
 <p>Looking ahead, we plan to migrate our entire service, including landing page projects, to Kubernetes. This will further unify our infrastructure, improve scalability, and provide even greater flexibility in managing our workloads.</p>
 
-		</section>
+			</section>
 
-		<div class="post-tags">
+			<div class="post-tags">
+				
+				
+				<nav class="nav tags">
+					<ul class="tags">
+						
+						<li><a href="/tags/nextjs">nextjs</a></li>
+						
+						<li><a href="/tags/aws">aws</a></li>
+						
+						<li><a href="/tags/migration">migration</a></li>
+						
+						<li><a href="/tags/performance">performance</a></li>
+						
+						<li><a href="/tags/cost-optimization">cost-optimization</a></li>
+						
+					</ul>
+				</nav>
+				
+				
+			</div>
+
 			
 			
+			<section class="related-posts">
+				<h2>Related posts</h2>
+				<ul>
+					
+					<li><a href="/posts/how-do-we-optimize-mongodb-latency-and-save-money/">How Do We Optimize Mongodb Latency and Save Money</a></li>
+					
+					<li><a href="/posts/comprehensive-amazon-eks-v1-32-upgrade-log-with-terraform-and-karpenter/">A Comprehensive Amazon EKS v1.32 Upgrade Log with Terraform and Karpenter</a></li>
+					
+					<li><a href="/posts/introducing-kubectl-eks-viewer-bridge-the-gap-between-kubectl-and-aws-cli/">Introducing kubectl-eks-viewer Bridge the Gap between kubectl and AWS CLI</a></li>
+					
+					<li><a href="/posts/integrate-e1s-to-improve-aws-ecs-daily-operations-with-security-ja/">AWS ECSの日常運用とセキュリティの改善ためのE1sの使用</a></li>
+					
+				</ul>
+			</section>
 			
-		</div>
-		</article>
-</main>
+			</article>
+	</main>
+
+	
+	<aside class="taxonomy-sidebar toc-sidebar" aria-label="Table of contents">
+		<section class="taxonomy-group toc-panel">
+			<h2>Table of contents</h2>
+			<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#what-did-we-migrate"><strong>What Did We Migrate?</strong></a></li>
+    <li><a href="#what-we-gained-from-migration"><strong>What We Gained from Migration</strong></a>
+      <ul>
+        <li><a href="#cost-efficiency-and-predictability"><strong>Cost Efficiency and Predictability</strong></a></li>
+        <li><a href="#simplified-system-complexity"><strong>Simplified System Complexity</strong></a></li>
+        <li><a href="#improved-performance"><strong>Improved Performance</strong></a></li>
+        <li><a href="#enhanced-observability"><strong>Enhanced Observability</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion"><strong>Conclusion</strong></a></li>
+  </ul>
+</nav>
+		</section>
+	</aside>
+	
+</div>
 <footer>
   <div style="display:flex"><a class="soc" href="https://github.com/keidarcy" rel="me" title="GitHub"><i data-feather="github"></i></a>
     <a class="border"></a><a class="soc" href="https://www.linkedin.com/in/xingyahao" rel="me" title="Linkedin"><i data-feather="linkedin"></i></a>
+    <a class="border"></a><a class="soc" href="https://x.com/keidracy" rel="me" title="X"><span aria-hidden="true">X</span></a>
     <a class="border"></a></div>
   <div class="footer-info">
-    2025  © Xing Yahao |  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+    2026  © Xing Yahao
   </div>
 </footer>
 
